@@ -1,5 +1,5 @@
-<?php 
-	include '../funcs/init.php';
+<?php
+	require_once '../funcs/init.php';
 
 	if($_GET)
 	{
@@ -25,7 +25,7 @@
 		{
 			header('Location: '.$URL.'/home/');
 			exit();
-		}		
+		}
 	}
 
  ?>

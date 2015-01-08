@@ -1,5 +1,5 @@
 <?php
-	include 'funcs/init.php';
+	require_once 'funcs/init.php';
 
 	if($_POST)
 	{

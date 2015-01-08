@@ -5,7 +5,7 @@
 /* SITE */
   Standards: HTML5, CSS3
   Components: jQuery, Orbit, Reveal
-  Software: Sublime Text 2, Filezilla
+  Software: Sublime Text 3, Git
 
 /* Created By */
 Ben Short: heybenshort.co.uk
