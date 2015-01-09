@@ -32,13 +32,14 @@
 			$jobData = getAllJobs();
 
 			foreach($jobData as $job) {
+				$customer_data = get_customer_by_id($job['customer_id']);
 				echo "<div class='panel' style='overflow: hidden;'>";
 					echo "<div class='large-10 medium-10 columns'>";
-						echo "<h5>".ucwords($job['contact_name'])." - ". date('l jS \of F Y', strtotime($job['date_submitted']))."</h5>";
+						echo "<h5>".ucwords($customer_data['customer_name'])." - ". date('l jS \of F Y', strtotime($job['date_submitted']))."</h5>";
 						echo "<a href='/home/jobs/index.php?id=".$job['job_number']."'>View Job &raquo;</a>";
 					echo "</div>";
 					echo "<div class='large-2 medium-2 columns'>";
-						echo "<a class='button tiny' style='margin-top: 10px;' href='tel:".$job['contact_phone']."'>Call: ".$job['contact_phone']."</a>";
+						echo "<a class='button tiny' style='margin-top: 10px;' href='tel:".$customer_data['customer_phone']."'>Call: ".$customer_data['customer_phone']."</a>";
 					echo "</div>";
 				echo "</div>";
 			}

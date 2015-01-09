@@ -28,35 +28,47 @@
 			exit();
 		} else {
 
-			//two queries needed here now - one for job_table one for customer table
 			$link = mysqliconn();
 			$date = date('Y-m-d');
 			$time = date('H:i:s');
-			$sql = 'INSERT INTO job_table VALUES
+
+			$customerSQL = 'INSERT INTO `customer_table` VALUES
 			(
-				"' . mysqli_real_escape_string($link,$name) . '",
-				"' . mysqli_real_escape_string($link,$address) . '",
-				"' . mysqli_real_escape_string($link,$phone) . '",
-				"' . mysqli_real_escape_string($link,$email) . '",
-				"' . mysqli_real_escape_string($link,$product) . '",
 				NULL,
-				"' . mysqli_real_escape_string($link,$notes) . '",
-				"' . mysqli_real_escape_string($link,$desc) .'",
-				"'.$date.'",
-				"'.$time.'",
-				"",
-				"",
-				"",
-				NULL
+				"' . mysqli_real_escape_string($link,$name) . '",
+				"' . mysqli_real_escape_string($link,$email) . '",
+				"' . mysqli_real_escape_string($link,$address) . '",
+				"' . mysqli_real_escape_string($link,$phone) . '"
 			)';
 
+	 		if($result = $link->query($customerSQL)) {
 
-	 		if(!$result = $link->query($sql)) die('There was an error running the create job query [' . $link->error . ']');
+	 			$id = ($link->insert_id);
 
-	 		$id = ($link->insert_id);
+	 			$jobSQL = 'INSERT INTO `job_table` VALUES
+				(
+					"'.$id.'",
+					"' . mysqli_real_escape_string($link,$product) . '",
+					NULL,
+					"' . mysqli_real_escape_string($link,$notes) . '",
+					"' . mysqli_real_escape_string($link,$desc) .'",
+					"'.$date.'",
+					"'.$time.'",
+					"",
+					"",
+					"",
+					NULL
+				)';
+
+				if(!$result = $link->query($jobSQL)) die('There was an error running the create job query [' . $link->error . ']');
+				$jobID = ($link->insert_id);
+
+	 		} else {
+	 			die('There was an error running the create customer query [' . $link->error . ']');
+	 		}
 
 	 		$link->close();
-			header('Location: done.php?s=y&id='.$id);
+			header('Location: done.php?s=y&jobID='.$jobID.'&customerID='.$id);
 			exit();
 		}
 	}

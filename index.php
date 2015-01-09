@@ -41,19 +41,27 @@
 ?>
 <div class="row">
     <div class="large-8 medium-8 small-10 small-centered columns">
-            <form action="/dologin.php" method="POST">
-                <label for="uname">User Name</label>
-                <input type="text" name="uname" class="<?php if($empty > 0 || $fail > 0) echo "error"; ?>" id="uname" value="<?php echo trim($uname); ?>" />
-                <?php if($empty > 0) echo "<small class='error'>Enter your user name</small>"; ?>
-                <?php if($fail > 0) echo "<small class='error'>Check your user name</small>"; ?>
 
-                <label for="pword">Password</label>
-                <input type="password" name="pword" class="<?php if($empty > 0 || $fail > 0) echo "error"; ?>" id="pword"/>
-                <?php if($empty > 0) echo "<small class='error'>Enter your password</small>"; ?>
-                <?php if($fail > 0) echo "<small class='error'>Check your password</small>"; ?>
+        <?php if($_GET['s'] == 'y')?>
+            <div data-alert class="alert-box success">
+                You have been registered successfully, please log in below.
+                <a href="#" class="close">&times;</a>
+            </div>
+        <?php endif ?>
 
-                <input type="submit" class="large button expand text-center" value="Login" />
-            </form>
+        <form action="/dologin.php" method="POST">
+            <label for="uname">User Name</label>
+            <input type="text" name="uname" class="<?php if($empty > 0 || $fail > 0) echo "error"; ?>" id="uname" value="<?php echo trim($uname); ?>" />
+            <?php if($empty > 0) echo "<small class='error'>Enter your user name</small>"; ?>
+            <?php if($fail > 0) echo "<small class='error'>Check your user name</small>"; ?>
+
+            <label for="pword">Password</label>
+            <input type="password" name="pword" class="<?php if($empty > 0 || $fail > 0) echo "error"; ?>" id="pword"/>
+            <?php if($empty > 0) echo "<small class='error'>Enter your password</small>"; ?>
+            <?php if($fail > 0) echo "<small class='error'>Check your password</small>"; ?>
+
+            <input type="submit" class="large button expand text-center" value="Login" />
+        </form>
     </div>
 </div>
     <? require_once 'includes/footer.php' ?>

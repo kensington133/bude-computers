@@ -9,6 +9,7 @@
     $job_data = get_mostrecent_job();
     $job_range = get_jobid_range();
     $job_ids = getAllJobIDs();
+    $customer_data = get_customer_by_id($job_data['customer_id']);
 
     if(count($job_ids) > 0) {
 	   foreach($job_ids as $key => $value) {
@@ -108,26 +109,26 @@
                     </ul>
                 </div>
 
-                <div class="large-6 small-12 columns">
-                    <label for="contact_name">Name</label>
-                    <input type="text" name="contact_name" placeholder="Contact Name" value="<?php echo $job_data['contact_name']; ?>" />
+                <div class="large-6 medium-6 small-12 columns">
+                    <label for="customer_name">Name</label>
+                    <input type="text" name="customer_name" placeholder="Customer Name" value="<?php echo $customer_data['customer_name']; ?>" />
 
-                    <label for="contact_address">Address</label>
-                    <input type="text" name="contact_address" placeholder="Address" value="<?php echo $job_data['contact_address']; ?>"/>
+                    <label for="customer_address">Address</label>
+                    <input type="text" name="customer_address" placeholder="Address" value="<?php echo $customer_data['customer_address']; ?>"/>
 
-                    <label for="contact_phone">Phone Number</label>
-                    <input type='number' pattern='[0-9]*' name="contact_phone" placeholder="Phone Number" value="<?php if($job_data['contact_phone'] != '0') echo $job_data['contact_phone']; ?>"/>
+                    <label for="customer_phone">Phone Number</label>
+                    <input type='number' pattern='[0-9]*' name="customer_phone" placeholder="Phone Number" value="<?php if($customer_data['customer_phone'] != '0') echo $customer_data['customer_phone']; ?>"/>
 
-                    <label for="contact_email">Email Address</label>
-                    <input type="email" name="contact_email" placeholder="Email Address" value="<?php echo $job_data['contact_email']; ?>"/>
+                    <label for="customer_email">Email Address</label>
+                    <input type="email" name="customer_email" placeholder="Email Address" value="<?php echo $customer_data['customer_email']; ?>"/>
                 </div>
 
-                <div class="large-6 small-12 columns">
+                <div class="large-6 medium-6 small-12 columns">
                     <label for="product_name">Product Name</label>
                     <input type="text" name="product_name" placeholder="Product Name" value="<?php echo $job_data['product_name']; ?>"/>
 
-                    <label for="product_notes">Notes</label>
-                    <textarea style='height:160px;' name="product_notes" placeholder='Notes'><?php echo $job_data['job_notes']; ?></textarea>
+                    <label for="job_notes">Notes</label>
+                    <textarea style='height:186px;' name="job_notes" placeholder='Notes'><?php echo $job_data['job_notes']; ?></textarea>
                 </div>
 
                 <div class="small-12 columns">
@@ -138,12 +139,12 @@
                     <textarea style='height:160px;' name="work_done" placeholder="Work Carried Out"><?php echo $job_data['work_done']; ?></textarea>
                 </div>
 
-                <div class="large-8 small-12 columns">
+                <div class="large-8 medium-8 small-12 columns">
                     <label for="parts_used">Parts Used</label>
                     <textarea style='height:160px; max-width:100%;' name="parts_used" id="parts_used" placeholder="Parts Used" ><?php echo $job_data['parts_used']; ?></textarea>
                 </div>
 
-                <div class="large-4 small-12 columns">
+                <div class="large-4 medium-4 small-12 columns">
                     <label for="job_price">Price</label>
                     <textarea style='height:160px;' name="job_price" id="job_price" placeholder="Price - inc VAT"><?php echo $job_data['job_price']; ?></textarea>
                 </div>

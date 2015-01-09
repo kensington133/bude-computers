@@ -1,6 +1,7 @@
 <?php
     require_once '../../funcs/init.php';
-    $job_data = get_lastjob($_GET['id']);
+    $job_data = get_lastjob($_GET['jobID']);
+    $customer_data = get_customer_by_id($_GET['customerID']);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -22,31 +23,36 @@
     </div>
 
     <div class="row">
-        <div class="small-12 columns">
-            <div class="row">
-                <div class="small-6 columns small-centered">
-                    <h1 class="hide-for-print">Create a New Job</h1>
-                    <?php
-                        if($_GET['s'] == 'y') {
-                            foreach ($job_data as $name => $value) {
+        <div class="small-6 columns small-centered">
+            <h1 class="hide-for-print">Create a New Job</h1>
+            <?php
+                if($_GET['s'] == 'y') {
 
-                                if(!empty($value)) {
-                                    $boom = explode('_', $name);
-                                    $namefull = $boom[0]. ' ' . $boom[1];
+                    foreach($customer_data as $name => $value){
+                        if(!empty($value)) {
+                            $boom = explode('_', $name);
+                            $namefull = $boom[0]. ' ' . $boom[1];
+                            echo "<p>".ucwords($namefull).": ".nl2br($value)."</p>";
+                        }
+                    }
 
-                                    if(($namefull == "job description") || ($namefull == "job notes")) {
-                                        echo "<p>".ucwords($namefull).":<br />";
-                                        echo nl2br($value) . "</p>";
-                                    } else {
-                                        echo "<p>".ucwords($namefull).": ".nl2br($value)."</p>";
-                                    }
-                                }
+                    foreach ($job_data as $name => $value) {
+
+                        if(!empty($value)) {
+                            $boom = explode('_', $name);
+                            $namefull = $boom[0]. ' ' . $boom[1];
+
+                            if(($namefull == "job description") || ($namefull == "job notes")) {
+                                echo "<p>".ucwords($namefull).":<br />";
+                                echo nl2br($value) . "</p>";
+                            } else {
+                                echo "<p>".ucwords($namefull).": ".nl2br($value)."</p>";
                             }
                         }
-                    ?>
-                    <a id="print_button" class="print_button button large expand hide-for-print">Print</a>
-                </div>
-            </div>
+                    }
+                }
+            ?>
+            <a id="print_button" class="print_button button large expand hide-for-print">Print</a>
         </div>
     </div>
     <? require_once '../../includes/footer.php' ?>

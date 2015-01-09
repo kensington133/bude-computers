@@ -8,6 +8,9 @@ $_LOGO = "/img/logosupersmall.jpg";
 date_default_timezone_set('Europe/London');
 //include critical files
 
+ini_set('display_errors',1);
+error_reporting(E_ALL ^ E_NOTICE);
+
 //database connection info`
 include 'config.php';
 //user releted funcs

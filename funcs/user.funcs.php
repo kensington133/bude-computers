@@ -15,7 +15,7 @@ function get_lastjob($id)
 {
 	$link = mysqliconn();
 
-	$sql = "SELECT `contact_name`,`contact_address`,`contact_phone`,`contact_email`,`product_name`,`job_notes`,`job_description` FROM `job_table` WHERE `job_number`= $id";
+	$sql = "SELECT `product_name`,`job_notes`,`job_description` FROM `job_table` WHERE `job_number`= $id";
 
 	if(!$result = $link->query($sql)) die('There was an error running the get_lastjob query [' . $link->error . ']');
 
@@ -45,6 +45,23 @@ function get_lastjob_alldata($id)
 
 	$link->close();
 }
+
+function get_customer_by_id($id){
+	$link = mysqliconn();
+
+	$sql = "SELECT `customer_name`,`customer_email`,`customer_address`,`customer_phone` FROM `customer_table` WHERE `customer_id`= $id";
+
+	if(!$result = $link->query($sql)) die('There was an error running the get_customer_by_id query [' . $link->error . ']');
+
+	while ($row = $result->fetch_assoc()){
+		$data = $row;
+	}
+
+	return $data;
+
+	$link->close();
+}
+
 function get_mostrecent_job()
 {
 	$link = mysqliconn();
@@ -181,7 +198,7 @@ function printr($array)
 function getAllJobs()
 {
 	$link = mysqliconn();
-	$sql = "SELECT `job_number`,`contact_name`,`date_submitted`,`contact_phone` FROM `job_table` ORDER BY `date_submitted` DESC";
+	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` DESC";
 
 	if(!$result = $link->query($sql)) die('There was an error running the get all jobs query [' . $link->error . ']');
 
