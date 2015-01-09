@@ -1,5 +1,9 @@
 <?php
     require_once 'funcs/init.php';
+
+    ini_set('display_errors',1);
+    error_reporting(E_ALL ^ E_NOTICE);
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -18,8 +22,8 @@
 <!-- Navigation -->
 <nav class="top-bar"></nav>
 
-<div class="small-12 columns text-center">
-    <div class="row">
+<div class="row">
+    <div class="small-12 columns text-center">
         <div class="small-12 text-center">
             <img src="<?php echo $_LOGO ?>" alt="slide image">
         </div>
@@ -42,12 +46,13 @@
 <div class="row">
     <div class="large-8 medium-8 small-10 small-centered columns">
 
-        <?php if($_GET['s'] == 'y')?>
-            <div data-alert class="alert-box success">
-                You have been registered successfully, please log in below.
-                <a href="#" class="close">&times;</a>
-            </div>
-        <?php endif ?>
+        <?php if($_GET['s'] == 'y') {
+            echo '<div data-alert class="alert-box success">';
+                echo 'You have been registered successfully, please log in below.';
+                echo '<a href="#" class="close">&times;</a>';
+            echo '</div>';
+            }
+        ?>
 
         <form action="/dologin.php" method="POST">
             <label for="uname">User Name</label>
