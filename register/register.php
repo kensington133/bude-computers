@@ -3,6 +3,7 @@
 	unset($_SESSION['errors']);
 
 	if($_POST){
+
 		$username = $_SESSION['username'] = $_POST['username'];
 		$email = $_SESSION['email'] = $_POST['email'];
 		$_password = $_POST['password'];
@@ -47,9 +48,9 @@
 			(
 				NULL,
 				"' . mysqli_real_escape_string($link,$username) . '",
-				"' . mysqli_real_escape_string($link,$email) . '",
 				"' . mysqli_real_escape_string($link,$password) . '",
-				"' . mysqli_real_escape_string($link,$shop_id) . '"
+				"' . mysqli_real_escape_string($link,$email) . '",
+				"' . $shopID . '"
 			)';
 
 			if(!$result = $link->query($sql)) die('There was an error running the register query [' . $link->error . ']');
