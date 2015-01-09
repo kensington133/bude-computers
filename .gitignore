@@ -15,4 +15,4 @@ Icon
 .Trashes
 
 #config file
-/funcs/config.php
+funcs/config.php
