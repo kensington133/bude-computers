@@ -22,7 +22,7 @@
 			$_SESSION['errors']['email'] = "<small class='error'>An email is required.</small>";
 		}
 
-		if(empty($_password)) {
+		if(empty($password)) {
 			$errors ++;
 			$_SESSION['errors']['password'] = "<small class='error'>A password is required.</small>";
 		}
