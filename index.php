@@ -59,18 +59,25 @@
                 echo '<a href="#" class="close">&times;</a>';
             echo '</div>';
             }
+
+            if($fail > 0){
+                echo '<div data-alert class="alert-box alert">';
+                    echo 'Unable to login, please try again, making sure you spelt everything correctly';
+                    echo '<a href="#" class="close">&times;</a>';
+                echo '</div>';
+            }
         ?>
 
         <form action="/dologin.php" method="POST">
             <label for="uname">User Name</label>
             <input type="text" name="uname" class="<?php if($empty > 0 || $fail > 0) echo "error"; ?>" id="uname" value="<?php echo trim($uname); ?>" />
             <?php if($empty > 0) echo "<small class='error'>Enter your user name</small>"; ?>
-            <?php if($fail > 0) echo "<small class='error'>Check your user name</small>"; ?>
+            <?php //if($fail > 0) echo "<small class='error'>Check your user name</small>"; ?>
 
             <label for="pword">Password</label>
             <input type="password" name="pword" class="<?php if($empty > 0 || $fail > 0) echo "error"; ?>" id="pword"/>
             <?php if($empty > 0) echo "<small class='error'>Enter your password</small>"; ?>
-            <?php if($fail > 0) echo "<small class='error'>Check your password</small>"; ?>
+            <?php //if($fail > 0) echo "<small class='error'>Check your password</small>"; ?>
 
             <input type="submit" class="large button expand text-center" value="Login" />
             <small>Need an account? <a href="/register/">Click Here</a> to register!</small>
