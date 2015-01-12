@@ -1,9 +1,5 @@
 <?php
     require_once 'funcs/init.php';
-
-    ini_set('display_errors',1);
-    error_reporting(E_ALL ^ E_NOTICE);
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -23,7 +19,7 @@
     <section class="top-bar-section">
         <ul class="right">
             <li class="divider"></li>
-            <li class="has-form"><a href="/regsiter/" class="button">Register</a></li>
+            <li class="has-form"><a href="/register/" class="button">Register</a></li>
             <li class="divider"></li>
         </ul>
     </section>

@@ -6,7 +6,7 @@
 
 		$username = $_SESSION['username'] = $_POST['username'];
 		$email = $_SESSION['email'] = $_POST['email'];
-		$_password = $_POST['password'];
+		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 		$shopID = $_SESSION['shop_id'] = $_POST['shop_id'];
 
 		$errors = 0;
@@ -30,6 +30,11 @@
 		if(empty($shopID)) {
 			$errors ++;
 			$_SESSION['errors']['shop_id'] = "<small class='error'>Your shop ID is required.</small>";
+		} else {
+			if(!ctype_digit($shopID)){
+				$errors ++;
+				$_SESSION['errors']['shop_id'] = "<small class='error'>Your shop ID must be a number.</small>";
+			}
 		}
 
 		if($errors > 0) {
@@ -37,10 +42,12 @@
 			exit();
 		} else {
 
-			$cost = 10;
+			/*$cost = 10;
 			$salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
 			$salt = sprintf("$2a$%02d$", $cost) . $salt;
-			$password = crypt($_password, $salt);
+			$password = crypt($_password, $salt);*/
+
+
 
 			$link = mysqliconn();
 

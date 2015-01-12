@@ -16,7 +16,7 @@
 
 				$link = mysqliconn();
 
-				$sql = "SELECT id,username,password FROM `users_table` WHERE `username`='". $uname ."' AND `password`='" . $pword ."'";
+				$sql = "SELECT `id`, `username`, `password` FROM `users_table` WHERE `username`='". $uname ."' LIMIT 1";
 
 				if(!$result = $link->query($sql)) die('There was an error running the user query [' . $link->error . ']');
 
@@ -24,13 +24,12 @@
 					$login_data = $row;
 				}
 
-				// if( ($login_data['username'] == $uname) && ($pword == $login_data['password']))
-				if ( hash_equals($login_data['password'], crypt($pword, $login_data['password'])) ){
+				if (password_verify($pword, $login_data['password'])){
 					$_SESSION['userid'] = $login_data['id'];
 					header('Location: /home/');
 					exit();
 				} else {
-					$_SESSION['errors']= 'fail';
+					$_SESSION['errors'] = 'fail';
 					header('Location: index.php');
 					exit();
 				}
