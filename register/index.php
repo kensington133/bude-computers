@@ -1,10 +1,5 @@
 <?php
 	require_once '../funcs/init.php';
-
-	// if(is_loggedin() == false) {
-	// 	header('Location: ../index.php');
-	// 	exit();
-	// }
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -15,7 +10,15 @@
 </head>
 <body>
 
-	<?php require_once '../funcs/menu.php'; ?>
+	<nav class="top-bar">
+		<section class="top-bar-section">
+			<ul class="right">
+				<li class="divider"></li>
+				<li class="has-form"><a href="/" class="button">Login</a></li>
+				<li class="divider"></li>
+			</ul>
+	</section>
+	</nav>
 
 	<div class="row">
 		<div class="small-12 columns text-center">
@@ -27,7 +30,7 @@
 
 	<div class="row">
 		<div class="small-10 small-centered columns">
-			<h1>Register New User</h1>
+			<h1>New User</h1>
 
 			<form action="register.php" method="POST">
 				<input type="text" <?php if($_SESSION['errors']['username']) echo 'class="error"'; ?> placeholder="Username" name="username" />
@@ -43,8 +46,8 @@
 				<? if($_SESSION['errors']['shop_id']) echo $_SESSION['errors']['shop_id']; ?>
 
 				<input type="submit" class="button expand" value="Save"/>
+				<small>Already registered? <a href="/">Click Here</a> to login!</small>
 			</form>
-
 		</div>
 	</div>
 

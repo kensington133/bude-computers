@@ -18,7 +18,7 @@
 </head>
 <body>
 
-    <?php require_once '../../funcs/menu.php'; ?>
+    <?php require_once '../../includes/menu.php'; ?>
 
     <div class="row">
         <div class="small-12 columns text-center">
@@ -57,6 +57,7 @@
                 <div class="small-12 columns">
                     <textarea style='height:125px;' <?php if(isset($_SESSION['errors']['job_desc'])) echo "class='error'"; ?> name="job_description" placeholder="Job Description"><?php if($thisPage == $prevPage) echo $_SESSION['job_description']; ?></textarea>
                     <?php if(isset($_SESSION['errors']['job_desc'])) echo $_SESSION['errors']['job_desc']; ?>
+
                     <input type="submit" class="button large expand <?php echo $y,$n?>" value="Save" />
                 </div>
             </form>

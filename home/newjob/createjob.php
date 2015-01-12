@@ -57,7 +57,8 @@
 					"",
 					"",
 					"",
-					NULL
+					NULL,
+					"0"
 				)';
 
 				if(!$result = $link->query($jobSQL)) die('There was an error running the create job query [' . $link->error . ']');

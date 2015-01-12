@@ -48,7 +48,7 @@
 </head>
 <body>
 
-    <?php include '../../funcs/menu.php'; ?>
+    <?php include '../../includes/menu.php'; ?>
     <div class="row">
         <div class="small-12 columns text-center">
             <div class="small-12 text-center">
@@ -151,7 +151,12 @@
 
                 <input type="hidden" name="job_number" value="<?php echo $job_data['job_number'];?>">
 
-                <div class="small-12 columns">
+                <div class="small-12 columns text-center">
+
+                    <input type="radio" name="progress" value="0" id="notStarted" <?php if($job_data['progress'] == '0') echo "checked"?>><label for="notStarted">Not Started</label>
+                    <input type="radio" name="progress" value="1" id="inProgress" <?php if($job_data['progress'] == '1') echo "checked"?>><label for="inProgress">In Progress</label>
+                    <input type="radio" name="progress" value="2" id="completed" <?php if($job_data['progress'] == '2') echo "checked"?>><label for="completed">Completed</label>
+
                     <ul class="button-group even-4 round hide-for-print">
                         <li><a href="/home/jobs/index.php?id=<?php echo $previd; ?>" class="button small">Back</a></li>
                         <li><input type="submit" class="button small" value="Save" /></li>

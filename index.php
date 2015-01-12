@@ -19,8 +19,15 @@
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="top-bar"></nav>
+<nav class="top-bar">
+    <section class="top-bar-section">
+        <ul class="right">
+            <li class="divider"></li>
+            <li class="has-form"><a href="/regsiter/" class="button">Register</a></li>
+            <li class="divider"></li>
+        </ul>
+    </section>
+</nav>
 
 <div class="row">
     <div class="small-12 columns text-center">
@@ -66,6 +73,7 @@
             <?php if($fail > 0) echo "<small class='error'>Check your password</small>"; ?>
 
             <input type="submit" class="large button expand text-center" value="Login" />
+            <small>Need an account? <a href="/register/">Click Here</a> to register!</small>
         </form>
     </div>
 </div>

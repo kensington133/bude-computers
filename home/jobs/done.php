@@ -22,7 +22,7 @@
 </head>
 <body>
 
-    <?php require_once '../../funcs/menu.php'; ?>
+    <?php require_once '../../includes/menu.php'; ?>
 
     <div class="small-12 columns text-center">
         <div class="row">

@@ -8,6 +8,7 @@
 
     <section class="top-bar-section">
         <ul class="right">
+            <li class="divider"></li>
             <li><a href="/home/jobs/">Existing Jobs</a></li>
             <li class="divider"></li>
             <li><a href="/home/joblist/">Job List</a></li>

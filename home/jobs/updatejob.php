@@ -37,7 +37,8 @@
 			}
 		}
 
-
+		$updateTimeSQL = "UPDATE `job_table` SET `last_updated` = NOW() WHERE `job_number` = '$_POST[job_number]'";
+		if(!$result = $link->query($updateTimeSQL)) die("There was an error updating last_update query [" . $link->error . "]");
 
 		$link->close();
 

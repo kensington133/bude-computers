@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<?php require_once '../funcs/menu.php'; ?>
+	<?php require_once '../includes/menu.php'; ?>
 
 	<div class="row">
 		<div class="small-12 columns text-center">
