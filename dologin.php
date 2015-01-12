@@ -16,7 +16,7 @@
 
 				$link = mysqliconn();
 
-				$sql = "SELECT id,username,password FROM `users_table` WHERE `username`='". $uname ."' AND `password`='" . $pword ."' LIMIIT 1";
+				$sql = "SELECT id,username,password FROM `users_table` WHERE `username`='". $uname ."' AND `password`='" . $pword ."'";
 
 				if(!$result = $link->query($sql)) die('There was an error running the user query [' . $link->error . ']');
 
