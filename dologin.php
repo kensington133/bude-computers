@@ -28,6 +28,7 @@
 
 				if (password_verify($pword, $login_data['password'])){
 					$_SESSION['userid'] = $login_data['id'];
+					echo 'userid = '.$_SESSION['userid'];
 					// header('Location: /home/');
 					// exit();
 				} else {
