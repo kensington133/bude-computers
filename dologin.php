@@ -24,6 +24,8 @@
 					$login_data = $row;
 				}
 
+				printr($login_data);
+
 				if (password_verify($pword, $login_data['password'])){
 					$_SESSION['userid'] = $login_data['id'];
 					header('Location: /home/');
