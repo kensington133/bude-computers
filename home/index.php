@@ -3,10 +3,11 @@
 
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
 
-	if(is_loggedin() == false) {
+	if(is_loggedin() === false) {
 		// header('Location: ../index.php');
 		// exit();
-		echo 'not logged in?????';
+		echo is_loggedin();
+		echo '<br>not logged in?????';
 	}
 ?>
 <!DOCTYPE html>
