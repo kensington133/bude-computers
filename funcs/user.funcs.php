@@ -4,7 +4,7 @@ function is_loggedin() {
 	if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 		return true;
 	} else {
-		return isset($_SESSION['userid']);
+		return ctype_digit($_SESSION['userid']);
 	}
 }
 

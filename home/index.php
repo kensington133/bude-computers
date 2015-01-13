@@ -1,12 +1,12 @@
 <?php
 	require_once '../funcs/init.php';
 
-	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
-
 	if(!is_loggedin()) {
 		header('Location: ../index.php');
 		exit();
 	}
+
+	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
