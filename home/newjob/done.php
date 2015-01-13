@@ -55,6 +55,6 @@
             <a id="print_button" class="print_button button large expand hide-for-print">Print</a>
         </div>
     </div>
-    <? require_once '../../includes/footer.php' ?>
+    <?php require_once '../../includes/footer.php' ?>
 </body>
 </html>

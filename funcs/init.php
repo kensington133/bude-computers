@@ -11,5 +11,3 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 include 'config.php';
 include	'user.funcs.php';
-
-printr($_SESSION);

@@ -11,7 +11,7 @@ function is_loggedin() {
 function get_lastjob($id) {
 	$link = mysqliconn();
 
-	$sql = "SELECT `product_name`,`job_notes`,`job_description` FROM `job_table` WHERE `job_number`= $id";
+	$sql = "SELECT `product_name`,`job_notes`,`job_description`,`urgency` FROM `job_table` WHERE `job_number`= $id";
 
 	if(!$result = $link->query($sql)) die('There was an error running the get_lastjob query [' . $link->error . ']');
 

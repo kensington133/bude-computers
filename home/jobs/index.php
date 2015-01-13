@@ -9,7 +9,9 @@
     $job_data = get_mostrecent_job();
     $job_range = get_jobid_range();
     $job_ids = getAllJobIDs();
-    $customer_data = get_customer_by_id($job_data['customer_id']);
+    if($job_data['customer_id']){
+        $customer_data = get_customer_by_id($job_data['customer_id']);
+    }
 
     if(count($job_ids) > 0) {
 	   foreach($job_ids as $key => $value) {
@@ -104,7 +106,7 @@
                         <li><a href="/home/jobs/index.php?id=<?php echo $previd; ?>" class="button small">Back</a></li>
                         <li><input type="submit" class="button small" value="Save" /></li>
                         <?php $url = "done.php?id=".$job_data['job_number']."&code=".date('U'); ?>
-                        <li><a class="button small" href="<? echo $url ?>">Print</a></li>
+                        <li><a class="button small" href="<?php echo $url ?>">Print</a></li>
                         <li><a href="/home/jobs/index.php?id=<?php echo $nextid; ?>" class="button small">Next</a></li>
                     </ul>
                 </div>
@@ -151,22 +153,36 @@
 
                 <input type="hidden" name="job_number" value="<?php echo $job_data['job_number'];?>">
 
+                <div class="small-10 medium-11 columns" style="margin-bottom: 25px;">
+                    <label>Urgency</label>
+                    <div class="range-slider" data-slider data-options="display_selector: #urgencyOutput; start: 1; end: 10; initial:<?php  echo $job_data['urgency']; ?>;">
+                        <span class="range-slider-handle" role="slider"></span>
+                        <span class="range-slider-active-segment"></span>
+                        <input type="hidden" name="urgency" id="urgency">
+                    </div>
+                </div>
+                <div class="small-2 medium-1 columns">
+                    <span id="urgencyOutput"></span>
+                </div>
+
                 <div class="small-12 columns text-center">
 
+                <div class="progressContainer">
                     <input type="radio" name="progress" value="0" id="notStarted" <?php if($job_data['progress'] == '0') echo "checked"?>><label for="notStarted">Not Started</label>
                     <input type="radio" name="progress" value="1" id="inProgress" <?php if($job_data['progress'] == '1') echo "checked"?>><label for="inProgress">In Progress</label>
                     <input type="radio" name="progress" value="2" id="completed" <?php if($job_data['progress'] == '2') echo "checked"?>><label for="completed">Completed</label>
+                </div>
 
                     <ul class="button-group even-4 round hide-for-print">
                         <li><a href="/home/jobs/index.php?id=<?php echo $previd; ?>" class="button small">Back</a></li>
                         <li><input type="submit" class="button small" value="Save" /></li>
-                        <li><a class="button small" href="<? echo $url; ?>">Print</a></li>
+                        <li><a class="button small" href="<?php echo $url; ?>">Print</a></li>
                         <li><a href="/home/jobs/index.php?id=<?php echo $nextid; ?>" class="button small">Next</a></li>
                     </ul>
                 </div>
             </form>
         </div>
     </div>
-    <? require_once '../../includes/footer.php'; ?>
+    <?php require_once '../../includes/footer.php'; ?>
 </body>
 </html>

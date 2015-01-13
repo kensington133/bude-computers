@@ -29,8 +29,8 @@
     </div>
 
     <div class="row">
-        <div class="small-12 columns text-center">
-            <h1>Create a New Job</h1>
+        <div class="small-12 columns">
+            <h1 class="text-center">Create a New Job</h1>
 
             <?php
                 if($_GET['s'] == 'y') $y = "success";
@@ -57,12 +57,27 @@
                 <div class="small-12 columns">
                     <textarea style='height:125px;' <?php if(isset($_SESSION['errors']['job_desc'])) echo "class='error'"; ?> name="job_description" placeholder="Job Description"><?php if($thisPage == $prevPage) echo $_SESSION['job_description']; ?></textarea>
                     <?php if(isset($_SESSION['errors']['job_desc'])) echo $_SESSION['errors']['job_desc']; ?>
+                </div>
 
+                <div class="small-10 medium-11 columns" style="margin-bottom: 45px;">
+                    <label>Urgency</label>
+                    <div class="range-slider" data-slider data-options="display_selector: #urgencyOutput; start: 1; end: 10;">
+                        <span class="range-slider-handle" role="slider"></span>
+                        <span class="range-slider-active-segment"></span>
+                        <input type="hidden" name="urgency" id="urgency">
+                    </div>
+                </div>
+                <div class="small-2 medium-1 columns">
+                    <span id="urgencyOutput"></span>
+                </div>
+
+                <div class="small-12 column">
                     <input type="submit" class="button large expand <?php echo $y,$n?>" value="Save" />
                 </div>
+
             </form>
         </div>
     </div>
-    <? require_once '../../includes/footer.php'; ?>
+    <?php require_once '../../includes/footer.php'; ?>
 </body>
 </html>

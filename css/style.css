@@ -1,10 +1,15 @@
 input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button
-{
+input::-webkit-inner-spin-button {
 	-webkit-appearance:none;
 	margin:0;
 }
-body
-{
-	overflow-x: hidden; 
+
+#urgencyOutput {
+	display: block;
+	margin-top: 35px;
+	text-align: center;
+}
+
+.progressContainer {
+	margin-bottom: 25px;
 }

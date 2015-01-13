@@ -6,6 +6,7 @@
 
 		$name = $_SESSION['contact_name'] = $_POST['contact_name'];
 		$desc = $_SESSION['job_description'] = $_POST['job_description'];
+		$urgency = $_SESSION['urgency'] = $_POST['urgency'];
 		$address = (empty($_POST['contact_address'])) ? '' : $_POST['contact_address'];
 		$phone = (empty($_POST['contact_phone'])) ? '' : $_POST['contact_phone'];
 		$email = (empty($_POST['contact_email'])) ? '' : $_POST['contact_email'];
@@ -43,22 +44,23 @@
 
 	 		if($result = $link->query($customerSQL)) {
 
-	 			$id = ($link->insert_id);
+	 			$customerID = ($link->insert_id);
 
 	 			$jobSQL = 'INSERT INTO `job_table` VALUES
 				(
-					"'.$id.'",
-					"' . mysqli_real_escape_string($link,$product) . '",
+					"'. $customerID .'",
+					"'. mysqli_real_escape_string($link,$product) .'",
 					NULL,
-					"' . mysqli_real_escape_string($link,$notes) . '",
-					"' . mysqli_real_escape_string($link,$desc) .'",
-					"'.$date.'",
-					"'.$time.'",
+					"'. mysqli_real_escape_string($link,$notes) .'",
+					"'. mysqli_real_escape_string($link,$desc) .'",
+					"'. $date .'",
+					"'. $time .'",
 					"",
 					"",
 					"",
 					NULL,
-					"0"
+					"0",
+					"'. $urgency .'"
 				)';
 
 				if(!$result = $link->query($jobSQL)) die('There was an error running the create job query [' . $link->error . ']');
@@ -69,7 +71,7 @@
 	 		}
 
 	 		$link->close();
-			header('Location: done.php?s=y&jobID='.$jobID.'&customerID='.$id);
+			header('Location: done.php?s=y&jobID='.$jobID.'&customerID='.$customerID);
 			exit();
 		}
 	}
