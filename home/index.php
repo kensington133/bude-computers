@@ -1,5 +1,5 @@
 <?php
-	require_once '../funcs/init.php';
+	require_once '/funcs/init.php';
 
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
 
