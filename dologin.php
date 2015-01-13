@@ -27,6 +27,7 @@
 				printr($login_data);
 
 				if (password_verify($pword, $login_data['password'])){
+					unset($_SESSION['errors']);
 					$_SESSION['userid'] = $login_data['id'];
 					header('Location: /home/');
 					exit();

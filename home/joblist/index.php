@@ -2,7 +2,7 @@
 	require_once '../../funcs/init.php';
 
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
-	if(is_loggedin() == false) {
+	if(!is_loggedin()) {
 		header('Location: /index.php');
 		exit();
 	}

@@ -1,7 +1,7 @@
 <?php
     require_once '../../funcs/init.php';
 
-    if(is_loggedin() == false) {
+    if(!is_loggedin()) {
         header('Location: ../../index.php');
         exit();
     }
