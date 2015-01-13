@@ -1,28 +1,21 @@
 <?php
 
-function is_loggedin()
-{
-	if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-	{
-		echo 'first if';
+function is_loggedin() {
+	if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 		return true;
-	}
-	else
-	{
-		echo 'second if';
+	} else {
 		return isset($_SESSION['userid']);
 	}
 }
-function get_lastjob($id)
-{
+
+function get_lastjob($id) {
 	$link = mysqliconn();
 
 	$sql = "SELECT `product_name`,`job_notes`,`job_description` FROM `job_table` WHERE `job_number`= $id";
 
 	if(!$result = $link->query($sql)) die('There was an error running the get_lastjob query [' . $link->error . ']');
 
-	while ($row = $result->fetch_assoc())
-	{
+	while ($row = $result->fetch_assoc()) {
 		$data = $row;
 	}
 
@@ -30,8 +23,8 @@ function get_lastjob($id)
 
 	$link->close();
 }
-function get_lastjob_alldata($id)
-{
+
+function get_lastjob_alldata($id) {
 	$link = mysqliconn();
 
 	$sql = "SELECT * FROM `job_table` WHERE `job_number`= $id";
@@ -48,7 +41,7 @@ function get_lastjob_alldata($id)
 	$link->close();
 }
 
-function get_customer_by_id($id){
+function get_customer_by_id($id) {
 	$link = mysqliconn();
 
 	$sql = "SELECT `customer_name`,`customer_email`,`customer_address`,`customer_phone` FROM `customer_table` WHERE `customer_id`= $id";
@@ -64,8 +57,7 @@ function get_customer_by_id($id){
 	$link->close();
 }
 
-function get_mostrecent_job()
-{
+function get_mostrecent_job() {
 	$link = mysqliconn();
 
 	$sql = "SELECT * FROM `job_table` ORDER BY `job_number` DESC LIMIT 1";
@@ -81,8 +73,8 @@ function get_mostrecent_job()
 
 	$link->close();
 }
-function get_jobby_id($id)
-{
+
+function get_jobby_id($id) {
 	$link = mysqliconn();
 
 	$sql = "SELECT * FROM `job_table` WHERE `job_number` = " . $id;
@@ -98,8 +90,8 @@ function get_jobby_id($id)
 
 	$link->close();
 }
-function nice_date($date)
-{
+
+function nice_date($date) {
 	if(!empty($date)) {
 		return date('d/m/Y', strtotime($date));
 	}
@@ -107,8 +99,8 @@ function nice_date($date)
 		return 'n/a';
 	}
 }
-function get_jobid_range()
-{
+
+function get_jobid_range() {
 	$link = mysqliconn();
 
 	$sql = "SELECT MIN(`job_number`) AS min, MAX(`job_number`) AS max FROM `job_table`";
@@ -124,39 +116,31 @@ function get_jobid_range()
 	$link->close();
 }
 
-function search($search)
-{
+function search($search) {
 	$link = mysqliconn();
 
 	$searchterms = explode(' ', $search);
 	$columns = array(
-			'contact_name',
-			'contact_address',
-			'contact_phone',
-			'contact_email',
-			'product_name',
-			'date_submitted',
-			'work_done',
-			'parts_used',
-			'job_price',
-			'last_updated'
-			);
-	//just one search term found, continue with simple search
-	//if(count($searchterms) == 1)
-	//{
-		// $sql = "SELECT * FROM `job_table` WHERE `job_description` LIKE '%$searchterm%' OR `product_name` LIKE '%$searchterm%' ORDER BY `job_number` DESC";
+		'contact_name',
+		'contact_address',
+		'contact_phone',
+		'contact_email',
+		'product_name',
+		'date_submitted',
+		'work_done',
+		'parts_used',
+		'job_price',
+		'last_updated'
+	);
 
 		$i = 0;
 		$sql = "SELECT `job_number`,`contact_name`,`date_submitted` FROM `job_table`";
-		foreach ($columns as $column)
-		{
+
+		foreach ($columns as $column) {
 			$i++;
-			if($i === 1)
-			{
+			if($i === 1){
 				$sql .= " WHERE `$column` LIKE '%$search%' ";
-			}
-			else
-			{
+			} else {
 				$sql .= " OR `$column` LIKE '%$search%' ";
 			}
 		}
@@ -165,25 +149,22 @@ function search($search)
 
 		if(!$result = $link->query($sql)) die('There was an error running the first search query [' . $link->error . ']');
 
-		while ($row = $result->fetch_assoc())
-		{
+		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
 
 		return $data;
-	//}
 
 	$link->close();
 }
-function getAllJobIDs()
-{
+
+function getAllJobIDs() {
 	$link = mysqliconn();
 	$sql = "SELECT `job_number` FROM `job_table`";
 
 	if(!$result = $link->query($sql)) die('There was an error running the get all job ids query [' . $link->error . ']');
 
-		while ($row = $result->fetch_assoc())
-		{
+		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
 
@@ -192,20 +173,17 @@ function getAllJobIDs()
 	$link->close();
 }
 
-function printr($array)
-{
+function printr($array) {
 	echo "<pre>".print_r($array,true)."</pre>";
 }
 
-function getAllJobs()
-{
+function getAllJobs() {
 	$link = mysqliconn();
 	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` DESC";
 
 	if(!$result = $link->query($sql)) die('There was an error running the get all jobs query [' . $link->error . ']');
 
-		while ($row = $result->fetch_assoc())
-		{
+		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
 
