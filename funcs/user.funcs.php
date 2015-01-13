@@ -4,10 +4,12 @@ function is_loggedin()
 {
 	if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
 	{
+		echo 'first if';
 		return true;
 	}
 	else
 	{
+		echo 'second if';
 		return isset($_SESSION['userid']);
 	}
 }
