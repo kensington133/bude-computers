@@ -8,6 +8,7 @@
 		// exit();
 		echo is_loggedin();
 		echo '<br>not logged in?????';
+		printr($_SESSION);
 	}
 ?>
 <!DOCTYPE html>
