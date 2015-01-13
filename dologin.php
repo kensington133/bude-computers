@@ -28,12 +28,14 @@
 
 				if (password_verify($pword, $login_data['password'])){
 					$_SESSION['userid'] = $login_data['id'];
-					header('Location: /home/');
-					exit();
+					// header('Location: /home/');
+					// exit();
+					echo 'success!';
 				} else {
 					$_SESSION['errors'] = 'fail';
-					header('Location: index.php');
-					exit();
+					// header('Location: index.php');
+					// exit();
+					echo 'fail!';
 				}
 
 				$link->close();
