@@ -181,7 +181,7 @@ function printr($array) {
 	echo "<pre>".print_r($array,true)."</pre>";
 }
 
-function getAllJobs() {
+function get_job_list() {
 	$link = mysqliconn();
 	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` DESC";
 
@@ -210,4 +210,34 @@ function get_jobtime_by_id($id) {
 	return $data;
 
 	$link->close();
+}
+
+function get_all_job_data() {
+	$link = mysqliconn();
+
+	$sql = "SELECT * FROM `job_table` ORDER BY `date_submitted` DESC";
+
+	if(!$result = $link->query($sql)) die('There was an error running the get_lastjob query [' . $link->error . ']');
+
+	while ($row = $result->fetch_assoc()) {
+		$data[] = $row;
+	}
+
+	return $data;
+
+	$link->close();
+}
+
+function output_job_card($jobData, $customerData){
+	echo "<div class='panel' style='overflow: hidden;'>";
+		echo "<div class='large-10 medium-10 columns'>";
+			echo "<h5>".ucwords($customerData['customer_name'])." - ". date('l jS \of F Y', strtotime($jobData['date_submitted']))."</h5>";
+			echo "<a href='/home/jobs/index.php?id=".$jobData['job_number']."'>View Job &raquo;</a>";
+		echo "</div>";
+		if($customerData['customer_phone']){
+			echo "<div class='large-2 medium-2 columns'>";
+				echo "<a class='button tiny' style='margin-top: 10px;' href='tel:".$customerData['customer_phone']."'>Call: ".$customerData['customer_phone']."</a>";
+			echo "</div>";
+		}
+	echo "</div>";
 }

@@ -29,7 +29,7 @@
 	<div class="small-12 columns">
 		<h1>Job List</h1>
 		<?php
-			$jobData = getAllJobs();
+			$jobData = get_job_list();
 
 			foreach($jobData as $job) {
 				$customer_data = get_customer_by_id($job['customer_id']);
