@@ -241,3 +241,23 @@ function output_job_card($jobData, $customerData){
 		}
 	echo "</div>";
 }
+
+function get_graph_data(){
+	$link = mysqliconn();
+
+	//maybe add last updated as a end point to calculate total job time for more stats later
+	//$sql = "SELECT `date_submitted`, `time_submitted` FROM `job_table` ORDER BY `date_submitted` DESC";
+	$sql = "SELECT CONCAT(`date_submitted`, ' ', `time_submitted`) AS `date` FROM `job_table`";
+
+
+	if(!$result = $link->query($sql)) die('There was an error running the get_lastjob query [' . $link->error . ']');
+
+	while ($row = $result->fetch_assoc()) {
+		// $data[] = $row;
+		$data[] = $row;
+	}
+
+	return $data;
+
+	$link->close();
+}

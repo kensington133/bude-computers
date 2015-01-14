@@ -22,6 +22,17 @@
                 </ul>
             </li>
             <li class="divider"></li>
+            <li class="has-dropdown">
+                <a href="/home/job-stats/">Job Stats</a>
+                <ul class="dropdown">
+                    <li><a href="/home/job-stats/index.php#weekly">Weekly</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/home/job-stats/index.php#monthly">Monthly</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/home/job-stats/index.php#yearly">Yearly</a></li>
+                </ul>
+            </li>
+            <li class="divider"></li>
             <li><a href="/home/newjob/">Create Job</a></li>
             <li class="divider"></li>
             <li><a href="/logout.php">Logout</a></li>
