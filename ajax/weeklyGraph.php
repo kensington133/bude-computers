@@ -3,16 +3,11 @@
 	$job_data = get_graph_data();
 
 	$weekJobs = [];
-
-
-	// echo json_encode($job_data);
-
 	$curDate = new DateTime();
 	$curWeek = $curDate->format('W');
 
 	foreach ($job_data as $job) {
 		$jobDate = new DateTime($job['date']);
-		// $jobDate = new DateTime($job);
 		$jobWeek = $jobDate->format('W');
 
 		if($curWeek == $jobWeek){
@@ -57,12 +52,6 @@
 		}
 	}
 
-
-	// printr($job_data);
-	// printr($weekJobs);
-	// printr($stats);
-
-	// echo json_encode($stats);
 	header('Content-type: application/json');
 	echo '[ ["Monday",'. $stats['monday'] .'], ["Tuesday",'. $stats['tuesday'] .'], ["Wednesday",'. $stats['wednesday'] .'], ["Thursday",'. $stats['thursday'] .'], ["Friday",'. $stats['friday'] .'], ["Saturday",'. $stats['saturday'] .'], ["Sunday",'. $stats['sunday'] .'] ]';
 ?>

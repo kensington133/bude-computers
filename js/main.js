@@ -1,5 +1,5 @@
 $(function() {
-	weeklyGraph()
+	weeklyGraph();
 });
 
 function weeklyGraph(){
@@ -14,6 +14,8 @@ function weeklyGraph(){
 						show: true,
 						barWidth: 0.6,
 						align: "center",
+						lineWidth: 0,
+						fillColor: 'rgba(0,219,213, 0.6)'
 					}
 				},
 				xaxis: {
