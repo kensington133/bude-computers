@@ -91,7 +91,7 @@ function get_jobby_id($id) {
 	$link->close();
 }
 
-function nice_date($date, $format) {
+function nice_date($date, $format = '') {
 	if(!empty($date)) {
 		if(empty($format)){
 			return date('d/m/Y', strtotime($date));
