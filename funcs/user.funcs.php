@@ -183,7 +183,7 @@ function printr($array) {
 
 function get_job_list() {
 	$link = mysqliconn();
-	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` ASC";
+	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` DESC, `time_submitted` DESC";
 
 	if(!$result = $link->query($sql)) die('There was an error running the get all jobs query [' . $link->error . ']');
 
