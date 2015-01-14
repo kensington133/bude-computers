@@ -33,30 +33,26 @@
     </div>
 
     <div class="row">
-        <div class="small-12 columns">
-            <div class="row">
-                <div class="small-6 columns small-centered">
-                    <h1 class="hide-for-print">Print Job</h1>
-                    <?php
-                        if(ctype_digit($_GET['id'])) {
-                            foreach ($job_data as $name => $value) {
-                                if(!empty($value)) {
-                                    $boom = explode('_', $name);
-                                    $namefull = $boom[0]. ' ' . $boom[1];
+        <div class="small-12 medium-6 large-6 columns small-centered">
+            <h1 class="hide-for-print">Print Job</h1>
+            <?php
+                if(ctype_digit($_GET['id'])) {
+                    foreach ($job_data as $name => $value) {
+                        if(!empty($value)) {
+                            $boom = explode('_', $name);
+                            $namefull = $boom[0]. ' ' . $boom[1];
 
-                                    if( ($namefull == "job description") || ($namefull == "job notes") ) {
-                                        echo "<p>".ucwords($namefull).":<br />";
-                                        echo nl2br($value) . "</p>";
-                                    } else {
-                                        echo "<p>".ucwords($namefull).": ".nl2br($value)."</p>";
-                                    }
-                                }
+                            if( ($namefull == "job description") || ($namefull == "job notes") ) {
+                                echo "<p>".ucwords($namefull).":<br />";
+                                echo nl2br($value) . "</p>";
+                            } else {
+                                echo "<p>".ucwords($namefull).": ".nl2br($value)."</p>";
                             }
                         }
-                    ?>
-                    <a id="print_button" class="print_button button large expand hide-for-print">Print</a>
-                </div>
-            </div>
+                    }
+                }
+            ?>
+            <a id="print_button" class="print_button button large expand hide-for-print">Print</a>
         </div>
     </div>
 

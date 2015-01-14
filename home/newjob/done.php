@@ -24,7 +24,7 @@
     </div>
 
     <div class="row">
-        <div class="small-6 columns small-centered">
+        <div class="small-12 medium-6 large-6 columns small-centered">
             <h1 class="hide-for-print">Create a New Job</h1>
             <?php
                 if($_GET['s'] == 'y') {
