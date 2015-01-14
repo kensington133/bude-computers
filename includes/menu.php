@@ -1,4 +1,4 @@
-<nav class="top-bar" data-topbar>
+<nav class="top-bar hide-for-print" data-topbar>
     <ul class="title-area">
         <li class="name">
             <h1><a href="/home/">Home</a></h1>

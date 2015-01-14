@@ -38,22 +38,16 @@
                 <div class="small-6 columns small-centered">
                     <h1 class="hide-for-print">Print Job</h1>
                     <?php
-                        if(ctype_digit($_GET['id']))
-                        {
-                            foreach ($job_data as $name => $value)
-                            {
-                                if(!empty($value))
-                                {
+                        if(ctype_digit($_GET['id'])) {
+                            foreach ($job_data as $name => $value) {
+                                if(!empty($value)) {
                                     $boom = explode('_', $name);
                                     $namefull = $boom[0]. ' ' . $boom[1];
 
-                                    if( ($namefull == "job description") || ($namefull == "job notes") )
-                                    {
+                                    if( ($namefull == "job description") || ($namefull == "job notes") ) {
                                         echo "<p>".ucwords($namefull).":<br />";
                                         echo nl2br($value) . "</p>";
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         echo "<p>".ucwords($namefull).": ".nl2br($value)."</p>";
                                     }
                                 }

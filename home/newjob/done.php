@@ -1,6 +1,7 @@
 <?php
     require_once '../../funcs/init.php';
     $job_data = get_lastjob($_GET['jobID']);
+    $job_times = get_jobtime_by_id($_GET['jobID']);
     $customer_data = get_customer_by_id($_GET['customerID']);
 ?>
 <!DOCTYPE html>
@@ -28,11 +29,15 @@
             <?php
                 if($_GET['s'] == 'y') {
 
+                    echo '<p>Job Number: '.$_GET['jobID'].'<p>';
+
+                    echo '<p>Submitted on: '. nice_date($job_times['date_submitted'], 'l jS \of F Y') .' at '. nice_date($job_times['time_submitted'], 'h:i A') .'<p>';
+
                     foreach($customer_data as $name => $value){
                         if(!empty($value)) {
                             $boom = explode('_', $name);
                             $namefull = $boom[0]. ' ' . $boom[1];
-                            echo "<p>".ucwords($namefull).": ".nl2br($value)."</p>";
+                            echo '<p>'.ucwords($namefull).': '.nl2br($value).'</p>';
                         }
                     }
 
@@ -43,15 +48,19 @@
                             $namefull = $boom[0]. ' ' . $boom[1];
 
                             if(($namefull == "job description") || ($namefull == "job notes")) {
-                                echo "<p>".ucwords($namefull).":<br />";
-                                echo nl2br($value) . "</p>";
+                                echo '<p>'.ucwords($namefull).':<br />';
+                                echo nl2br($value) . '</p>';
                             } else {
-                                echo "<p>".ucwords($namefull).": ".nl2br($value)."</p>";
+                                echo '<p>'.ucwords($namefull).': '.nl2br($value).'</p>';
                             }
                         }
                     }
                 }
             ?>
+
+            <small>Terms and Conditions</small>
+            <div class="tandc"></div>
+
             <a id="print_button" class="print_button button large expand hide-for-print">Print</a>
         </div>
     </div>

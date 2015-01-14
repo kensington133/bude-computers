@@ -91,9 +91,13 @@ function get_jobby_id($id) {
 	$link->close();
 }
 
-function nice_date($date) {
+function nice_date($date, $format) {
 	if(!empty($date)) {
-		return date('d/m/Y', strtotime($date));
+		if(empty($format)){
+			return date('d/m/Y', strtotime($date));
+		} else {
+			return date($format, strtotime($date));
+		}
 	}
 	else {
 		return 'n/a';
@@ -186,6 +190,22 @@ function getAllJobs() {
 		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
+
+	return $data;
+
+	$link->close();
+}
+
+function get_jobtime_by_id($id) {
+	$link = mysqliconn();
+
+	$sql = "SELECT `date_submitted`,`time_submitted` FROM `job_table` WHERE `job_number`= $id";
+
+	if(!$result = $link->query($sql)) die('There was an error running the get_lastjob query [' . $link->error . ']');
+
+	while ($row = $result->fetch_assoc()) {
+		$data = $row;
+	}
 
 	return $data;
 
