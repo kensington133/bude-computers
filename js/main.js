@@ -10,21 +10,30 @@ function weeklyGraph(){
 		contentType: 'application/json;',
 		dataType: 'json',
 		success: function(data) {
-			$.plot("#weeklyGraph", [ data ], {
-				series: {
-					bars: {
-						show: true,
-						barWidth: 0.6,
-						align: "center",
-						lineWidth: 0,
-						fillColor: 'rgba(0,219,213, 0.6)'
+			console.log(data);
+			if(data !== 'error') {
+				$.plot("#weeklyGraph", [ data ], {
+					series: {
+						bars: {
+							show: true,
+							barWidth: 0.6,
+							align: "center",
+							lineWidth: 0,
+							fillColor: 'rgba(0,219,213, 0.6)'
+						}
+					},
+					xaxis: {
+						mode: "categories",
+						tickLength: 0
 					}
-				},
-				xaxis: {
-					mode: "categories",
-					tickLength: 0
-				}
-			});
+				});
+			} else {
+				$('#weeklyGraph').html('<p>No data found for this week!<p>');
+			}
+		},
+		error: function(xhr, error, third){
+			console.log(error);
+			console.log(third);
 		}
 	});
 }
@@ -50,6 +59,10 @@ function monthlyGraph(){
 					tickLength: 0
 				}
 			});
+		},
+		error: function(xhr, error, third){
+			console.log(error);
+			console.log(third);
 		}
 	});
 }

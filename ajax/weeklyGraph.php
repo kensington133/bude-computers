@@ -53,5 +53,10 @@
 	}
 
 	header('Content-type: application/json');
-	echo '[ ["Monday",'. $stats['monday'] .'], ["Tuesday",'. $stats['tuesday'] .'], ["Wednesday",'. $stats['wednesday'] .'], ["Thursday",'. $stats['thursday'] .'], ["Friday",'. $stats['friday'] .'], ["Saturday",'. $stats['saturday'] .'], ["Sunday",'. $stats['sunday'] .'] ]';
+	if(count($weekJobs) === 0){
+		echo '"error"';
+	} else {
+		echo '[ ["Monday",'. $stats['monday'] .'], ["Tuesday",'. $stats['tuesday'] .'], ["Wednesday",'. $stats['wednesday'] .'], ["Thursday",'. $stats['thursday'] .'], ["Friday",'. $stats['friday'] .'], ["Saturday",'. $stats['saturday'] .'], ["Sunday",'. $stats['sunday'] .'] ]';
+	}
+
 ?>

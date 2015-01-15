@@ -245,19 +245,102 @@ function output_job_card($jobData, $customerData){
 function get_graph_data(){
 	$link = mysqliconn();
 
-	//maybe add last updated as a end point to calculate total job time for more stats later
-	//$sql = "SELECT `date_submitted`, `time_submitted` FROM `job_table` ORDER BY `date_submitted` DESC";
 	$sql = "SELECT CONCAT(`date_submitted`, ' ', `time_submitted`) AS `date` FROM `job_table`";
 
-
-	if(!$result = $link->query($sql)) die('There was an error running the get_lastjob query [' . $link->error . ']');
+	if(!$result = $link->query($sql)) die('There was an error running the get_graph_data query [' . $link->error . ']');
 
 	while ($row = $result->fetch_assoc()) {
-		// $data[] = $row;
 		$data[] = $row;
 	}
 
 	return $data;
 
 	$link->close();
+}
+
+
+function create_test_data($numCreate = 10){
+
+	if(($numCreate < 1) || ($numCreate > count($names))){
+
+		$jobsAdded = 0;
+		$customersAdded = false;
+
+		$link = mysqliconn();
+
+		$sql1 = "SELECT MAX(`customer_id`) AS `id` FROM `customer_table`";
+		$result1 = $link->query($sql1);
+		while ($row = $result1->fetch_assoc()) {
+			$lastID = $row;
+		}
+
+		$lastID['id'] = ($lastID['id']+1);
+
+		$sql2 = "SELECT MAX(`job_number`) AS `max` FROM `job_table`";
+		$result2 = $link->query($sql2);
+		while ($row = $result2->fetch_assoc()) {
+			$last = $row;
+		}
+
+		$last['max'] = ($last['max']+1);
+
+		if(($result1->num_rows == 1) && ($result2->num_rows == 1)) {
+
+			//id, name, email, address, phone
+			$customerSQL = "INSERT INTO `customer_table` VALUES ";
+			$names = ['Darcel Marinaro','Nicolasa Griffey','Ethelyn Points','Venus Valletta','Amy Vanduzer','Ludivina Irey','Tyron Shortt','Cristobal Mclin','Maynard Grabowski','Pandora Timm','Katelyn Browner','Frieda Kuchta','Rocco Coury','Minnie Frasca','Roselia Bellinger','Odelia Boulden','Xiao Damm','Erminia Swing','Cleora Leachman','Agatha Carn','Simona Shorts','Judson Arant','Lurlene Corby','Tennille Kanagy','Shavonda Mang','Jonah Allard','Alexander Whitson','Tia Hudak','Son Winward','Chana Hurtado','Merideth Bulloch','Woodrow Darner','Lucinda Berrey','Georgetta Aguila','Carry Jamal','Joannie Bowser','Lucina Whang','Arianne Ensminger','Eugena Koerber','Delmy Cantu','Allie Testa','Matthew Townsley','Micaela Montenegro','Velma Gauvin','Diedra Wiener','Leontine Predmore','Misha Ladouceur','Santa Mckee','Frederica Wentworth','Leo Aye'];
+
+			for($i = 1; $i <= $numCreate; $i++){
+				$randName = $names[rand($i, (count($names)-1))];
+				$phoneNumber = substr(number_format(time() * mt_rand(), 0, '', ''), 0, 10);
+				$email = str_replace(' ', '.', strtolower($randName)).'@gmail.com';
+				$customerID = $lastID['id']++;
+
+				if($i == $numCreate){
+					$customerSQL .= "('$customerID', '$randName', '$email', 'House Name, Road, Village, City, AA111AA', '$phoneNumber')\n";
+				} else {
+					$customerSQL .= "('$customerID', '$randName', '$email', 'House Name, Road, Village, City, AA111AA', '$phoneNumber'),\n";
+				}
+
+				$curDate = new DateTime();
+				$curUnix = $curDate->format('U');
+				$curMonth = $curDate->format('m');
+				$remainingMonths = (12 - $curMonth);
+				$modify = ($remainingMonths == 1)? '+'.$remainingMonths.' Month': '+'.$remainingMonths.' Months';
+				$newDate = new DateTime();
+				$nextUnix = $newDate->modify($modify)->format('U');
+				$lastJobID = $last['max']++;
+				$randU = rand($curUnix, $nextUnix);
+				$randDate = date('Y-m-d', $randU);
+				$randTime = date('h:i:s', $randU);
+				$curUpdate = date('Y-m-d H:i:s');
+				$randProgres = rand(0, 2);
+				$randUrgency = rand(1, 10);
+
+				//`customer_id`,`product_name`, `job_number`, `job_notes`, `job_description`, `date_submitted`, `time_submitted`, `work_done`, `parts_used`, `job_price`, `last_updated`, `progress`,`urgency`
+				$jobSQL = "INSERT INTO `job_table` VALUES ('$customerID', 'Dummy Product $i', '$lastJobID', 'This is some dummy job notes', 'This is some dummy job description', '$randDate', '$randTime', '', '', '', '$curUpdate', '$randProgres', '$randUrgency')";
+				if($result = $link->query($jobSQL)) {
+					$jobsAdded++;
+				} else {
+					die('There was an error running the create_test_data - job query [' . $link->error . ']');
+				}
+			}
+
+			if($result = $link->query($customerSQL)){
+				$customersAdded = true;
+			} else {
+				die('There was an error running the create_test_data - customer query [' . $link->error . ']');
+			}
+
+			if(($jobsAdded == $numCreate) && ($customersAdded == true)){
+				echo 'Success!';
+			} else {
+				echo 'Fail!';
+			}
+
+			$link->close();
+		}
+	} else {
+		echo 'Not enough names!';
+	}
 }

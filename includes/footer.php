@@ -2,7 +2,7 @@
     <div class="small-12 columns"><hr>
         <div class="row">
             <div class="small-6 columns">
-                <p>&copy; Ben Short</p>
+                <p><i class="fa fa-copyright"></i> Ben Short</p>
             </div>
 
             <div class="small-6 columns">

@@ -1,7 +1,7 @@
 <nav class="top-bar hide-for-print" data-topbar role="navigation">
     <ul class="title-area">
         <li class="name">
-            <h1><a href="/home/">Home</a></h1>
+            <h1><a href="/home/"><i class="fa fa-home"></i> Home</a></h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
     </ul>
@@ -9,12 +9,14 @@
     <section class="top-bar-section">
         <ul class="right">
             <li class="divider"></li>
-            <li><a href="/home/jobs/">Existing Jobs</a></li>
+            <li><a href="/home/new-job/"><i class="fa fa-plus-square"></i></i> Create Job</a></li>
             <li class="divider"></li>
-            <li><a href="/home/joblist/">Job List</a></li>
+            <li><a href="/home/jobs/"><i class="fa fa-briefcase"></i> Existing Jobs</a></li>
+            <li class="divider"></li>
+            <li><a href="/home/job-list/"><i class="fa fa-list"></i> Job List</a></li>
             <li class="divider"></li>
             <li class="has-dropdown">
-                <a href="/home/job-reports/">Job Reports</a>
+                <a href="/home/job-reports/"><i class="fa fa-book"></i> Job Reports</a>
                 <ul class="dropdown">
                     <li><a href="/home/job-reports/index.php#not-started">Not Started</a></li>
                     <li class="divider"></li>
@@ -23,7 +25,7 @@
             </li>
             <li class="divider"></li>
             <li class="has-dropdown">
-                <a href="/home/job-stats/">Job Stats</a>
+                <a href="/home/job-stats/"><i class="fa fa-bar-chart"></i> Job Stats</a>
                 <ul class="dropdown">
                     <li><a href="/home/job-stats/index.php#weekly">Weekly</a></li>
                     <li class="divider"></li>
@@ -33,9 +35,7 @@
                 </ul>
             </li>
             <li class="divider"></li>
-            <li><a href="/home/newjob/">Create Job</a></li>
-            <li class="divider"></li>
-            <li><a href="/logout.php">Logout</a></li>
+            <li><a href="/logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
         </ul>
     </section>
 </nav>

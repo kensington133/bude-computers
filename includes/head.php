@@ -3,8 +3,9 @@
 
 <link rel="stylesheet" href="/css/normalize.css">
 <link rel="stylesheet" href="/css/foundation.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
-<link rel="prefetch" href="http://dev.heybenshort.co.uk/home/newjob/index.php">
+<link rel="prefetch" href="http://dev.heybenshort.co.uk/home/new-job/index.php">
 <link rel="prefetch" href="http://dev.heybenshort.co.uk/home/job/index.php">
 
 <script src="/js/vendor/modernizr.js"></script>
