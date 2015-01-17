@@ -105,7 +105,7 @@
                     <ul class="button-group even-4 round hide-for-print">
                         <li><a href="/home/jobs/index.php?id=<?php echo $previd; ?>" class="button small"><i class="fa fa-angle-left"></i> Back</a></li>
                         <li><input type="submit" class="button small fa-input" value="&#61639; Save" /></li>
-                        <?php $url = "done.php?id=".$job_data['job_number']."&code=".date('U'); ?>
+                        <?php $url = "done.php?id=".$job_data['job_number']; ?>
                         <li><a class="button small" href="<?php echo $url ?>"><i class="fa fa-print"></i> Print</a></li>
                         <li><a href="/home/jobs/index.php?id=<?php echo $nextid; ?>" class="button small">Next <i class="fa fa-angle-right"></i></a></li>
                     </ul>

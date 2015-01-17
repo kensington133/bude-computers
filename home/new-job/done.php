@@ -1,5 +1,15 @@
 <?php
     require_once '../../funcs/init.php';
+
+    $google = filter_input(INPUT_GET, 'g', FILTER_VALIDATE_INT, array('options' => array('default' => -1)));
+
+    if($google === -1){
+        if(!is_loggedin()) {
+            header('Location: /index.php');
+            exit();
+        }
+    }
+
     $job_data = get_lastjob($_GET['jobID']);
     $job_times = get_jobtime_by_id($_GET['jobID']);
     $customer_data = get_customer_by_id($_GET['customerID']);

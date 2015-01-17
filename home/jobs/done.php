@@ -1,14 +1,13 @@
 <?php
     require_once '../../funcs/init.php';
 
-    $code = $_GET['code'];
+    $google = filter_input(INPUT_GET, 'g', FILTER_VALIDATE_INT, array('options' => array('default' => -1)));
 
-    $high = date("U", time() + 30);
-    $low = date("U", time() - 30);
-
-    if(($code < $low) || ($code > $high)){
-        header('Location: /home/');
-        exit();
+    if($google === -1){
+        if(!is_loggedin()) {
+            header('Location: /index.php');
+            exit();
+        }
     }
 
     $job_data = get_lastjob_alldata($_GET['id']);

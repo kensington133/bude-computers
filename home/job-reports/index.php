@@ -1,10 +1,13 @@
 <?php
 	require_once '../../funcs/init.php';
 
-	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
-	if(!is_loggedin()) {
-		header('Location: /index.php');
-		exit();
+	$google = filter_input(INPUT_GET, 'g', FILTER_VALIDATE_INT, array('options' => array('default' => -1)));
+
+	if($google === -1){
+		if(!is_loggedin()) {
+			header('Location: /index.php');
+			exit();
+		}
 	}
 
 	$totalJobs = get_job_count();
@@ -89,7 +92,6 @@
 		<div id="not-started">
 			<h3>Not Started</h3>
 			<?php
-				// printr($notStarted);
 				foreach ($notStarted as $nsJob) {
 					echo '<div class="panel">';
 						echo "<p>Job ID: $nsJob[job_number]</p>";
