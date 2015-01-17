@@ -16,6 +16,7 @@
 <script src="/js/foundation.min.js"></script>
 <script src="/js/jquery.flot.js"></script>
 <script src="/js/jquery.flot.categories.js"></script>
+<script src="/js/jquery.flot.resize.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/print.js"></script>
 

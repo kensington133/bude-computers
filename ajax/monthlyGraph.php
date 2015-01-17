@@ -62,5 +62,5 @@
 	}
 
 	header('Content-type: application/json');
-	echo '[ ["January",'. $stats['January'] .'], ["February",'. $stats['February'] .'], ["March",'. $stats['March'] .'], ["April",'. $stats['April'] .'], ["May",'. $stats['May'] .'], ["June",'. $stats['June'] .'], ["July",'. $stats['July'] .'], ["August",'. $stats['August'] .'], ["September",'. $stats['September'] .'], ["October",'. $stats['October'] .'], ["November",'. $stats['November'] .'], ["December",'. $stats['December'] .'] ]';
+	echo '[ ["Jan",'. $stats['January'] .'], ["Feb",'. $stats['February'] .'], ["Mar",'. $stats['March'] .'], ["Apr",'. $stats['April'] .'], ["May",'. $stats['May'] .'], ["Jun",'. $stats['June'] .'], ["Jul",'. $stats['July'] .'], ["Aug",'. $stats['August'] .'], ["Sep",'. $stats['September'] .'], ["Oct",'. $stats['October'] .'], ["Nov",'. $stats['November'] .'], ["Dec",'. $stats['December'] .'] ]';
 ?>

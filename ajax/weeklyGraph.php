@@ -56,7 +56,7 @@
 	if(count($weekJobs) === 0){
 		echo '"error"';
 	} else {
-		echo '[ ["Monday",'. $stats['monday'] .'], ["Tuesday",'. $stats['tuesday'] .'], ["Wednesday",'. $stats['wednesday'] .'], ["Thursday",'. $stats['thursday'] .'], ["Friday",'. $stats['friday'] .'], ["Saturday",'. $stats['saturday'] .'], ["Sunday",'. $stats['sunday'] .'] ]';
+		echo '[ ["Mon",'. $stats['monday'] .'], ["Tue",'. $stats['tuesday'] .'], ["Wed",'. $stats['wednesday'] .'], ["Thu",'. $stats['thursday'] .'], ["Fri",'. $stats['friday'] .'], ["Sat",'. $stats['saturday'] .'], ["Sun",'. $stats['sunday'] .'] ]';
 	}
 
 ?>

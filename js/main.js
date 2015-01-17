@@ -99,7 +99,6 @@ function yearlyGraph(){
 
 function submitForm(){
 	$('select[name="display"]').change( function(){
-		console.log($(this).parent());
 		$(this).parent().submit();
 	});
 }
