@@ -7,7 +7,23 @@
 		exit();
 	}
 
-	$jobData = get_all_job_data();
+	$totalJobs = get_job_count();
+	$numJobsDisplay = filter_input(INPUT_GET, 'display', FILTER_VALIDATE_INT, array('options' => array('default' => 10, 'min_range' => 10)));
+	$totalPages = ceil($totalJobs / $numJobsDisplay);
+	$curPage = min($totalPages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array('options' => array('default' => 1, 'min_range' => 1))));
+	$queryOffset = ($curPage - 1) * $numJobsDisplay;
+	$start = ($queryOffset + 1);
+	$end = min(($queryOffset + $numJobsDisplay), $totalJobs);
+
+	$firstURL = '?page=1&display='.$numJobsDisplay;
+	$lastURL = '?page='.$totalPages.'&display='.$numJobsDisplay;
+	$prevURL = ($curPage > 1)?'?page='.($curPage - 1): '?page='.$totalPages;
+	$prevURL .= '&display='.$numJobsDisplay;
+	$nextURL = ($curPage == $totalPages)? '?page=1' : '?page='.($curPage + 1);
+	$nextURL .= '&display='.$numJobsDisplay;
+
+	$jobData = get_job_report_data($numJobsDisplay, $queryOffset);
+
 	$notStarted = [];
 	$inProgress = [];
 
@@ -46,25 +62,71 @@
 
 <div class="row">
 	<div class="small-12 columns">
-		<h1>Job Reports</h1>
+		<h1>Job Report</h1>
+		<ul class="button-group round even-5 hide-for-print">
+			<li><a href="<?php echo $firstURL; ?>" class="button"><i class="fa fa-angle-double-left"></i></i> First</a></li>
+			<li><a href="<?php echo $prevURL; ?>" class="button"><i class="fa fa-angle-left"></i> Previous</a></li>
+			<li><a id="print_button" class="print_button button hide-for-print"><i class="fa fa-print"></i> Print</a></li>
+			<li><a href="<?php echo $nextURL; ?>" class="button">Next <i class="fa fa-angle-right"></i></a></li>
+			<li><a href="<?php echo $lastURL; ?>" class="button">Last <i class="fa fa-angle-double-right"></i></a></li>
+		</ul>
+		<form class="hide-for-print">
+			<input type="hidden" name="page" value="<?php echo $curPage ?>" />
+			<select name="display">
+				<?php
+					for($i = 1; $i <= 100; $i++){
+						if($i % 10 === 0){
+							echo '<option value="'.$i.'"';
+							if($i === $numJobsDisplay) {
+								echo ' selected="selected" ';
+							}
+							echo '>Show '.$i.' Jobs per page</option>';
+						}
+					}
+				?>
+			</select>
+		</form>
 		<div id="not-started">
 			<h3>Not Started</h3>
 			<?php
+				// printr($notStarted);
 				foreach ($notStarted as $nsJob) {
-					$customer_data = get_customer_by_id($nsJob['customer_id']);
-					output_job_card($nsJob, $customer_data);
+					echo '<div class="panel">';
+						echo "<p>Job ID: $nsJob[job_number]</p>";
+						echo "<p>Date Submitted: ".nice_date($nsJob['datetime_submitted'], 'l jS \of F Y h:i:s A')."</p>";
+						$jobDate = new DateTime($nsJob['datetime_submitted']);
+						$curDate = new DateTime();
+						$interval = $jobDate->diff($curDate);
+						$daysBetween = $interval->format('%R%a days');
+						echo "<p>Days Since: $daysBetween</p>";
+					echo '</div>';
 				}
 			?>
 		</div>
 		<div id="in-progress">
 			<h3>In Progress</h3>
+
 			<?php
 				foreach ($inProgress as $ipJob) {
-					$customer_data = get_customer_by_id($ipJob['customer_id']);
-					output_job_card($ipJob, $customer_data);
+					echo '<div class="panel">';
+						echo "<p>Job ID: $ipJob[job_number]</p>";
+						echo "<p>Date Submitted: ".nice_date($ipJob['datetime_submitted'], 'l jS \of F Y h:i:s A')."</p>";
+						$jobDate = new DateTime($ipJob['datetime_submitted']);
+						$curDate = new DateTime();
+						$interval = $jobDate->diff($curDate);
+						$daysBetween = $interval->format('%R%a days');
+						echo "<p>Days Since: $daysBetween</p>";
+					echo '</div>';
 				}
 			?>
 		</div>
+		<ul class="button-group round even-5 hide-for-print">
+			<li><a href="<?php echo $firstURL; ?>" class="button"><i class="fa fa-angle-double-left"></i></i> First</a></li>
+			<li><a href="<?php echo $prevURL; ?>" class="button"><i class="fa fa-angle-left"></i> Previous</a></li>
+			<li><a id="print_button" class="print_button button hide-for-print"><i class="fa fa-print"></i> Print</a></li>
+			<li><a href="<?php echo $nextURL; ?>" class="button">Next <i class="fa fa-angle-right"></i></a></li>
+			<li><a href="<?php echo $lastURL; ?>" class="button">Last <i class="fa fa-angle-double-right"></i></a></li>
+		</ul>
 	</div>
 </div>
 

@@ -166,7 +166,7 @@ function getAllJobIDs() {
 	$link = mysqliconn();
 	$sql = "SELECT `job_number` FROM `job_table`";
 
-	if(!$result = $link->query($sql)) die('There was an error running the get all job ids query [' . $link->error . ']');
+	if(!$result = $link->query($sql)) die('There was an error running the getAllJobIDs query [' . $link->error . ']');
 
 		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
@@ -181,11 +181,11 @@ function printr($array) {
 	echo "<pre>".print_r($array,true)."</pre>";
 }
 
-function get_job_list($limit = 20, $offset) {
+function get_job_list($limit = 10, $offset) {
 	$link = mysqliconn();
 	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` DESC, `time_submitted` DESC LIMIT $limit OFFSET $offset";
 
-	if(!$result = $link->query($sql)) die('There was an error running the get all jobs query [' . $link->error . ']');
+	if(!$result = $link->query($sql)) die('There was an error running the get_job_list query [' . $link->error . ']');
 
 		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
@@ -201,7 +201,7 @@ function get_jobtime_by_id($id) {
 
 	$sql = "SELECT `date_submitted`,`time_submitted` FROM `job_table` WHERE `job_number`= $id";
 
-	if(!$result = $link->query($sql)) die('There was an error running the get_lastjob query [' . $link->error . ']');
+	if(!$result = $link->query($sql)) die('There was an error running the get_jobtime_by_id query [' . $link->error . ']');
 
 	while ($row = $result->fetch_assoc()) {
 		$data = $row;
@@ -212,12 +212,22 @@ function get_jobtime_by_id($id) {
 	$link->close();
 }
 
-function get_all_job_data() {
+function get_job_report_data($limit = 10, $offset) {
 	$link = mysqliconn();
 
-	$sql = "SELECT * FROM `job_table` ORDER BY `date_submitted` DESC";
+	$sql = "SELECT
+	CONCAT(`job_table`.`date_submitted`, ' ', `job_table`.`time_submitted`) AS 'datetime_submitted',
+	`job_table`.`job_number`,
+	`job_table`.`progress`,
+	`customer_table`.`customer_name`
+	FROM `job_table`
+	LEFT JOIN `customer_table`
+	ON `job_table`.`customer_id` = `customer_table`.`customer_id`
+	ORDER BY `date_submitted` DESC, `time_submitted` DESC
+	LIMIT $limit
+	OFFSET $offset";
 
-	if(!$result = $link->query($sql)) die('There was an error running the get_lastjob query [' . $link->error . ']');
+	if(!$result = $link->query($sql)) die('There was an error running the get_job_report_data query [' . $link->error . ']');
 
 	while ($row = $result->fetch_assoc()) {
 		$data[] = $row;

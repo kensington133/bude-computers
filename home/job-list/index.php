@@ -8,7 +8,6 @@
 	}
 
 	$totalJobs = get_job_count();
-	// $numJobsDisplay = 10;
 	$numJobsDisplay = filter_input(INPUT_GET, 'display', FILTER_VALIDATE_INT, array('options' => array('default'   => 10, 'min_range' => 10)));
 	$totalPages = ceil($totalJobs / $numJobsDisplay);
 	$curPage = min($totalPages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array('options' => array('default'   => 1, 'min_range' => 1))));
@@ -53,7 +52,7 @@
 			<li><a href="<?php echo $nextURL; ?>" class="button">Next <i class="fa fa-angle-right"></i></a></li>
 			<li><a href="<?php echo $lastURL; ?>" class="button">Last <i class="fa fa-angle-double-right"></i></a></li>
 		</ul>
-		<form class="joblist-dislay">
+		<form>
 			<input type="hidden" name="page" value="<?php echo $curPage ?>" />
 			<select name="display">
 				<?php
