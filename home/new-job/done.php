@@ -61,7 +61,7 @@
             <small>Terms and Conditions</small>
             <div class="tandc"></div>
 
-            <a id="print_button" class="print_button button large expand hide-for-print">Print</a>
+            <a id="print_button" class="print_button button large expand hide-for-print"><i class="fa fa-print"></i> Print</a>
         </div>
     </div>
     <?php require_once '../../includes/footer.php' ?>

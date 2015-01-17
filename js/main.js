@@ -2,6 +2,7 @@ $(function() {
 	weeklyGraph();
 	monthlyGraph();
 	yearlyGraph();
+	submitForm();
 });
 
 function weeklyGraph(){
@@ -93,5 +94,12 @@ function yearlyGraph(){
 			console.log(error);
 			console.log(third);
 		}
+	});
+}
+
+function submitForm(){
+	$('select[name="display"]').change( function(){
+		console.log($(this).parent());
+		$(this).parent().submit();
 	});
 }

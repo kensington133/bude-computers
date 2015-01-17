@@ -25,3 +25,6 @@ input::-webkit-inner-spin-button {
 #yearlyGraph {
 	height: 400px;
 }
+.fa-input {
+  font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}

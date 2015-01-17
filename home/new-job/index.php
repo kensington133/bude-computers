@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="small-12 column">
-                    <input type="submit" class="button large expand <?php echo $y,$n?>" value="Save" />
+                    <input type="submit" class="button large expand <?php echo $y,$n?> fa-input" value="&#61639; Save" />
                 </div>
 
             </form>

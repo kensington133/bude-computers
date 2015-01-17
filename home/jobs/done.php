@@ -52,7 +52,7 @@
                     }
                 }
             ?>
-            <a id="print_button" class="print_button button large expand hide-for-print">Print</a>
+            <a id="print_button" class="print_button button large expand hide-for-print"><i class="fa fa-print"></i> Print</a>
         </div>
     </div>
 

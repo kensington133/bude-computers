@@ -181,9 +181,9 @@ function printr($array) {
 	echo "<pre>".print_r($array,true)."</pre>";
 }
 
-function get_job_list() {
+function get_job_list($limit = 20, $offset) {
 	$link = mysqliconn();
-	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` DESC, `time_submitted` DESC";
+	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` DESC, `time_submitted` DESC LIMIT $limit OFFSET $offset";
 
 	if(!$result = $link->query($sql)) die('There was an error running the get all jobs query [' . $link->error . ']');
 
@@ -343,4 +343,20 @@ function create_test_data($numCreate = 10){
 	} else {
 		echo 'Not enough names!';
 	}
+}
+
+function get_job_count(){
+	$link = mysqliconn();
+
+	$sql = "SELECT COUNT(*) FROM `job_table`";
+
+	if(!$result = $link->query($sql)) die('There was an error running the get_graph_data query [' . $link->error . ']');
+
+	while ($row = $result->fetch_row()) {
+		$data = $row[0];
+	}
+
+	return $data;
+
+	$link->close();
 }
