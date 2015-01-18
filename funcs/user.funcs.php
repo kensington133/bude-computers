@@ -326,9 +326,11 @@ function create_test_data($numCreate = 10){
 				$curUpdate = date('Y-m-d H:i:s');
 				$randProgres = rand(0, 2);
 				$randUrgency = rand(1, 10);
+				$yesno = ['yes', 'no'];
+				$randAdditonal = $yesno[rand(0,1)];
 
-				//`customer_id`,`product_name`, `job_number`, `job_notes`, `job_description`, `date_submitted`, `time_submitted`, `work_done`, `parts_used`, `job_price`, `last_updated`, `progress`,`urgency`
-				$jobSQL = "INSERT INTO `job_table` VALUES ('$customerID', 'Dummy Product $i', '$lastJobID', 'This is some dummy job notes', 'This is some dummy job description', '$randDate', '$randTime', '', '', '', '$curUpdate', '$randProgres', '$randUrgency')";
+				//`customer_id`,`product_name`, `job_number`, `job_notes`, `job_description`, `charger`, `battery`, `storage`, `date_submitted`, `time_submitted`, `work_done`, `parts_used`, `job_price`, `last_updated`, `progress`,`urgency`
+				$jobSQL = "INSERT INTO `job_table` VALUES ('$customerID', 'Dummy Product $i', '$lastJobID', 'This is some dummy job notes', 'This is some dummy job description', '$randAdditonal', '$randAdditonal', '$randAdditonal', '$randDate', '$randTime', '', '', '', '$curUpdate', '$randProgres', '$randUrgency')";
 				if($result = $link->query($jobSQL)) {
 					$jobsAdded++;
 				} else {

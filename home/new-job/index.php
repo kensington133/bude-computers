@@ -59,6 +59,28 @@
                     <?php if(isset($_SESSION['errors']['job_desc'])) echo $_SESSION['errors']['job_desc']; ?>
                 </div>
 
+                <div class="small-4 columns text-center">
+                    <h6>Charger</h6>
+                    <div class="switch large">
+                        <input id="chargerSwitch" name="charger" type="checkbox">
+                        <label for="chargerSwitch"></label>
+                    </div>
+                </div>
+                <div class="small-4 columns text-center">
+                    <h6>Battery</h6>
+                    <div class="switch large">
+                        <input id="batterySwitch" name="battery" type="checkbox">
+                        <label for="batterySwitch"></label>
+                    </div>
+                </div>
+                <div class="small-4 columns text-center">
+                    <h6>Storage</h6>
+                    <div class="switch large">
+                        <input id="storageMedia" name="storage" type="checkbox">
+                        <label for="storageMedia"></label>
+                    </div>
+                </div>
+
                 <div class="small-10 medium-11 columns" style="margin-bottom: 45px;">
                     <label>Urgency</label>
                     <div class="range-slider" data-slider data-options="display_selector: #urgencyOutput; start: 1; end: 10;">

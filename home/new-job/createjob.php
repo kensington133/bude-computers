@@ -4,6 +4,8 @@
 
 	if($_POST) {
 
+		printr($_POST);
+
 		$name = $_SESSION['contact_name'] = $_POST['contact_name'];
 		$desc = $_SESSION['job_description'] = $_POST['job_description'];
 		$urgency = $_SESSION['urgency'] = $_POST['urgency'];
@@ -12,6 +14,9 @@
 		$email = (empty($_POST['contact_email'])) ? '' : $_POST['contact_email'];
 		$product = (empty($_POST['product_name'])) ? '' : $_POST['product_name'];
 		$notes = (empty($_POST['product_notes'])) ? '' : $_POST['product_notes'];
+		$charger = ($_POST['charger'] == 'on')? 'yes' : 'no';
+		$battery = ($_POST['battery'] == 'on')? 'yes' : 'no';
+		$storage = ($_POST['storage'] == 'on')? 'yes' : 'no';
 
 		$errors = 0;
 		$_SESSION['errors'] = array();
@@ -53,6 +58,9 @@
 					NULL,
 					"'. mysqli_real_escape_string($link,$notes) .'",
 					"'. mysqli_real_escape_string($link,$desc) .'",
+					"'. mysqli_real_escape_string($link,$charger) .'",
+					"'. mysqli_real_escape_string($link,$battery) .'",
+					"'. mysqli_real_escape_string($link,$storage) .'",
 					"'. $date .'",
 					"'. $time .'",
 					"",
