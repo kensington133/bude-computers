@@ -7,12 +7,34 @@
 		$job_data = get_jobby_id($_POST['job_number']);
 		$customer_data = get_customer_by_id($job_data['customer_id']);
 
+		if(!array_key_exists('charger', $_POST)){
+			$chargerSQL = "UPDATE `job_table` SET `charger` = 'no' WHERE `job_number` = '$_POST[job_number]'";
+
+	 		if(!$result = $link->query($chargerSQL)) die("There was an error inserting job $postname data query [" . $link->error . "]");
+		}
+
+		if(!array_key_exists('bag', $_POST)){
+			$bagSQL = "UPDATE `job_table` SET `bag` = 'no' WHERE `job_number` = '$_POST[job_number]'";
+
+	 		if(!$result = $link->query($bagSQL)) die("There was an error inserting job $postname data query [" . $link->error . "]");
+		}
+
+		if(!array_key_exists('storage', $_POST)){
+			$storageSQL = "UPDATE `job_table` SET `storage` = 'no' WHERE `job_number` = '$_POST[job_number]'";
+
+	 		if(!$result = $link->query($storageSQL)) die("There was an error inserting job $postname data query [" . $link->error . "]");
+		}
+
 		foreach ($job_data as $name => $value) {
 			foreach ($_POST as $postname => $postvalue) {
-
 				if($postname == $name) {
 					if($postvalue != $value) {
-						$postvalue = mysqli_real_escape_string($link, utf8_decode(trim($postvalue)));
+
+						if($postvalue === 'on'){
+							$postvalue = 'yes';
+						} else {
+							$postvalue = mysqli_real_escape_string($link, utf8_decode(trim($postvalue)));
+						}
 
 						$jobSQL = "UPDATE `job_table` SET `$postname` = '$postvalue' WHERE `job_number` = '$_POST[job_number]'";
 

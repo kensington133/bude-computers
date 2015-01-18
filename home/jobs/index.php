@@ -6,40 +6,43 @@
         exit();
     }
 
-    $job_data = get_mostrecent_job();
-    $job_range = get_jobid_range();
-    $job_ids = getAllJobIDs();
+    if(isset($_GET['id'])){
+        $job_data = get_jobby_id($_GET['id']);
+    } else {
+        $job_data = get_mostrecent_job();
+    }
+
+     $job_ids = getAllJobIDs();
+
     if($job_data['customer_id']){
         $customer_data = get_customer_by_id($job_data['customer_id']);
     }
 
-    if(count($job_ids) > 0) {
-	   foreach($job_ids as $key => $value) {
-            if(is_array($value) && $value['job_number'] == $job_data['job_number']) {
-                $currentkey = $key;
-            }
-	   }
+    $maxid = $job_ids[count($job_ids) - 1];
+    $firstid = $job_ids[0];
+
+    foreach ($job_ids as $key => $value) {
+        if($value === $job_data['job_number']){
+            $currentIDKey = $key;
+        }
     }
-	$currentjob = $job_data['job_number'];
 
-	for($i = 0; $i <= count($job_ids); $i++) {
-		$prevkey = ($currentkey - 1);
-		$nextkey = ($currentkey + 1);
-		if($i == count($job_ids)) {
-			$finalkey = $i;
-		}
-	}
+    foreach ($job_ids as $key => $value) {
+        if($key == ($currentIDKey - 1)){
+            $previd = $value;
+        }
+        if($key == ($currentIDKey + 1)){
+            $nextid = $value;
+        }
+    }
 
-	$previd = $job_ids[$prevkey]['job_number'];
-	$nextid = $job_ids[$nextkey]['job_number'];
+    if($job_data['job_number'] === $maxid){
+        $nextid = $job_ids[0];
+    }
 
-	if($nextkey == $finalkey) {
-		$nextid = $job_ids[0]['job_number'];
-	}
-
-	if($previd == -1) {
-		$previd = $job_ids[$finalkey-1]['job_number'];
-	}
+    if($job_data['job_number'] === $firstid){
+        $previd = $maxid;
+    }
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -62,38 +65,6 @@
     <div class="row">
         <div class="small-12 columns">
             <h1 class="text-center">Existing Jobs</h1>
-            <?php
-                if(isset($_GET['id'])) {
-                    $job_data = get_jobby_id($_GET['id']);
-                    $job_ids = getAllJobIDs();
-
-                  	foreach($job_ids as $key => $value) {
-            			if(is_array($value) && $value['job_number'] == $job_data['job_number']) {
-            				$currentkey = $key;
-            			}
-            		}
-
-                    $currentjob = $job_data['job_number'];
-
-        			for($i = 0; $i <= count($job_ids); $i++) {
-        				$prevkey = ($currentkey - 1);
-        				$nextkey = ($currentkey + 1);
-        				if($i == count($job_ids)) {
-        					$finalkey = $i;
-        				}
-        			}
-
-        			$previd = $job_ids[$prevkey]['job_number'];
-        			$nextid = $job_ids[$nextkey]['job_number'];
-
-        			if($nextkey == $finalkey) {
-        				$nextid = $job_ids[0]['job_number'];
-        			}
-        			if($prevkey == -1) {
-        				$previd = $job_ids[$finalkey-1]['job_number'];
-        			}
-                }
-            ?>
             <h2 class="text-center"><?php echo nice_date($job_data['date_submitted']); ?> - <?php echo $job_data['time_submitted']; ?></h2>
         </div>
     </div>
@@ -102,12 +73,12 @@
         <div class="small-12 columns small-centered">
             <form action="updatejob.php" method="POST">
                 <div class="small-12 columns">
-                    <ul class="button-group even-4 round hide-for-print">
-                        <li><a href="/home/jobs/index.php?id=<?php echo $previd; ?>" class="button small"><i class="fa fa-angle-left"></i> Back</a></li>
-                        <li><input type="submit" class="button small fa-input" value="&#61639; Save" /></li>
-                        <?php $url = "done.php?id=".$job_data['job_number']; ?>
-                        <li><a class="button small" href="<?php echo $url ?>"><i class="fa fa-print"></i> Print</a></li>
-                        <li><a href="/home/jobs/index.php?id=<?php echo $nextid; ?>" class="button small">Next <i class="fa fa-angle-right"></i></a></li>
+                    <?php $url = "done.php?id=".$job_data['job_number']; ?>
+                    <ul class="button-group even-4 round hide-for-print" style="margin-top: 25px;">
+                        <li><a href="/home/jobs/index.php?id=<?php echo $previd; ?>" class="button small"><i class="hide-for-small-only fa fa-angle-left"></i> Back</a></li>
+                        <li><input type="submit" class="button small fa-input saveButton" value="&#61639; Save" /></li>
+                        <li><a class="button small" href="<?php echo $url ?>"><i class="hide-for-small-only fa fa-print"></i> Print</a></li>
+                        <li><a href="/home/jobs/index.php?id=<?php echo $nextid; ?>" class="button small">Next <i class="hide-for-small-only fa fa-angle-right"></i></a></li>
                     </ul>
                 </div>
 
@@ -151,8 +122,6 @@
                     <textarea style='height:160px;' name="job_price" id="job_price" placeholder="Price - inc VAT"><?php echo $job_data['job_price']; ?></textarea>
                 </div>
 
-                <input type="hidden" name="job_number" value="<?php echo $job_data['job_number'];?>">
-
                 <div class="small-10 medium-11 columns" style="margin-bottom: 25px;">
                     <label>Urgency</label>
                     <div class="range-slider" data-slider data-options="display_selector: #urgencyOutput; start: 1; end: 10; initial:<?php  echo $job_data['urgency']; ?>;">
@@ -165,21 +134,61 @@
                     <span id="urgencyOutput"></span>
                 </div>
 
-                <div class="small-12 columns text-center">
-
-                <div class="progressContainer">
-                    <input type="radio" name="progress" value="0" id="notStarted" <?php if($job_data['progress'] == '0') echo "checked"?>><label for="notStarted">Not Started</label>
-                    <input type="radio" name="progress" value="1" id="inProgress" <?php if($job_data['progress'] == '1') echo "checked"?>><label for="inProgress">In Progress</label>
-                    <input type="radio" name="progress" value="2" id="completed" <?php if($job_data['progress'] == '2') echo "checked"?>><label for="completed">Completed</label>
+                <div class="small-4 columns text-center">
+                    <h6>Charger</h6>
+                    <div class="switch large">
+                        <input id="chargerSwitch" name="charger" type="checkbox" <?php if($job_data['charger'] == 'yes') echo "checked"?>>
+                        <label for="chargerSwitch"></label>
+                    </div>
+                </div>
+                <div class="small-4 columns text-center">
+                    <h6>Bag</h6>
+                    <div class="switch large">
+                        <input id="bagSwitch" name="bag" type="checkbox" <?php if($job_data['bag'] == 'yes') echo "checked"?>>
+                        <label for="bagSwitch"></label>
+                    </div>
+                </div>
+                <div class="small-4 columns text-center">
+                    <h6>Storage</h6>
+                    <div class="switch large">
+                        <input id="storageMedia" name="storage" type="checkbox" <?php if($job_data['storage'] == 'yes') echo "checked"?>>
+                        <label for="storageMedia"></label>
+                    </div>
                 </div>
 
-                    <ul class="button-group even-4 round hide-for-print">
-                        <li><a href="/home/jobs/index.php?id=<?php echo $previd; ?>" class="button small"><i class="fa fa-angle-left"></i> Back</a></li>
-                        <li><input type="submit" class="button small fa-input" value="&#61639; Save" /></li>
-                        <li><a class="button small" href="<?php echo $url ?>"><i class="fa fa-print"></i> Print</a></li>
-                        <li><a href="/home/jobs/index.php?id=<?php echo $nextid; ?>" class="button small">Next <i class="fa fa-angle-right"></i></a></li>
+                <input type="hidden" name="job_number" value="<?php echo $job_data['job_number'];?>">
+
+                <div class="small-4 columns text-center">
+                    <h6>Not Started</h6>
+                    <div class="switch large">
+                        <input type="radio" name="progress" value="0" id="notStarted" <?php if($job_data['progress'] == '0') echo "checked"?>>
+                        <label for="notStarted">Not Started</label>
+                    </div>
+                </div>
+                <div class="small-4 columns text-center">
+                    <h6>In Progress</h6>
+                    <div class="switch large">
+                        <input type="radio" name="progress" value="1" id="inProgress" <?php if($job_data['progress'] == '1') echo "checked"?>>
+                        <label for="inProgress">In Progress</label>
+                    </div>
+                </div>
+                <div class="small-4 columns text-center">
+                    <h6>Completed</h6>
+                    <div class="switch large">
+                        <input type="radio" name="progress" value="2" id="completed" <?php if($job_data['progress'] == '2') echo "checked"?>>
+                        <label for="completed">Completed</label>
+                    </div>
+                </div>
+
+                <div class="small-12 columns text-center">
+                    <ul class="button-group even-4 round hide-for-print" style="margin-top: 25px;">
+                        <li><a href="/home/jobs/index.php?id=<?php echo $previd; ?>" class="button small"><i class="hide-for-small-only fa fa-angle-left"></i> Back</a></li>
+                        <li><input type="submit" class="button small fa-input saveButton" value="&#61639; Save" /></li>
+                        <li><a class="button small" href="<?php echo $url ?>"><i class="hide-for-small-only fa fa-print"></i> Print</a></li>
+                        <li><a href="/home/jobs/index.php?id=<?php echo $nextid; ?>" class="button small">Next <i class="hide-for-small-only fa fa-angle-right"></i></a></li>
                     </ul>
                 </div>
+
             </form>
         </div>
     </div>

@@ -15,7 +15,7 @@
 		$product = (empty($_POST['product_name'])) ? '' : $_POST['product_name'];
 		$notes = (empty($_POST['product_notes'])) ? '' : $_POST['product_notes'];
 		$charger = ($_POST['charger'] == 'on')? 'yes' : 'no';
-		$battery = ($_POST['battery'] == 'on')? 'yes' : 'no';
+		$bag = ($_POST['bag'] == 'on')? 'yes' : 'no';
 		$storage = ($_POST['storage'] == 'on')? 'yes' : 'no';
 
 		$errors = 0;
@@ -59,7 +59,7 @@
 					"'. mysqli_real_escape_string($link,$notes) .'",
 					"'. mysqli_real_escape_string($link,$desc) .'",
 					"'. mysqli_real_escape_string($link,$charger) .'",
-					"'. mysqli_real_escape_string($link,$battery) .'",
+					"'. mysqli_real_escape_string($link,$bag) .'",
 					"'. mysqli_real_escape_string($link,$storage) .'",
 					"'. $date .'",
 					"'. $time .'",

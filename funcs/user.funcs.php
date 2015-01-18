@@ -60,9 +60,10 @@ function get_customer_by_id($id) {
 function get_mostrecent_job() {
 	$link = mysqliconn();
 
-	$sql = "SELECT * FROM `job_table` ORDER BY `job_number` DESC LIMIT 1";
+	// $sql = "SELECT * FROM `job_table` ORDER BY CONCAT(`date_submitted`, ' ', `time_submitted`) ASC LIMIT 1";
+	$sql = "SELECT * FROM `job_table` WHERE `job_number` = (SELECT MAX(`job_number`) FROM `job_table` LIMIT 1) LIMIT 1";
 
-	if(!$result = $link->query($sql)) die('There was an error running the get_lastjob_bydate query [' . $link->error . ']');
+	if(!$result = $link->query($sql)) die('There was an error running the get_mostrecent_job query [' . $link->error . ']');
 
 	while ($row = $result->fetch_assoc())
 	{
@@ -109,7 +110,7 @@ function get_jobid_range() {
 
 	$sql = "SELECT MIN(`job_number`) AS min, MAX(`job_number`) AS max FROM `job_table`";
 
-	if(!$result = $link->query($sql)) die('There was an error running the get_jobid_range() query [' . $link->error . ']');
+	if(!$result = $link->query($sql)) die('There was an error running the get_jobid_range query [' . $link->error . ']');
 
 	while ($row = $result->fetch_assoc())
 	{
@@ -168,8 +169,8 @@ function getAllJobIDs() {
 
 	if(!$result = $link->query($sql)) die('There was an error running the getAllJobIDs query [' . $link->error . ']');
 
-		while ($row = $result->fetch_assoc()) {
-			$data[] = $row;
+		while ($row = $result->fetch_row()) {
+			$data[] = $row[0];
 		}
 
 	return $data;
@@ -183,7 +184,7 @@ function printr($array) {
 
 function get_job_list($limit = 10, $offset) {
 	$link = mysqliconn();
-	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` DESC, `time_submitted` DESC LIMIT $limit OFFSET $offset";
+	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` ASC, `time_submitted` ASC LIMIT $limit OFFSET $offset";
 
 	if(!$result = $link->query($sql)) die('There was an error running the get_job_list query [' . $link->error . ']');
 
@@ -223,7 +224,7 @@ function get_job_report_data($limit = 10, $offset) {
 	FROM `job_table`
 	LEFT JOIN `customer_table`
 	ON `job_table`.`customer_id` = `customer_table`.`customer_id`
-	ORDER BY `date_submitted` DESC, `time_submitted` DESC
+	ORDER BY `date_submitted` ASC, `time_submitted` ASC
 	LIMIT $limit
 	OFFSET $offset";
 
@@ -329,7 +330,7 @@ function create_test_data($numCreate = 10){
 				$yesno = ['yes', 'no'];
 				$randAdditonal = $yesno[rand(0,1)];
 
-				//`customer_id`,`product_name`, `job_number`, `job_notes`, `job_description`, `charger`, `battery`, `storage`, `date_submitted`, `time_submitted`, `work_done`, `parts_used`, `job_price`, `last_updated`, `progress`,`urgency`
+				//`customer_id`,`product_name`, `job_number`, `job_notes`, `job_description`, `charger`, `bag`, `storage`, `date_submitted`, `time_submitted`, `work_done`, `parts_used`, `job_price`, `last_updated`, `progress`,`urgency`
 				$jobSQL = "INSERT INTO `job_table` VALUES ('$customerID', 'Dummy Product $i', '$lastJobID', 'This is some dummy job notes', 'This is some dummy job description', '$randAdditonal', '$randAdditonal', '$randAdditonal', '$randDate', '$randTime', '', '', '', '$curUpdate', '$randProgres', '$randUrgency')";
 				if($result = $link->query($jobSQL)) {
 					$jobsAdded++;

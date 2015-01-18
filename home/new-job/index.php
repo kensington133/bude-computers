@@ -67,10 +67,10 @@
                     </div>
                 </div>
                 <div class="small-4 columns text-center">
-                    <h6>Battery</h6>
+                    <h6>Bag</h6>
                     <div class="switch large">
-                        <input id="batterySwitch" name="battery" type="checkbox">
-                        <label for="batterySwitch"></label>
+                        <input id="bagSwitch" name="bag" type="checkbox">
+                        <label for="bagSwitch"></label>
                     </div>
                 </div>
                 <div class="small-4 columns text-center">
