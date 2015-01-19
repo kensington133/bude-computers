@@ -125,40 +125,111 @@ function search($search) {
 	$link = mysqliconn();
 
 	$searchterms = explode(' ', $search);
-	$columns = array(
-		'contact_name',
-		'contact_address',
-		'contact_phone',
-		'contact_email',
+	$datesToSearch = [];
+	$termsToSearch = [];
+
+	$textColumns = [
+		'job_number',
+		'customer_name',
+		'customer_address',
+		'customer_phone',
+		'customer_email',
 		'product_name',
-		'date_submitted',
 		'work_done',
-		'parts_used',
-		'job_price',
+		'parts_used'
+	];
+
+	$dateColumns = [
+		'date_submitted',
+		'time_submitted',
 		'last_updated'
-	);
+	];
 
+	foreach ($searchterms as $term) {
+		/*
+			change `/` to `-` as 11/12/15
+			12 November, 2015 for Americans
+			11th December 2015 for everyone else
+		*/
+		$updated = str_replace('/', '-', $term);
+
+		if(strtotime($updated) !== false){
+			$date = new DateTime($updated);
+			$timeStamp = $date->format('Y-m-d');
+			array_push($datesToSearch, $timeStamp);
+		} else {
+			array_push($termsToSearch, $term);
+		}
+	}
+
+	if(count($termsToSearch) > 0){
+
+		$textSQL = "SELECT `job_table`.`job_number`, `customer_table`.`customer_name`, `job_table`.`date_submitted`
+				FROM `job_table`
+					LEFT JOIN `customer_table`
+					ON `job_table`.`customer_id` = `customer_table`.`customer_id`";
 		$i = 0;
-		$sql = "SELECT `job_number`,`contact_name`,`date_submitted` FROM `job_table`";
+		foreach ($textColumns as $column) {
+			foreach($termsToSearch as $term){
 
-		foreach ($columns as $column) {
-			$i++;
-			if($i === 1){
-				$sql .= " WHERE `$column` LIKE '%$search%' ";
-			} else {
-				$sql .= " OR `$column` LIKE '%$search%' ";
+				if($i === 0){
+					$textSQL .= " WHERE `$column` LIKE '%$term%' ";
+				} else {
+					$textSQL .= "OR `$column` LIKE '%$term%' ";
+				}
+				$i++;
+			}
+
+		}
+
+		$textSQL .= "ORDER BY `job_number` ASC";
+
+		if(!$result = $link->query($textSQL)) die('There was an error running the text search query [' . $link->error . ']');
+
+		while ($row = $result->fetch_assoc()) {
+			$data1[] = $row;
+		}
+
+	}
+
+	if(count($datesToSearch) > 0){
+		$dateSQL = "SELECT `job_table`.`job_number`, `customer_table`.`customer_name`, `job_table`.`date_submitted`
+				FROM `job_table`
+					LEFT JOIN `customer_table`
+					ON `job_table`.`customer_id` = `customer_table`.`customer_id`";
+				$z = 0;
+				foreach ($dateColumns as $column) {
+					foreach($datesToSearch as $date) {
+						if($z === 0){
+							$dateSQL .= " WHERE `$column` LIKE '%$date%' ";
+						} else {
+							$dateSQL .= "OR `$column` LIKE '%$date%' ";
+						}
+						$z++;
+					}
+				}
+
+		if(!$result = $link->query($dateSQL)) die('There was an error running the date search query [' . $link->error . ']');
+
+		while ($row = $result->fetch_assoc()) {
+			$data2[] = $row;
+		}
+	}
+
+	if((count($data1) > 0) && (count($data2) > 0)){
+		$data = $data1 + $data2;
+	} else {
+		if(count($data1) > 0){
+			$data = $data1;
+		} else {
+			if(count($data2) > 0) {
+				$data = $data2;
 			}
 		}
 
-		$sql .= "ORDER BY `job_number` ASC";
+	}
 
-		if(!$result = $link->query($sql)) die('There was an error running the first search query [' . $link->error . ']');
-
-		while ($row = $result->fetch_assoc()) {
-			$data[] = $row;
-		}
-
-		return $data;
+	return $data;
 
 	$link->close();
 }

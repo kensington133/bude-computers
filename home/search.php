@@ -25,7 +25,7 @@
 			<form action="search.php" method="POST">
 				<div class="row collapse">
 					<div class="small-10 columns">
-						<input type='text'  <?php if($_GET['e'] == '2') echo "class='error'";?> placeholder="Search Jobs" name="search" />
+						<input type='text'  <?php if($_GET['e'] == '2') echo "class='error'";?> placeholder="Search Jobs - Please use the full date representation e.g. <?php echo date('d/m/Y'); ?> and not <?php echo date('d/m/y'); ?>" name="search" />
 						<?php if($_GET['e'] == '1') echo "<small class='error'></small>"; ?>
 					</div>
 					<div class="small-2 columns">
@@ -50,9 +50,15 @@
 
 							if($job_number != "") {
 								if(($job_number >= $min) && ($job_number <= $max)) {
-									echo "<div class='panel'>";
-										echo "<h5>".ucwords($r['contact_name'])." - ". date('l jS \of F Y', strtotime($r['date_submitted']))."</h5>";
-										echo "<p>&raquo;<a href='/home/jobs/index.php?id=".$job_number."'>View Job</a></p>";
+									echo "<div class='panel' style='overflow: hidden;'>";
+										echo "<div class='large-10 medium-10 columns'>";
+											echo "<h5>Job ".$job_number."</h5>";
+											echo "<h5>".ucwords($r['customer_name'])." - ". date('l jS \of F Y', strtotime($r['date_submitted']))."</h5>";
+											echo "<a href='/home/jobs/index.php?id=".$job_number."'>View Job &raquo;</a>";
+										echo "</div>";
+											echo "<div class='large-2 medium-2 columns'>";
+												echo "<a class='button small' style='margin-top: 10px;' href='/home/jobs/index.php?id=".$r['job_number']."'>View Job <i class='fa fa-angle-double-right'></i></a>";
+											echo "</div>";
 									echo "</div>";
 								}
 							}

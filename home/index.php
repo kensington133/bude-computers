@@ -35,26 +35,15 @@
 
 			<a	class='button large expand' href="jobs/" title='View existing jobs'>Existing <br /> Jobs</a>
 
-			<form action="gotojob.php" method="POST">
-				<div class="row collapse">
-					<div class="small-8 columns">
-						<input type='number' pattern='[0-9]*'  <?php if($_GET['e'] == '1') echo "class='error'";?> placeholder="Job ID" name="job_number" />
-						<?php if($_GET['e'] == '1') echo "<small class='error'>Please provide a valid job ID</small>"; ?>
-					</div>
-					<div class="small-4 columns">
-						<input type="submit" class="button prefix" value='Go' />
-					</div>
-				</div>
-			</form>
-
 			<div data-alert class="alert-box warning">
-				Notice: To search for a date, use the format yyyy-mm-dd or just yyyy or yyyy-mm etc...
+				Notice: When searching for dates please use the full date representation e.g. <?php echo date('d/m/Y'); ?> and not <?php echo date('d/m/y'); ?>
 				<a href="#" class="close">&times;</a>
 			</div>
+
 			<form action="search.php" method="POST">
 				<div class="row collapse">
 					<div class="small-8 columns">
-						<input type='text'  <?php if($_GET['e'] == '2') echo "class='error'";?> placeholder="Search Jobs" name="search" />
+						<input type='text'  <?php if($_GET['e'] == '2') echo "class='error'";?> placeholder="Please use the full date e.g. <?php echo date('Y'); ?> not <?php echo date('y'); ?>" name="search" />
 						<?php if($_GET['e'] == '1') echo "<small class='error'></small>"; ?>
 					</div>
 					<div class="small-4 columns">
