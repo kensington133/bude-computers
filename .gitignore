@@ -16,3 +16,6 @@ Icon
 
 #config file
 funcs/config.php
+
+#foundation files
+/bower_components/*
