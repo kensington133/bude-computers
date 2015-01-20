@@ -18,5 +18,4 @@ Icon
 funcs/config.php
 
 #foundation files
-/bower_components/*
 /.sass-cache/*
