@@ -92,23 +92,27 @@
 		<div id="not-started">
 			<h3>Not Started</h3>
 			<?php
-				foreach ($notStarted as $nsJob) {
-					echo '<div class="panel">';
-						echo "<p>Job ID: $nsJob[job_number]</p>";
-						echo "<p>Date Submitted: ".nice_date($nsJob['datetime_submitted'], 'l jS \of F Y h:i:s A')."</p>";
-						$jobDate = new DateTime($nsJob['datetime_submitted']);
-						$curDate = new DateTime();
-						$interval = $jobDate->diff($curDate);
-						$daysBetween = $interval->format('%R%a days');
-						echo "<p>Days Since: $daysBetween</p>";
-					echo '</div>';
+				if(count($notStarted) > 0){
+					foreach ($notStarted as $nsJob) {
+						echo '<div class="panel">';
+							echo "<p>Job ID: $nsJob[job_number]</p>";
+							echo "<p>Date Submitted: ".nice_date($nsJob['datetime_submitted'], 'l jS \of F Y h:i:s A')."</p>";
+							$jobDate = new DateTime($nsJob['datetime_submitted']);
+							$curDate = new DateTime();
+							$interval = $jobDate->diff($curDate);
+							$daysBetween = $interval->format('%R%a days');
+							echo "<p>Days Since: $daysBetween</p>";
+						echo '</div>';
+					}
+				} else {
+					echo '<p>All jobs have been started on this page</p>';
 				}
 			?>
 		</div>
 		<div id="in-progress">
 			<h3>In Progress</h3>
-
 			<?php
+			if(count($inProgress) > 0){
 				foreach ($inProgress as $ipJob) {
 					echo '<div class="panel">';
 						echo "<p>Job ID: $ipJob[job_number]</p>";
@@ -120,6 +124,9 @@
 						echo "<p>Days Since: $daysBetween</p>";
 					echo '</div>';
 				}
+			} else {
+				echo '<p>No jobs in progress found!</p>';
+			}
 			?>
 		</div>
 		<ul class="button-group round even-5 hide-for-print">
