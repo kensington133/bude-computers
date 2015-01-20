@@ -1,7 +1,9 @@
 $(function() {
-	weeklyGraph();
-	monthlyGraph();
-	yearlyGraph();
+	if(window.location.pathname == '/home/job-stats/index.php' || window.location.pathname == '/home/job-stats/'){
+		weeklyGraph();
+		monthlyGraph();
+		yearlyGraph();
+	}
 	submitForm();
 });
 
@@ -11,7 +13,6 @@ function weeklyGraph(){
 		contentType: 'application/json;',
 		dataType: 'json',
 		success: function(data) {
-			console.log(data);
 			if(data !== 'error') {
 				$.plot("#weeklyGraph", [ data ], {
 					series: {
