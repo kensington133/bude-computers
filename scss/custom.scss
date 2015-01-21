@@ -29,3 +29,13 @@ input::-webkit-inner-spin-button {
 .fa-input {
   font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+.stripe {
+	padding-top: 20px;
+	@media screen and (max-width: 640px) {
+		padding-top: 0px;
+	}
+}
+
+.js-err {
+	display: none;
+}

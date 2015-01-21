@@ -1,5 +1,10 @@
 <?php
 	require_once '../funcs/init.php';
+	/* Stripe API */
+	require_once '../includes/stripe/Stripe.php';
+	Stripe::setApiKey("sk_test_0Sxn7xNw7OiqzZOIQZc9B7uM");
+	$stripePlans = Stripe_Plan::all();
+	$plans = $stripePlans['data'];
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -21,32 +26,125 @@
 	</nav>
 
 	<div class="row">
-		<div class="small-12 columns text-center">
-			<div class="small-12 text-center">
-				<img src="<?php echo $_LOGO ?>" alt="slide image">
-			</div>
+		<div class="small-12 medium-8 large-10 columns">
+			<h1>Create a System</h1>
+		</div>
+		<div class="small-12 medium-4 large-2 columns medium-text-right large-text-right">
+			<a href="https://stripe.com/" title="Secure payments powered by stripe!">
+				<img class="stripe" alt="Secure payments powered by stripe!" data-interchange="[/img/stripe.png, (default)], [/img/stripe@2x.png, (retina)]" required/>
+				<noscript><img class="stripe" src="/img/stripe.png"></noscript>
+			</a>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="small-10 small-centered columns">
-			<h1>New User</h1>
+		<div class="small-12 small-centered columns">
+			<?php if($_GET['e'] == 1) {
+					if(count($_SESSION['errors']) > 0){
+						echo '<div data-alert class="alert-box alert">';
+							foreach ($_SESSION['errors'] as $err) {
+								echo $err.'<br>';
+							}
+							echo '<a href="#" class="close">&times;</a>';
+						echo '</div>';
+				}
+			}
+			?>
 
-			<form action="register.php" method="POST">
-				<input type="text" <?php if(isset($_SESSION['errors']['username'])) echo 'class="error"'; ?> placeholder="Username" name="username" />
-				<?php if(isset($_SESSION['errors']['username'])) echo $_SESSION['errors']['username']; ?>
+			<form id="register" action="register.php" method="POST" data-abide="ajax">
 
-				<input type="email" <?php if(isset($_SESSION['errors']['email'])) echo 'class="error"'; ?> placeholder="Email" name="email" />
-				<?php if(isset($_SESSION['errors']['email'])) echo $_SESSION['errors']['email']; ?>
+				<div class="row">
+					<div class="small-12 medium-6 large-6 columns">
+						<fieldset>
+							<legend>Your Details</legend>
+							<input type="text" name="name" placeholder="Your name" <?php if($_SESSION['data']['name']) output_data($_SESSION['data']['name']); ?> required/>
+							<small class="error">Please provide your name</small>
 
-				<input type="password" <?php if(isset($_SESSION['errors']['password'])) echo 'class="error"'; ?> placeholder="Password" name="password" />
-				<?php if(isset($_SESSION['errors']['password'])) echo $_SESSION['errors']['password']; ?>
+							<input type="text" pattern="alpha_numeric" placeholder="Username" name="username" <?php if($_SESSION['data']['username']) output_data($_SESSION['data']['username']); ?> required/>
+							<small class="error">Please provide a valid user name</small>
 
-				<input type='number' <?php if(isset($_SESSION['errors']['shop_id'])) echo 'class="error"'; ?> pattern='[0-9]*' placeholder="Shop ID" name="shop_id" />
-				<?php if(isset($_SESSION['errors']['shop_id'])) echo $_SESSION['errors']['shop_id']; ?>
+							<input type="email" placeholder="Email" name="email" <?php if($_SESSION['data']['email']) output_data($_SESSION['data']['email']); ?> required/>
+							<small class="error">Please provide a valid email address</small>
 
-				<input type="submit" class="button expand" value="Save"/>
-				<small>Already registered? <a href="/">Click Here</a> to login!</small>
+							<input type="password" id="password" pattern="^[A-z0-9]+$" placeholder="Password" name="password" required/>
+							<small class="error">Please provide a password</small>
+
+							<input type="password" placeholder="Repeat Password" name="password2" data-equalto="password" required/>
+							<small class="error">Your passwords do not match</small>
+
+						</fieldset>
+					</div>
+
+					<div class="small-12 medium-6 large-6 columns">
+						<fieldset>
+							<legend>Shop Address</legend>
+
+							<input type="text" pattern="^[A-z0-9 ]+$" name="shop_name" placeholder="Shop Name" <?php if($_SESSION['data']['shopName']) output_data($_SESSION['data']['shopName']); ?> required/>
+							<small class="error">Please provide your shop's name</small>
+
+							<input type="text" name="address_line1" placeholder="Address" <?php if($_SESSION['data']['shopAddress']) output_data($_SESSION['data']['shopAddress']); ?> required/>
+							<small class="error">Please provide your shop address</small>
+
+							<input type="text" name="address_city" placeholder="City" <?php if($_SESSION['data']['shopCity']) output_data($_SESSION['data']['shopCity']); ?> required/>
+							<small class="error">Please provide the city your shop is located in</small>
+
+							<input type="text" name="address_state" placeholder="County" <?php if($_SESSION['data']['shopCounty']) output_data($_SESSION['data']['shopCounty']); ?> required/>
+							<small class="error">Please provide the county your shop is in</small>
+
+							<input type="text" name="address_zip" pattern="^[A-z]{2}[0-9]{2}( |)[0-9]{1}[A-z]{2}$" placeholder="Post Code" <?php if($_SESSION['data']['shopPostCode']) output_data($_SESSION['data']['shopPostCode']); ?> required/>
+							<small class="error">Please provide the post code of your shop e.e. AA111AA or AA11 1AA</small>
+
+						</fieldset>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="small-12 columns">
+						<div class="js-err">
+							<div data-alert class="alert-box alert">
+								<span class="err-text"></span>
+								<a href="#" class="close">&times;</a>
+							</div>
+						</div>
+						<fieldset>
+							<legend>Subscription &amp; Payment</legend>
+
+							<select name="plan" required>
+								<option value>Please choose...</option>
+								<?php
+									foreach($plans as $item){
+										$selected = ($item->id == $_SESSION['data']['plan'])? ' selected="selected" ': '';
+										echo '<option value="'.$item->id.'" '.$selected.'>'. money_format('%(10n', ($item->amount / 100)) .' per '. $item->interval .' - '. $item->name .'</option>';
+									}
+								?>
+							</select>
+							<small class="error">Please choose a subscription</small>
+
+							<input type="text" pattern="card" id="number" placeholder="Card Number" required/>
+							<small class="error">Please provide a valid card number</small>
+
+							<div class="small-12 medium-12 large-3 columns" style="padding: 0px;">
+								<input type="text" pattern="^[0-9]{2}$" id="exp_month" placeholder="Month of Expiry e.g. <?php echo date('m'); ?>" required />
+								<small class="error">Please provide the expiry month of your card e.g. <?php echo date('m'); ?></small>
+							</div>
+							<div class="small-12 medium-12 large-3 columns" style="padding: 0px;">
+								<input type="text" pattern="^(?:\d{2}){1,2}$" id="exp_year" placeholder="Year of Expiry e.g. <?php echo date('Y'); ?> or <?php echo date('y'); ?>" required />
+								<small class="error">Please provide the expiry year of your card e.g. <?php echo date('Y'); ?> or <?php echo date('y'); ?></small>
+							</div>
+							<div class="small-12 medium-12 large-3 medium-offset-3 columns" style="padding: 0px;">
+								<input type="text" pattern="^[0-9]{3}$" id="cvc" placeholder="Card Secutiry Code" required/>
+								<small class="error">Please provide the CVC or Security code of the card, it is the last 3 digits on the back of the card</small>
+							</div>
+						</fieldset>
+
+						<input type="submit" class="button expand" value="Get Started!" />
+						<small>Already registered? <a href="/">Click Here</a> to login!</small>
+
+					</div>
+				</div>
+
 			</form>
 		</div>
 	</div>

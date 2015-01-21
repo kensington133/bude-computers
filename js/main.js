@@ -5,6 +5,7 @@ $(function() {
 		yearlyGraph();
 	}
 	submitForm();
+	handleRegistrationForm();
 });
 
 function weeklyGraph(){
@@ -102,4 +103,50 @@ function submitForm(){
 	$('select[name="display"]').change( function(){
 		$(this).parent().submit();
 	});
+}
+
+function handleRegistrationForm(){
+	$('#register')
+	.on('invalid', function () {
+		var invalid_fields = $(this).find('[data-invalid]');
+		console.log(invalid_fields);
+	})
+	.on('valid', function () {
+		console.log('valid!');
+		Stripe.card.createToken({
+			number: $('#number').val(),
+			exp_month: $('#exp_month').val(),
+			exp_year: $('#exp_year').val(),
+			cvc: $('#cvc').val(),
+			name: $('#register input[name="name"]').val(),
+			address_line1: $('#register input[name="address_line1"]').val(),
+			address_city: $('#register input[name="address_city"]').val(),
+			address_state: $('#register input[name="address_state"]').val(),
+			address_zip: $('#register input[name="address_zip"]').val(),
+			address_country: 'GB'
+		}, stripeResponseHandler);
+	});
+}
+
+function stripeResponseHandler(status, response){
+	var $form = $('#register');
+
+	if (response.error) {
+		// Show the errors on the form
+		// $form.find('.payment-errors').text(response.error.message);
+		$('.err-text').text(response.error.message);
+		$('.js-err').fadeIn( function(){
+			// $("html, body").animate({ scrollTop: 0 }, "slow");
+		});
+
+		console.log(response.error.message);
+
+	} else {
+		// response contains id and card, which contains additional card details
+		var token = response.id;
+		// Insert the token into the form so it gets submitted to the server
+		$form.append($('<input type="hidden" name="stripeToken" />').val(token));
+		// and submit
+		$form.get(0).submit();
+	}
 }

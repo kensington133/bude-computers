@@ -9079,3 +9079,19 @@ input::-webkit-inner-spin-button {
 .fa-input {
   font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+/* line 32, ../scss/custom.scss */
+.stripe {
+  padding-top: 20px;
+}
+@media screen and (max-width: 640px) {
+  /* line 32, ../scss/custom.scss */
+  .stripe {
+    padding-top: 0px;
+  }
+}
+
+/* line 39, ../scss/custom.scss */
+.js-err {
+  display: none;
+}

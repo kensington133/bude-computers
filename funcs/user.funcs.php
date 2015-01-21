@@ -434,7 +434,7 @@ function get_job_count(){
 
 	$sql = "SELECT COUNT(*) FROM `job_table`";
 
-	if(!$result = $link->query($sql)) die('There was an error running the get_graph_data query [' . $link->error . ']');
+	if(!$result = $link->query($sql)) die('There was an error running the get_job_count query [' . $link->error . ']');
 
 	while ($row = $result->fetch_row()) {
 		$data = $row[0];
@@ -443,4 +443,26 @@ function get_job_count(){
 	return $data;
 
 	$link->close();
+}
+
+function get_highest_shop_id(){
+	$link = mysqliconn();
+
+	$sql = "SELECT max(`shop_id`) FROM `users_table`";
+
+	if(!$result = $link->query($sql)) die('There was an error running the get_all_shop_ids query [' . $link->error . ']');
+
+	while ($row = $result->fetch_row()) {
+		$data = $row[0];
+	}
+
+	return $data;
+
+	$link->close();
+}
+
+function output_data($data){
+	if($data !== ''){
+		echo ' value="'.$data.'" ';
+	}
 }
