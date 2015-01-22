@@ -18,20 +18,31 @@
             <li class="has-dropdown">
                 <a href="/home/job-reports/"><i class="fa fa-book"></i> Job Reports</a>
                 <ul class="dropdown">
-                    <li><a href="/home/job-reports/index.php#not-started">Not Started</a></li>
+                    <li><a href="/home/job-reports/#not-started">Not Started</a></li>
                     <li class="divider"></li>
-                    <li><a href="/home/job-reports/index.php#in-progress">In Progress</a></li>
+                    <li><a href="/home/job-reports/#in-progress">In Progress</a></li>
                 </ul>
             </li>
             <li class="divider"></li>
             <li class="has-dropdown">
                 <a href="/home/job-stats/"><i class="fa fa-bar-chart"></i> Job Stats</a>
                 <ul class="dropdown">
-                    <li><a href="/home/job-stats/index.php#weekly">Weekly</a></li>
+                    <li><a href="/home/job-stats/#weekly">Weekly</a></li>
                     <li class="divider"></li>
-                    <li><a href="/home/job-stats/index.php#monthly">Monthly</a></li>
+                    <li><a href="/home/job-stats/#monthly">Monthly</a></li>
                     <li class="divider"></li>
-                    <li><a href="/home/job-stats/index.php#yearly">Yearly</a></li>
+                    <li><a href="/home/job-stats/#yearly">Yearly</a></li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li class="has-dropdown">
+                <a href="/home/user/"><i class="fa fa-user"></i> User Area</a>
+                <ul class="dropdown">
+                    <li><a href="/home/user/#your-info">Your Info</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/home/user/#create-user">Create New</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/home/user/#mange-users">Manage Users</a></li>
                 </ul>
             </li>
             <li class="divider"></li>

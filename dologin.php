@@ -16,7 +16,7 @@
 
 				$link = mysqliconn();
 
-				$sql = "SELECT `id`, `username`, `password` FROM `users_table` WHERE `username`='". $uname ."' LIMIT 1";
+				$sql = "SELECT `id`, `username`, `password`,`user_level` FROM `users_table` WHERE `username`='". $uname ."' LIMIT 1";
 
 				if(!$result = $link->query($sql)) die('There was an error running the user query [' . $link->error . ']');
 
@@ -29,6 +29,7 @@
 				if (password_verify($pword, $login_data['password'])){
 					unset($_SESSION['errors']);
 					$_SESSION['userid'] = $login_data['id'];
+					$_SESSION['userlevel'] = $login_data['user_level'];
 					header('Location: /home/');
 					exit();
 				} else {

@@ -1,11 +1,12 @@
 <?php
 
 function is_loggedin() {
-	if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	if( (ctype_digit($_SESSION['userid'])) && ($_SESSION['userlevel'] > 0)){
 		return true;
 	} else {
-		return ctype_digit($_SESSION['userid']);
+		return false;
 	}
+	// return ctype_digit($_SESSION['userid']);
 }
 
 function get_lastjob($id) {
@@ -465,4 +466,20 @@ function output_data($data){
 	if($data !== ''){
 		echo ' value="'.$data.'" ';
 	}
+}
+
+function get_user_info($id){
+	$link = mysqliconn();
+
+	$sql = "SELECT `name`,`username`,`email`,`shop_id`,`stripe_id` FROM `users_table` WHERE id = $id";
+
+	if(!$result = $link->query($sql)) die('There was an error running the get_user_info query [' . $link->error . ']');
+
+	while ($row = $result->fetch_assoc()) {
+		$data = $row;
+	}
+
+	return $data;
+
+	$link->close();
 }

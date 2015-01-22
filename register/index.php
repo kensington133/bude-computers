@@ -116,7 +116,7 @@
 								<?php
 									foreach($plans as $item){
 										$selected = ($item->id == $_SESSION['data']['plan'])? ' selected="selected" ': '';
-										echo '<option value="'.$item->id.'" '.$selected.'>'. money_format('%(10n', ($item->amount / 100)) .' per '. $item->interval .' - '. $item->name .'</option>';
+										echo '<option value="'.$item->id.'" '.$selected.'>&pound;'. money_format('%!n', ($item->amount / 100)) .' per '. $item->interval .' - '. $item->name .'</option>';
 									}
 								?>
 							</select>
