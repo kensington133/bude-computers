@@ -145,6 +145,30 @@
 <div class="row">
 	<div class="small-12 columns">
 		<h3 id="create-user">Create New User</h3>
+		<form action="addUser.php" method="POST" data-abide>
+			<fieldset>
+				<input type="text" name="name" placeholder="Name of Employee" required />
+				<small class="error">Please provide an employee name.</small>
+
+				<input type="text" name="username" pattern="aplha_numeric" placeholder="Username for the Employee" required />
+				<small class="error">Please provide a username for the employee to log in with</small>
+
+				<input type="email" name="email" placeholder="Email of the Employee" required />
+				<small class="error">Please provide an email for the employee</small>
+
+				<input type="text" name="password" readonly="true" value="<?php echo generateRandomString(); ?>" />
+				<p class="text-center">Please take a note of this password, this is the password the new user will need to use in order to log in. (Case Sensitive)</p>
+
+				<select name="user_level" required>
+					<option value>Please choose...</option>
+					<option value="2">Technician</option>
+					<option value="1">Sales</option>
+				</select>
+				<div class="text-center">
+					<input type="submit" class="button" value="Add Employee" />
+				</div>
+			</fieldset>
+		</form>
 	</div>
 </div>
 
