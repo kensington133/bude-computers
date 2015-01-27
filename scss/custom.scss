@@ -1,3 +1,7 @@
+/* Foundation Imports */
+@import "foundation/components/panels";
+
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
 	-webkit-appearance:none;
@@ -38,4 +42,63 @@ input::-webkit-inner-spin-button {
 
 .js-err {
 	display: none;
+}
+
+/* Custom Panels */
+.high-urgency-panel {
+	@include panel(
+		// Sets the panel background color. Default: $panel-pg
+		// $bg:#f04124,
+		$bg:white,
+		// Sets the panel padding amount. Default: $panel-padding
+		$padding:20px,
+		// Sets the font color based on the darkness of the bg & resets header line-heights for panels. Default: $panel-header-adjust
+		$adjust:true
+	);
+	border-left: 3px solid #f04124;
+	border-right: 3px solid #f04124;
+}
+
+.medium-urgency-panel {
+	@include panel(
+		// Sets the panel background color. Default: $panel-pg
+		// $bg:#f08a24,
+		$bg:white,
+		// Sets the panel padding amount. Default: $panel-padding
+		$padding:20px,
+		// Sets the font color based on the darkness of the bg & resets header line-heights for panels. Default: $panel-header-adjust
+		$adjust:true
+	);
+	border-left: 3px solid #f08a24;
+	border-right: 3px solid #f08a24;
+}
+
+.low-urgency-panel {
+	@include panel(
+		// Sets the panel background color. Default: $panel-pg
+		// $bg:#43ac6a,
+		$bg:white,
+		// Sets the panel padding amount. Default: $panel-padding
+		$padding:20px,
+		// Sets the font color based on the darkness of the bg & resets header line-heights for panels. Default: $panel-header-adjust
+		$adjust:true
+	);
+	border-left: 3px solid #43ac6a;
+	border-right: 3px solid #43ac6a;
+}
+[class*="urgency-panel"] {
+	h6 {
+		font-weight: 500;
+		text-decoration: underline;
+		@media screen and (max-width: 1024px) {
+			margin-top: 10px;
+		}
+	}
+	@media screen and (max-width: 1024px) {
+		div{
+			&.columns:not(:last-child){
+				border-bottom: 1px solid #e3e3e3;
+			}
+		}
+	}
 }

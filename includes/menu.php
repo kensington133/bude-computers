@@ -15,6 +15,8 @@
             <li class="divider"></li>
             <li><a href="/home/job-list/"><i class="fa fa-list"></i> Job List</a></li>
             <li class="divider"></li>
+            <li><a href="/home/job-urgency/"><i class="fa fa-bell"></i> Job Urgency</a></li>
+            <li class="divider"></li>
             <li class="has-dropdown">
                 <a href="/home/job-reports/"><i class="fa fa-book"></i> Job Reports</a>
                 <ul class="dropdown">
@@ -35,16 +37,7 @@
                 </ul>
             </li>
             <li class="divider"></li>
-            <li class="has-dropdown">
-                <a href="/home/user/"><i class="fa fa-user"></i> User Area</a>
-                <ul class="dropdown">
-                    <li><a href="/home/user/#your-info">Your Info</a></li>
-                    <li class="divider"></li>
-                    <li><a href="/home/user/#create-user">Create New</a></li>
-                    <li class="divider"></li>
-                    <li><a href="/home/user/#mange-users">Manage Users</a></li>
-                </ul>
-            </li>
+            <li><a href="/home/user/"><i class="fa fa-user"></i> User Area</a></li>
             <li class="divider"></li>
             <li><a href="/logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
         </ul>

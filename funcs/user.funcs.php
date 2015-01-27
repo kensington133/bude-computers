@@ -484,12 +484,30 @@ function get_user_info($id){
 	$link->close();
 }
 
-function generateRandomString($length = 10) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
+function get_jobs_between_dates($start, $end){
+	$link = mysqliconn();
+
+	$sql = "SELECT
+			`customer_table`.`customer_name`,
+			`job_table`.`product_name`,
+			`job_table`.`job_description`,
+			CONCAT(`job_table`.`date_submitted`, ' ', `job_table`.`time_submitted`) AS `datetime_submitted`,
+			`job_table`.`last_updated`,
+			`job_table`.`progress`,
+			`job_table`.`urgency`
+			FROM `job_table`
+			LEFT JOIN `customer_table`
+			ON `job_table`.`customer_id` = `customer_table`.`customer_id`
+			WHERE (`job_table`.`date_submitted` BETWEEN '".$start."' AND '".$end."')
+			ORDER BY `job_table`.`urgency` DESC ";
+
+	if(!$result = $link->query($sql)) die('There was an error running the get_jobs_between_dates query [' . $link->error . ']');
+
+	while ($row = $result->fetch_assoc()) {
+		$data[] = $row;
+	}
+
+	return $data;
+
+	$link->close();
 }
