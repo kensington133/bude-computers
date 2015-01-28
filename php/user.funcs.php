@@ -1,14 +1,14 @@
 <?php
 
-function is_loggedin() {
+/*function is_loggedin() {
 	if((ctype_digit($_SESSION['userid'])) && ($_SESSION['userlevel'] > 0)){
 		return true;
 	} else {
 		return false;
 	}
-}
+}*/
 
-function get_lastjob($id) {
+/*function get_lastjob($id) {
 	$link = mysqliconn();
 
 	$sql = "SELECT `product_name`,`job_notes`,`job_description`,`urgency` FROM `job_table` WHERE `job_number`= $id";
@@ -40,7 +40,8 @@ function get_lastjob_alldata($id) {
 
 	$link->close();
 }
-
+*/
+/* WILL BE REDUNDANT AFTER JOINS ARE ADDED INTO FUNCS THAT CALL THIS AFTER THE ORIGINAL*/
 function get_customer_by_id($id) {
 	$link = mysqliconn();
 
@@ -57,7 +58,7 @@ function get_customer_by_id($id) {
 	$link->close();
 }
 
-function get_mostrecent_job() {
+/*function get_mostrecent_job() {
 	$link = mysqliconn();
 
 	// $sql = "SELECT * FROM `job_table` ORDER BY CONCAT(`date_submitted`, ' ', `time_submitted`) ASC LIMIT 1";
@@ -73,9 +74,9 @@ function get_mostrecent_job() {
 	return $data;
 
 	$link->close();
-}
+}*/
 
-function get_jobby_id($id) {
+/*function get_jobby_id($id) {
 	$link = mysqliconn();
 
 	$sql = "SELECT * FROM `job_table` WHERE `job_number` = " . $id;
@@ -90,9 +91,9 @@ function get_jobby_id($id) {
 	return $data;
 
 	$link->close();
-}
+}*/
 
-function nice_date($date, $format = '') {
+/*function nice_date($date, $format = '') {
 	if(!empty($date)) {
 		if(empty($format)){
 			return date('d/m/Y', strtotime($date));
@@ -104,7 +105,9 @@ function nice_date($date, $format = '') {
 		return 'n/a';
 	}
 }
+*/
 
+/* THE WAY THIS IS USED IS FLAWED - GETS LOWEST AND HIGHEST ID BUT IDS MAY NOT BE SEQUENTIAL!!! */
 function get_jobid_range() {
 	$link = mysqliconn();
 
@@ -121,7 +124,7 @@ function get_jobid_range() {
 	$link->close();
 }
 
-function search($search) {
+/*function search($search) {
 	$link = mysqliconn();
 
 	$searchterms = explode(' ', $search);
@@ -146,11 +149,11 @@ function search($search) {
 	];
 
 	foreach ($searchterms as $term) {
-		/*
-			change `/` to `-` as 11/12/15
-			12 November, 2015 for Americans
-			11th December 2015 for everyone else
-		*/
+
+		//	change `/` to `-` as 11/12/15
+		//	12 November, 2015 for Americans
+		//	11th December 2015 for everyone else
+
 		$updated = str_replace('/', '-', $term);
 
 		if(strtotime($updated) !== false){
@@ -232,9 +235,9 @@ function search($search) {
 	return $data;
 
 	$link->close();
-}
+}*/
 
-function getAllJobIDs() {
+/*function getAllJobIDs() {
 	$link = mysqliconn();
 	$sql = "SELECT `job_number` FROM `job_table`";
 
@@ -247,12 +250,13 @@ function getAllJobIDs() {
 	return $data;
 
 	$link->close();
-}
+}*/
 
-function printr($array) {
+/*function printr($array) {
 	echo "<pre>".print_r($array,true)."</pre>";
-}
+}*/
 
+/* WILL BE REDUNDANT WHEN JOB LIST PAGE QUERY IS CHANGED TO JOIN CUSTOMER TABLE AS WELL AS THE OUPUT JOB FUNC */
 function get_job_list($limit = 10, $offset) {
 	$link = mysqliconn();
 	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` ASC, `time_submitted` ASC LIMIT $limit OFFSET $offset";
@@ -268,7 +272,7 @@ function get_job_list($limit = 10, $offset) {
 	$link->close();
 }
 
-function get_jobtime_by_id($id) {
+/*function get_jobtime_by_id($id) {
 	$link = mysqliconn();
 
 	$sql = "SELECT `date_submitted`,`time_submitted` FROM `job_table` WHERE `job_number`= $id";
@@ -282,9 +286,9 @@ function get_jobtime_by_id($id) {
 	return $data;
 
 	$link->close();
-}
+}*/
 
-function get_job_report_data($limit = 10, $offset) {
+/*function get_job_report_data($limit = 10, $offset) {
 	$link = mysqliconn();
 
 	$sql = "SELECT
@@ -308,8 +312,9 @@ function get_job_report_data($limit = 10, $offset) {
 	return $data;
 
 	$link->close();
-}
+}*/
 
+/* WILL BE MODIFED WHEN GET_JOB_LIST() IS UPDATED WITH JOINS */
 function output_job_card($jobData, $customerData){
 	echo "<div class='panel' style='overflow: hidden;'>";
 		echo "<div class='large-10 medium-10 columns'>";
@@ -340,8 +345,8 @@ function get_graph_data(){
 	$link->close();
 }
 
-
-function create_test_data($numCreate = 10){
+/* NOT NEEDED ANY MORE - TEST DATA ALREADY IN SYSTEM */
+/*function create_test_data($numCreate = 10){
 
 	if(($numCreate < 1) || ($numCreate > count($names))){
 
@@ -427,9 +432,9 @@ function create_test_data($numCreate = 10){
 	} else {
 		echo 'Not enough names!';
 	}
-}
+}*/
 
-function get_job_count(){
+/*function get_job_count(){
 	$link = mysqliconn();
 
 	$sql = "SELECT COUNT(*) FROM `job_table`";
@@ -443,8 +448,9 @@ function get_job_count(){
 	return $data;
 
 	$link->close();
-}
+}*/
 
+/* TO BE ADDED TO THE REGISTER CLASS */
 function get_highest_shop_id(){
 	$link = mysqliconn();
 
@@ -461,12 +467,14 @@ function get_highest_shop_id(){
 	$link->close();
 }
 
+/* TO BE ADDED TO THE REGISTER CLASS */
 function output_data($data){
 	if($data !== ''){
 		echo ' value="'.$data.'" ';
 	}
 }
 
+/* TO BE ADDED TO THE USER CLASS */
 function get_user_info($id){
 	$link = mysqliconn();
 
@@ -483,7 +491,7 @@ function get_user_info($id){
 	$link->close();
 }
 
-function get_jobs_between_dates($start, $end){
+/*function get_jobs_between_dates($start, $end){
 	$link = mysqliconn();
 
 	$sql = "SELECT
@@ -509,4 +517,4 @@ function get_jobs_between_dates($start, $end){
 	return $data;
 
 	$link->close();
-}
+}*/

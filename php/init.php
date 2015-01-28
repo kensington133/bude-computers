@@ -10,5 +10,10 @@ setlocale(LC_MONETARY, 'en_GB');
 $_URL = "http://dev.heybenshort.co.uk";
 $_LOGO = "/img/logosupersmall.jpg";
 
-require_once 'config.php';
-require_once 'user.funcs.php';
+// require_once 'config.php';
+// require_once 'user.funcs.php';
+require_once 'classes/utils.php';
+require_once 'classes/db.php';
+require_once 'classes/jobFeature.php';
+
+$utils = new Utils();
