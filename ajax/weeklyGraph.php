@@ -1,5 +1,5 @@
 <?php
-	require_once '../funcs/init.php';
+	require_once '../php/init.php';
 	$job_data = get_graph_data();
 
 	$weekJobs = [];

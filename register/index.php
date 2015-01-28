@@ -1,5 +1,5 @@
 <?php
-	require_once '../funcs/init.php';
+	require_once '../php/init.php';
 	/* Stripe API */
 	require_once '../includes/stripe/Stripe.php';
 	Stripe::setApiKey("sk_test_0Sxn7xNw7OiqzZOIQZc9B7uM");

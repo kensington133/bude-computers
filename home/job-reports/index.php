@@ -1,5 +1,5 @@
 <?php
-	require_once '../../funcs/init.php';
+	require_once '../../php/init.php';
 
 	$google = filter_input(INPUT_GET, 'g', FILTER_VALIDATE_INT, array('options' => array('default' => -1)));
 

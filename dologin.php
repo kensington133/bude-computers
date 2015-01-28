@@ -1,5 +1,5 @@
 <?php
-	require_once 'funcs/init.php';
+	require_once 'php/init.php';
 
 	if($_POST){
 		if(isset($_POST['uname'],$_POST['pword'])){
