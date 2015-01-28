@@ -1,12 +1,11 @@
 <?php
 
 function is_loggedin() {
-	if( (ctype_digit($_SESSION['userid'])) && ($_SESSION['userlevel'] > 0)){
+	if((ctype_digit($_SESSION['userid'])) && ($_SESSION['userlevel'] > 0)){
 		return true;
 	} else {
 		return false;
 	}
-	// return ctype_digit($_SESSION['userid']);
 }
 
 function get_lastjob($id) {
