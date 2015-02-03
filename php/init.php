@@ -18,3 +18,4 @@ require_once 'classes/Register.php';
 require_once 'classes/jobFeature.php';
 
 $utils = new Utils();
+$register = new Register();

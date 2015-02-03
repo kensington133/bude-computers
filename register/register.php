@@ -1,12 +1,6 @@
 <?php
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
-	$register = new Register();
-
-	$utils->printr($register);
-
 	unset($_SESSION['errors'], $_SESSION['data']);
-
-	$utils->printr($_SESSION['errors']);
 
 	if($_POST){
 
@@ -15,7 +9,7 @@
 
 		/* User Details */
 		$name = $_SESSION['data']['name'] = $_POST['name'];
-		$username = $_SESSION['data']['username'] = $_POST['username'];
+		$userName = $_SESSION['data']['username'] = $_POST['username'];
 		$email = $_SESSION['data']['email'] = $_POST['email'];
 		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
@@ -32,6 +26,8 @@
 
 		$utils->printr($_POST);
 
-		// $register->registerUser($stripeCard, $chosenPlan , $email, $stripeCustomer, $name, $userName, $password, $shopName, $shopAddress, $shopCity, $shopCounty, $shopPostCode);
+		$register->registerUser($stripeCard, $chosenPlan, $email, $name, $userName, $password, $shopName, $shopAddress, $shopCity, $shopCounty, $shopPostCode);
+
+		$utils->printr($register);
 	}
 ?>

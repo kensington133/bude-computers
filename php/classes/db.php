@@ -79,7 +79,13 @@ class DB {
 	}
 
 	protected function insertData($sql){
-		return $this->dbLink->query($sql);
+		if(!$result = $this->dbLink->query($sql)) die('There was an error running the insertData query [' . $this->dbLink->error . ']');
+		return $result;
+	}
+
+	public function insertDataGetID($sql){
+		if(!$result = $this->dbLink->query($sql)) die('There was an error running the insertDataGetID query [' . $this->dbLink->error . ']');
+		return ($this->dbLink->insert_id);
 	}
 }//end of class
 

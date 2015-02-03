@@ -33,31 +33,28 @@ class Register extends db {
 
 	public function registerUser($stripeCard, $chosenPlan, $email, $name, $userName, $password, $shopName, $shopAddress, $shopCity, $shopCounty, $shopPostCode){
 
-		$this->$stripeCard = $stripeCard;
-		$this->$chosenPlan = $chosenPlan;
-		$this->$email = $email;
-		$this->$name = $name;
-		$this->$userName = $userName;
-		$this->$password = $password;
+		$this->stripeCard = $stripeCard;
+		$this->chosenPlan = $chosenPlan;
+		$this->email = $email;
+		$this->name = $name;
+		$this->userName = $userName;
+		$this->password = $password;
 		$this->shopName = $shopName;
-		$this->$shopddress = $shopddress;
-		$this->$shopCity = $shopCity;
-		$this->$shopCounty = $shopCounty;
-		$this->$shopPostCode = $shopPostCode;
+		$this->shopAddress = $shopAddress;
+		$this->shopCity = $shopCity;
+		$this->shopCounty = $shopCounty;
+		$this->shopPostCode = $shopPostCode;
 
-		if($this->createStripeCustomer() !== false){
-			if( ($this->$stripeCard) && ($this->$chosenPlan) && ($this->$email) ){
-				if($this->createStripeCustomer() === true){
-					if( ($this->name) && ($this->username) && ($this->password) && ($this->email) && ($this->stripeCustomer) ){
-						if($this->createUser() === true){
-							$this->managerID = $this->dbLink->insert_id;
-							if( ($this->shopName) && ($this->shopAddress) && ($this->shopCity) && ($this->shopCounty) && ($this->shopPostCode) ) {
-								if($this->createShop() === true){
-									if($this->errCount > 0){
-										$this->errorRedirect();
-									} else {
-										$this->successRedirect();
-									}
+		if( ($this->stripeCard) && ($this->chosenPlan) && ($this->email) ){
+			if($this->createStripeCustomer()){
+				if( ($this->name) && ($this->userName) && ($this->password) && ($this->email) && ($this->stripeCustomer) ){
+					if($this->managerID = $this->createUser()) {
+						if( ($this->shopName) && ($this->shopAddress) && ($this->shopCity) && ($this->shopCounty) && ($this->shopPostCode) ) {
+							if($this->createShop()){
+								if($this->errCount > 0){
+									$this->errorRedirect();
+								} else {
+									$this->successRedirect();
 								}
 							}
 						}
@@ -135,7 +132,7 @@ class Register extends db {
 		if($this->errCount === 0){
 			$this->stripeCustomer = $customer;
 		} else {
-			return false;
+			$this->errorRedirect();
 		}
 	}
 
@@ -160,14 +157,10 @@ class Register extends db {
 			"'.$this->newShopID.'"
 		)';
 
-		return $this->insertData($userSQL);
-
+		return $this->insertDataGetID($userSQL);
 	}
 
 	private function createShop(){
-
-		$highestID = $this->getHighestShopID();
-		$ID = ($highestID + 1);
 
 		$shopSQL = 'INSERT INTO `shop_table` VALUES
 		(

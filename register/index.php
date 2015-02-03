@@ -1,9 +1,6 @@
 <?php
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
-
-	$register = new Register();
 	$plans = $register->getAllStripePlans();
-	$utils->printr($register);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -121,19 +118,19 @@
 							</select>
 							<small class="error">Please choose a subscription</small>
 
-							<input type="text" pattern="card" id="number" placeholder="Card Number" required/>
+							<input type="text" pattern="card" id="number" placeholder="Card Number" value="4242424242424242" required/>
 							<small class="error">Please provide a valid card number</small>
 
 							<div class="small-12 medium-12 large-3 columns" style="padding: 0px;">
-								<input type="text" pattern="^[0-9]{2}$" id="exp_month" placeholder="Month of Expiry e.g. <?php echo date('m'); ?>" required />
+								<input type="text" pattern="^[0-9]{2}$" id="exp_month" placeholder="Month of Expiry e.g. <?php echo date('m'); ?>" value="02" required />
 								<small class="error">Please provide the expiry month of your card e.g. <?php echo date('m'); ?></small>
 							</div>
 							<div class="small-12 medium-12 large-3 columns" style="padding: 0px;">
-								<input type="text" pattern="^(?:\d{2}){1,2}$" id="exp_year" placeholder="Year of Expiry e.g. <?php echo date('Y'); ?> or <?php echo date('y'); ?>" required />
+								<input type="text" pattern="^(?:\d{2}){1,2}$" id="exp_year" placeholder="Year of Expiry e.g. <?php echo date('Y') + 1; ?> or <?php echo date('y') + 1; ?>" value="16" required />
 								<small class="error">Please provide the expiry year of your card e.g. <?php echo date('Y'); ?> or <?php echo date('y'); ?></small>
 							</div>
 							<div class="small-12 medium-12 large-3 medium-offset-3 columns" style="padding: 0px;">
-								<input type="text" pattern="^[0-9]{3}$" id="cvc" placeholder="Card Secutiry Code" required/>
+								<input type="text" pattern="^[0-9]{3}$" id="cvc" placeholder="Card Secutiry Code" value="123" required/>
 								<small class="error">Please provide the CVC or Security code of the card, it is the last 3 digits on the back of the card</small>
 							</div>
 						</fieldset>
