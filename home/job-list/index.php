@@ -2,10 +2,7 @@
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
-	if(!is_loggedin()) {
-		header('Location: /index.php');
-		exit();
-	}
+	$utils->isLoggedIn();
 
 	$totalJobs = get_job_count();
 	$numJobsDisplay = filter_input(INPUT_GET, 'display', FILTER_VALIDATE_INT, array('options' => array('default'   => 10, 'min_range' => 10)));

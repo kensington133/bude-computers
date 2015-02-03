@@ -1,10 +1,7 @@
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
-    if(!is_loggedin()) {
-        header('Location: ../../index.php');
-        exit();
-    }
+    $utils->isLoggedIn();
 
     $prevPage = $_SERVER['HTTP_REFERER'];
     $thisPage = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];

@@ -1,10 +1,7 @@
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
-    if(!is_loggedin()) {
-        header('Location: ../../index.php');
-        exit();
-    }
+    $utils->isLoggedIn();
 
     if(isset($_GET['id'])){
         $job_data = get_jobby_id($_GET['id']);

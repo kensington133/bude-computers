@@ -4,10 +4,7 @@
     $google = filter_input(INPUT_GET, 'g', FILTER_VALIDATE_INT, array('options' => array('default' => -1)));
 
     if($google === -1){
-        if(!is_loggedin()) {
-            header('Location: /index.php');
-            exit();
-        }
+        $utils->isLoggedIn();
     }
 
     $job_data = get_lastjob($_GET['jobID']);

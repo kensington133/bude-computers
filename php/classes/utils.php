@@ -1,10 +1,10 @@
 <?php
 class Utils{
-	public function is_loggedin() {
-		if((ctype_digit($_SESSION['userid'])) && ($_SESSION['userlevel'] > 0)){
-			return true;
-		} else {
-			return false;
+
+	public function isLoggedIn() {
+		if((!ctype_digit($_SESSION['userid'])) && ($_SESSION['userlevel'] < 0)){
+			header('Location: '.$_SERVER['DOCUMENT_ROOT'].'/index.php');
+			exit();
 		}
 	}
 

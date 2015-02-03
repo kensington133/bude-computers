@@ -2,10 +2,7 @@
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
-	if(!is_loggedin()) {
-		header('Location: /index.php');
-		exit();
-	}
+	$utils->isLoggedIn();
 
 	$tabToShow = $_GET['tab'];
 	$userInfo = get_user_info($_SESSION['userid']);

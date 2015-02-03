@@ -1,10 +1,7 @@
 <?php
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
-	if(!is_loggedin()) {
-		header('Location: ../index.php');
-		exit();
-	}
+	$utils->isLoggedIn();
 
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
 ?>

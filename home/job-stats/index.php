@@ -2,10 +2,7 @@
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
-	if(!is_loggedin()) {
-		header('Location: /index.php');
-		exit();
-	}
+	$utils->isLoggedIn();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->

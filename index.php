@@ -1,5 +1,5 @@
 <?php
-    require_once 'php/init.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->

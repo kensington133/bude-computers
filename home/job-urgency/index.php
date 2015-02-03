@@ -1,10 +1,7 @@
 <?php
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
-	if(!is_loggedin()) {
-		header('Location: /index.php');
-		exit();
-	}
+	$utils->isLoggedIn();
 
 	$start = new DateTime('last sunday');
 	$startWeek = $start->format('Y-m-d');

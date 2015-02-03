@@ -46,23 +46,20 @@ class Register extends db {
 		$this->shopPostCode = $shopPostCode;
 
 		if( ($this->stripeCard) && ($this->chosenPlan) && ($this->email) ){
-			if($this->createStripeCustomer()){
-				if( ($this->name) && ($this->userName) && ($this->password) && ($this->email) && ($this->stripeCustomer) ){
-					if($this->managerID = $this->createUser()) {
-						if( ($this->shopName) && ($this->shopAddress) && ($this->shopCity) && ($this->shopCounty) && ($this->shopPostCode) ) {
-							if($this->createShop()){
-								if($this->errCount > 0){
-									$this->errorRedirect();
-								} else {
-									$this->successRedirect();
-								}
-							}
+			$this->createStripeCustomer();
+			if( ($this->name) && ($this->userName) && ($this->password) && ($this->email) && (is_object($this->stripeCustomer)) ){
+				$this->createUser();
+				if(($this->managerID) && ($this->shopName) && ($this->shopAddress) && ($this->shopCity) && ($this->shopCounty) && ($this->shopPostCode) ) {
+					if($this->createShop()){
+						if($this->errCount > 0){
+							$this->errorRedirect();
+						} else {
+							$this->successRedirect();
 						}
 					}
 				}
 			}
 		}
-	}//end function
 
 	public function outputSessionData($data){
 		if($data !== ''){
@@ -85,29 +82,22 @@ class Register extends db {
 		try {
 			$customer = Stripe_Customer::create(array(
 				"description" => "Test customer for heybenshort.co.uk",
-				"card" => $this->stripeCard, // obtained with Stripe.js
 				"plan" => $this->chosenPlan,
 				"email" => $this->email
 			));
 		} catch(Stripe_CardError $e) {
-			// Since it's a decline, Stripe_CardError will be caught
 			$this->errCount++;
 			array_push($_SESSION['errors'], 'Sorry, Your card has been declined.');
 		} catch (Stripe_InvalidRequestError $e) {
-			// Invalid parameters were supplied to Stripe's API
 			$this->errCount++;
 			array_push($_SESSION['errors'], $this->generic);
 		} catch (Stripe_AuthenticationError $e) {
-			// Authentication with Stripe's API failed
-			// (maybe you changed API keys recently)
 			$this->errCount++;
 			array_push($_SESSION['errors'], $this->generic);
 		} catch (Stripe_ApiConnectionError $e) {
-			// Network communication with Stripe failed
 			$this->errCount++;
 			array_push($_SESSION['errors'], 'Unable to connect the Stripe, please try again. If this problem persists please contact me ASAP!');
 		} catch (Stripe_Error $e) {
-			// Display a very generic error to the user, and maybe send yourself an email
 			$this->errCount++;
 			array_push($_SESSION['errors'], $this->generic);
 			$body = $e->getJsonBody();
@@ -126,7 +116,6 @@ class Register extends db {
 
 		} catch (Exception $e) {
 			$this->errCount++;
-			// Something else happened, completely unrelated to Stripe
 			array_push($_SESSION['errors'], "Sorry, you've encountered an unknown error! Please try again.");
 		}
 		if($this->errCount === 0){
@@ -157,7 +146,7 @@ class Register extends db {
 			"'.$this->newShopID.'"
 		)';
 
-		return $this->insertDataGetID($userSQL);
+		$this->managerID = $this->insertDataGetID($userSQL);
 	}
 
 	private function createShop(){
@@ -170,7 +159,7 @@ class Register extends db {
 			"'. mysqli_real_escape_string($this->dbLink, $this->shopCounty) .'",
 			"'. mysqli_real_escape_string($this->dbLink, $this->shopPostCode) .'",
 			"'. $this->newShopID .'",
-			"'. $this->$managerID .'"
+			"'. $this->managerID .'"
 		)';
 
 		return $this->insertData($shopSQL);
