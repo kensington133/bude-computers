@@ -1,5 +1,5 @@
 <?php
-	require_once '../../php/init.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
 	if(!is_loggedin()) {
@@ -11,7 +11,7 @@
 	$userInfo = get_user_info($_SESSION['userid']);
 
 	/* Stripe API */
-	require_once '../../includes/stripe/Stripe.php';
+	require_once $_PATH.'/includes/stripe/Stripe.php';
 	Stripe::setApiKey("sk_test_0Sxn7xNw7OiqzZOIQZc9B7uM");
 	$user = Stripe_Customer::retrieve($userInfo['stripe_id']);
 	$subscriptions = $user->subscriptions->data;
@@ -24,11 +24,11 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
 	<title>User Area</title>
-	<?php require_once '../../includes/head.php'; ?>
+	<?php require_once $_PATH.'/includes/head.php'; ?>
 </head>
 <body>
 
-<?php require_once '../../includes/menu.php'; ?>
+<?php require_once $_PATH.'/includes/menu.php'; ?>
 <div class="row">
 	<div class="small-12 columns text-center">
 		<div class="small-12 text-center">
@@ -142,7 +142,7 @@
 	</div>
 </div>
 
-<?php require_once '../../includes/footer.php'; ?>
+<?php require_once $_PATH.'/includes/footer.php'; ?>
 
 </body>
 </html>

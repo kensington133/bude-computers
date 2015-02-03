@@ -1,10 +1,9 @@
 <?php
-	require_once '../php/init.php';
-	/* Stripe API */
-	require_once '../includes/stripe/Stripe.php';
-	Stripe::setApiKey("sk_test_0Sxn7xNw7OiqzZOIQZc9B7uM");
-	$stripePlans = Stripe_Plan::all();
-	$plans = $stripePlans['data'];
+	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
+
+	$register = new Register();
+	$plans = $register->getAllStripePlans();
+	$utils->printr($register);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -57,13 +56,13 @@
 					<div class="small-12 medium-6 large-6 columns">
 						<fieldset>
 							<legend>Your Details</legend>
-							<input type="text" name="name" placeholder="Your name" <?php if($_SESSION['data']['name']) output_data($_SESSION['data']['name']); ?> required/>
+							<input type="text" name="name" placeholder="Your name" <?php if($_SESSION['data']['name']) $register->outputSessionData($_SESSION['data']['name']); ?> required/>
 							<small class="error">Please provide your name</small>
 
-							<input type="text" pattern="alpha_numeric" placeholder="Username" name="username" <?php if($_SESSION['data']['username']) output_data($_SESSION['data']['username']); ?> required/>
+							<input type="text" pattern="alpha_numeric" placeholder="Username" name="username" <?php if($_SESSION['data']['username']) $register->outputSessionData($_SESSION['data']['username']); ?> required/>
 							<small class="error">Please provide a valid user name</small>
 
-							<input type="email" placeholder="Email" name="email" <?php if($_SESSION['data']['email']) output_data($_SESSION['data']['email']); ?> required/>
+							<input type="email" placeholder="Email" name="email" <?php if($_SESSION['data']['email']) $register->outputSessionData($_SESSION['data']['email']); ?> required/>
 							<small class="error">Please provide a valid email address</small>
 
 							<input type="password" id="password" pattern="^[A-z0-9]+$" placeholder="Password" name="password" required/>
@@ -79,19 +78,19 @@
 						<fieldset>
 							<legend>Shop Address</legend>
 
-							<input type="text" pattern="^[A-z0-9 ]+$" name="shop_name" placeholder="Shop Name" <?php if($_SESSION['data']['shopName']) output_data($_SESSION['data']['shopName']); ?> required/>
+							<input type="text" pattern="^[A-z0-9 ]+$" name="shop_name" placeholder="Shop Name" <?php if($_SESSION['data']['shopName']) $register->outputSessionData($_SESSION['data']['shopName']); ?> required/>
 							<small class="error">Please provide your shop's name</small>
 
-							<input type="text" name="address_line1" placeholder="Address" <?php if($_SESSION['data']['shopAddress']) output_data($_SESSION['data']['shopAddress']); ?> required/>
+							<input type="text" name="address_line1" placeholder="Address" <?php if($_SESSION['data']['shopAddress']) $register->outputSessionData($_SESSION['data']['shopAddress']); ?> required/>
 							<small class="error">Please provide your shop address</small>
 
-							<input type="text" name="address_city" placeholder="City" <?php if($_SESSION['data']['shopCity']) output_data($_SESSION['data']['shopCity']); ?> required/>
+							<input type="text" name="address_city" placeholder="City" <?php if($_SESSION['data']['shopCity']) $register->outputSessionData($_SESSION['data']['shopCity']); ?> required/>
 							<small class="error">Please provide the city your shop is located in</small>
 
-							<input type="text" name="address_state" placeholder="County" <?php if($_SESSION['data']['shopCounty']) output_data($_SESSION['data']['shopCounty']); ?> required/>
+							<input type="text" name="address_state" placeholder="County" <?php if($_SESSION['data']['shopCounty']) $register->outputSessionData($_SESSION['data']['shopCounty']); ?> required/>
 							<small class="error">Please provide the county your shop is in</small>
 
-							<input type="text" name="address_zip" pattern="^[A-z]{2}[0-9]{2}( |)[0-9]{1}[A-z]{2}$" placeholder="Post Code" <?php if($_SESSION['data']['shopPostCode']) output_data($_SESSION['data']['shopPostCode']); ?> required/>
+							<input type="text" name="address_zip" pattern="^[A-z]{2}[0-9]{2}( |)[0-9]{1}[A-z]{2}$" placeholder="Post Code" <?php if($_SESSION['data']['shopPostCode']) $register->outputSessionData($_SESSION['data']['shopPostCode']); ?> required/>
 							<small class="error">Please provide the post code of your shop e.e. AA111AA or AA11 1AA</small>
 
 						</fieldset>

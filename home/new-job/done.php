@@ -1,5 +1,5 @@
 <?php
-    require_once '../../php/init.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
     $google = filter_input(INPUT_GET, 'g', FILTER_VALIDATE_INT, array('options' => array('default' => -1)));
 
@@ -19,11 +19,11 @@
 <!--[if gt IE 8]> <!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
     <title>Create a New Job</title>
-    <?php require '../../includes/head.php'; ?>
+    <?php require $_PATH.'/includes/head.php'; ?>
 </head>
 <body>
 
-    <?php require_once '../../includes/menu.php'; ?>
+    <?php require_once $_PATH.'/includes/menu.php'; ?>
 
     <div class="row">
         <div class="small-12 columns text-center">
@@ -74,6 +74,6 @@
             <a id="print_button" class="print_button button large expand hide-for-print"><i class="fa fa-print"></i> Print</a>
         </div>
     </div>
-    <?php require_once '../../includes/footer.php' ?>
+    <?php require_once $_PATH.'/includes/footer.php' ?>
 </body>
 </html>

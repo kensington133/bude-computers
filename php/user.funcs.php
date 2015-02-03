@@ -42,7 +42,7 @@ function get_lastjob_alldata($id) {
 }
 */
 /* WILL BE REDUNDANT AFTER JOINS ARE ADDED INTO FUNCS THAT CALL THIS AFTER THE ORIGINAL*/
-function get_customer_by_id($id) {
+/*function get_customer_by_id($id) {
 	$link = mysqliconn();
 
 	$sql = "SELECT `customer_name`,`customer_email`,`customer_address`,`customer_phone` FROM `customer_table` WHERE `customer_id`= $id";
@@ -56,7 +56,7 @@ function get_customer_by_id($id) {
 	return $data;
 
 	$link->close();
-}
+}*/
 
 /*function get_mostrecent_job() {
 	$link = mysqliconn();
@@ -257,7 +257,7 @@ function get_jobid_range() {
 }*/
 
 /* WILL BE REDUNDANT WHEN JOB LIST PAGE QUERY IS CHANGED TO JOIN CUSTOMER TABLE AS WELL AS THE OUPUT JOB FUNC */
-function get_job_list($limit = 10, $offset) {
+/*function get_job_list($limit = 10, $offset) {
 	$link = mysqliconn();
 	$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` ASC, `time_submitted` ASC LIMIT $limit OFFSET $offset";
 
@@ -270,7 +270,7 @@ function get_job_list($limit = 10, $offset) {
 	return $data;
 
 	$link->close();
-}
+}*/
 
 /*function get_jobtime_by_id($id) {
 	$link = mysqliconn();
@@ -315,7 +315,7 @@ function get_job_list($limit = 10, $offset) {
 }*/
 
 /* WILL BE MODIFED WHEN GET_JOB_LIST() IS UPDATED WITH JOINS */
-function output_job_card($jobData, $customerData){
+/*function output_job_card($jobData, $customerData){
 	echo "<div class='panel' style='overflow: hidden;'>";
 		echo "<div class='large-10 medium-10 columns'>";
 			echo "<h5>".ucwords($customerData['customer_name'])." - ". date('l jS \of F Y', strtotime($jobData['date_submitted']))."</h5>";
@@ -327,9 +327,9 @@ function output_job_card($jobData, $customerData){
 			echo "</div>";
 		}
 	echo "</div>";
-}
+}*/
 
-function get_graph_data(){
+/*function get_graph_data(){
 	$link = mysqliconn();
 
 	$sql = "SELECT CONCAT(`date_submitted`, ' ', `time_submitted`) AS `date` FROM `job_table`";
@@ -343,7 +343,7 @@ function get_graph_data(){
 	return $data;
 
 	$link->close();
-}
+}*/
 
 /* NOT NEEDED ANY MORE - TEST DATA ALREADY IN SYSTEM */
 /*function create_test_data($numCreate = 10){
@@ -451,7 +451,7 @@ function get_graph_data(){
 }*/
 
 /* TO BE ADDED TO THE REGISTER CLASS */
-function get_highest_shop_id(){
+/*function get_highest_shop_id(){
 	$link = mysqliconn();
 
 	$sql = "SELECT max(`shop_id`) FROM `users_table`";
@@ -465,14 +465,14 @@ function get_highest_shop_id(){
 	return $data;
 
 	$link->close();
-}
+}*/
 
 /* TO BE ADDED TO THE REGISTER CLASS */
-function output_data($data){
+/*function output_data($data){
 	if($data !== ''){
 		echo ' value="'.$data.'" ';
 	}
-}
+}*/
 
 /* TO BE ADDED TO THE USER CLASS */
 function get_user_info($id){

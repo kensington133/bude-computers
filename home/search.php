@@ -1,16 +1,16 @@
 <?php
-	require_once '../php/init.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 	<title>Search Results</title>
-	<?php require_once '../includes/head.php'; ?>
+	<?php require_once $_PATH.'/includes/head.php'; ?>
 </head>
 <body>
 
-	<?php require_once '../includes/menu.php'; ?>
+	<?php require_once $_PATH.'/includes/menu.php'; ?>
 
 	<div class="row">
 		<div class="small-12 columns text-center">
@@ -68,6 +68,6 @@
 			?>
 		</div>
 	</div>
-	<?php require_once '../includes/footer.php'; ?>
+	<?php require_once $_PATH.'/includes/footer.php'; ?>
 </body>
 </html>

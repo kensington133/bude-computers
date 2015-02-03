@@ -32,6 +32,23 @@ class Utils{
 		}
 	}
 
+	/*
+	*	(array) $data - array of job data returned from database
+ 	*/
+	public function printJobCard($data){
+		echo "<div class='panel' style='overflow: hidden;'>";
+			echo "<div class='large-10 medium-10 columns'>";
+				echo "<h5>".ucwords($data['customer_name'])." - ". date('l jS \of F Y', strtotime($data['date_submitted']))."</h5>";
+				echo "<a href='/home/jobs/index.php?id=".$data['job_number']."'>View Job &raquo;</a>";
+			echo "</div>";
+			if($data['customer_phone']){
+				echo "<div class='large-2 medium-2 columns'>";
+					echo "<a class='button tiny' style='margin-top: 10px;' href='tel:".$data['customer_phone']."'>Call: ".$customerData['customer_phone']."</a>";
+				echo "</div>";
+			}
+		echo "</div>";
+	}
+
 }
 
 ?>

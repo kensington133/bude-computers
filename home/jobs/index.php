@@ -1,5 +1,5 @@
 <?php
-    require_once '../../php/init.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
     if(!is_loggedin()) {
         header('Location: ../../index.php');
@@ -49,11 +49,11 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
     <title>Existing Jobs</title>
-    <?php require_once '../../includes/head.php'; ?>
+    <?php require_once $_PATH.'/includes/head.php'; ?>
 </head>
 <body>
 
-    <?php include '../../includes/menu.php'; ?>
+    <?php include $_PATH.'/includes/menu.php'; ?>
     <div class="row">
         <div class="small-12 columns text-center">
             <div class="small-12 text-center">
@@ -192,6 +192,6 @@
             </form>
         </div>
     </div>
-    <?php require_once '../../includes/footer.php'; ?>
+    <?php require_once $_PATH.'/includes/footer.php'; ?>
 </body>
 </html>

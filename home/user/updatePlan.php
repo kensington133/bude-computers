@@ -1,6 +1,6 @@
 <?php
-	require_once '../../php/init.php';
-	require_once '../../includes/stripe/Stripe.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
+	require_once $_PATH.'/includes/stripe/Stripe.php';
 	Stripe::setApiKey("sk_test_0Sxn7xNw7OiqzZOIQZc9B7uM");
 
 

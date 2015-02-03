@@ -14,7 +14,7 @@ class DB {
 	/*
 	*	(string) $sql - MySQL query
 	*/
-	public function fetchRow($sql){
+	protected function fetchRow($sql){
 
 		if(!$result = $dbLink->query($sql)) die('There was an error running the fetchRow query [' . $dbLink->error . ']');
 
@@ -28,7 +28,7 @@ class DB {
 	/*
 	*	(string) $sql - MySQL query
 	*/
-	public function fetchAssoc($sql){
+	protected function fetchAssoc($sql){
 
 		if(!$result = $this->dbLink->query($sql)) die('There was an error running the fetchAssoc query [' . $this->dbLink->error . ']');
 
@@ -42,7 +42,7 @@ class DB {
 	/*
 	*	(string) $sql - MySQL query
 	*/
-	public function getSingleRow($sql){
+	protected function getSingleRow($sql){
 		if(!$result = $this->dbLink->query($sql)) die('There was an error running the getSingleRow query [' . $this->dbLink->error . ']');
 
 			while ($row = $result->fetch_assoc()) {
@@ -55,7 +55,7 @@ class DB {
 	/*
 	*	(string) $sql - MySQL query
 	*/
-	public function getFirstRowItems($sql){
+	protected function getFirstRowItems($sql){
 		if(!$result = $this->dbLink->query($sql)) die('There was an error running the getFirstRowItem query [' . $this->dbLink->error . ']');
 
 			while ($row = $result->fetch_row()) {
@@ -68,7 +68,7 @@ class DB {
 	/*
 	*	(string) $sql - MySQL query
 	*/
-	public function getFirstRowItem($sql){
+	protected function getFirstRowItem($sql){
 		if(!$result = $this->dbLink->query($sql)) die('There was an error running the getFirstRowItem query [' . $this->dbLink->error . ']');
 
 			while ($row = $result->fetch_row()) {
@@ -76,6 +76,10 @@ class DB {
 			}
 
 		return $data;
+	}
+
+	protected function insertData($sql){
+		return $this->dbLink->query($sql);
 	}
 }//end of class
 

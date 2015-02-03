@@ -1,0 +1,187 @@
+<?php
+require_once $_PATH.'/includes/stripe/Stripe.php';
+Stripe::setApiKey("sk_test_0Sxn7xNw7OiqzZOIQZc9B7uM");
+
+class Register extends db {
+
+	private $errCount = 0;
+	private $generic = 'There was an error processing your request, please try again.';
+	private $stripeCard;
+	private $chosenPlan;
+	private $email;
+	private $stripeCustomer;
+	private $name;
+	private $userName;
+	private $password;
+	private $shopName;
+	private $shopAddress;
+	private $shopCity;
+	private $shopCounty;
+	private $shopPostCode;
+	private $managerID;
+	private $newShopID;
+
+	public function __construct(){
+		parent::__construct();
+		$this->getNewShopID();
+	}
+
+	public function getAllStripePlans(){
+		$stripePlans = Stripe_Plan::all();
+		return $stripePlans['data'];
+	}
+
+	public function registerUser($stripeCard, $chosenPlan, $email, $name, $userName, $password, $shopName, $shopAddress, $shopCity, $shopCounty, $shopPostCode){
+
+		$this->$stripeCard = $stripeCard;
+		$this->$chosenPlan = $chosenPlan;
+		$this->$email = $email;
+		$this->$name = $name;
+		$this->$userName = $userName;
+		$this->$password = $password;
+		$this->shopName = $shopName;
+		$this->$shopddress = $shopddress;
+		$this->$shopCity = $shopCity;
+		$this->$shopCounty = $shopCounty;
+		$this->$shopPostCode = $shopPostCode;
+
+		if($this->createStripeCustomer() !== false){
+			if( ($this->$stripeCard) && ($this->$chosenPlan) && ($this->$email) ){
+				if($this->createStripeCustomer() === true){
+					if( ($this->name) && ($this->username) && ($this->password) && ($this->email) && ($this->stripeCustomer) ){
+						if($this->createUser() === true){
+							$this->managerID = $this->dbLink->insert_id;
+							if( ($this->shopName) && ($this->shopAddress) && ($this->shopCity) && ($this->shopCounty) && ($this->shopPostCode) ) {
+								if($this->createShop() === true){
+									if($this->errCount > 0){
+										$this->errorRedirect();
+									} else {
+										$this->successRedirect();
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}//end function
+
+	public function outputSessionData($data){
+		if($data !== ''){
+			echo ' value="'.$data.'" ';
+		}
+	}
+
+	private function errorRedirect(){
+		header('Location: index.php?e=1');
+		exit();
+	}
+
+	private function successRedirect(){
+		header('Location: /index.php?s=y');
+		exit();
+	}
+
+	private function createStripeCustomer(){
+
+		try {
+			$customer = Stripe_Customer::create(array(
+				"description" => "Test customer for heybenshort.co.uk",
+				"card" => $this->stripeCard, // obtained with Stripe.js
+				"plan" => $this->chosenPlan,
+				"email" => $this->email
+			));
+		} catch(Stripe_CardError $e) {
+			// Since it's a decline, Stripe_CardError will be caught
+			$this->errCount++;
+			array_push($_SESSION['errors'], 'Sorry, Your card has been declined.');
+		} catch (Stripe_InvalidRequestError $e) {
+			// Invalid parameters were supplied to Stripe's API
+			$this->errCount++;
+			array_push($_SESSION['errors'], $this->generic);
+		} catch (Stripe_AuthenticationError $e) {
+			// Authentication with Stripe's API failed
+			// (maybe you changed API keys recently)
+			$this->errCount++;
+			array_push($_SESSION['errors'], $this->generic);
+		} catch (Stripe_ApiConnectionError $e) {
+			// Network communication with Stripe failed
+			$this->errCount++;
+			array_push($_SESSION['errors'], 'Unable to connect the Stripe, please try again. If this problem persists please contact me ASAP!');
+		} catch (Stripe_Error $e) {
+			// Display a very generic error to the user, and maybe send yourself an email
+			$this->errCount++;
+			array_push($_SESSION['errors'], $this->generic);
+			$body = $e->getJsonBody();
+			$err  = $body['error'];
+			$date = date('l jS \of F Y h:i:s A');
+			$message = "Looks like we had an error processing a payment here are some details\n\n
+				Name: ".$name."\n
+				Email: ".$email."\n
+				Plan: ".$chosenPlan."\n\n
+				Stripe Error Info:\n
+				HTTP Status ".$e->getHttpStatus()."\n
+				Code: ".$err['code']."\n
+				Params (can be empty): ".$err['param']."\n
+				Error Message: ".$err['message']."\n";
+			mail('ben@heybenshort.co.uk', "Stripe Payment Error! on ".$date, $message);
+
+		} catch (Exception $e) {
+			$this->errCount++;
+			// Something else happened, completely unrelated to Stripe
+			array_push($_SESSION['errors'], "Sorry, you've encountered an unknown error! Please try again.");
+		}
+		if($this->errCount === 0){
+			$this->stripeCustomer = $customer;
+		} else {
+			return false;
+		}
+	}
+
+	private function getNewShopID(){
+		$sql = "SELECT max(`shop_id`) FROM `users_table`";
+		$result = $this->getFirstRowItem($sql);
+		$newShopID = ($result + 1);
+		$this->newShopID = $newShopID;
+	}
+
+	private function createUser(){
+
+		$userSQL = 'INSERT INTO `users_table` VALUES
+		(
+			NULL,
+			"'. mysqli_real_escape_string($this->dbLink, $this->name) .'",
+			"'. mysqli_real_escape_string($this->dbLink, $this->username) .'",
+			"'. mysqli_real_escape_string($this->dbLink, $this->password) .'",
+			"'. mysqli_real_escape_string($this->dbLink, $this->email) .'",
+			"'. mysqli_real_escape_string($this->dbLink, $this->stripeCustomer->id) .'",
+			"3",
+			"'.$this->newShopID.'"
+		)';
+
+		return $this->insertData($userSQL);
+
+	}
+
+	private function createShop(){
+
+		$highestID = $this->getHighestShopID();
+		$ID = ($highestID + 1);
+
+		$shopSQL = 'INSERT INTO `shop_table` VALUES
+		(
+			"'. mysqli_real_escape_string($this->dbLink, $this->shopName).'",
+			"'. mysqli_real_escape_string($this->dbLink, $this->shopAddress) .'",
+			"'. mysqli_real_escape_string($this->dbLink, $this->shopCity) .'",
+			"'. mysqli_real_escape_string($this->dbLink, $this->shopCounty) .'",
+			"'. mysqli_real_escape_string($this->dbLink, $this->shopPostCode) .'",
+			"'. $this->newShopID .'",
+			"'. $this->$managerID .'"
+		)';
+
+		return $this->insertData($shopSQL);
+	}
+
+}
+?>

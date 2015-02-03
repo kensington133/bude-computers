@@ -1,5 +1,5 @@
 <?php
-	require_once '../../php/init.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
 	if(!is_loggedin()) {
 		header('Location: /index.php');
@@ -20,11 +20,11 @@
 <head>
 	<title>Job Live View</title>
 	<meta http-equiv="refresh" content="300" />
-	<?php require_once '../../includes/head.php'; ?>
+	<?php require_once $_PATH.'/includes/head.php'; ?>
 </head>
 <body>
 
-<?php require_once '../../includes/menu.php'; ?>
+<?php require_once $_PATH.'/includes/menu.php'; ?>
 <div class="row">
 	<div class="small-12 columns text-center">
 		<div class="small-12 text-center">
@@ -91,7 +91,7 @@
 	</div>
 </div>
 
-<?php require_once '../../includes/footer.php'; ?>
+<?php require_once $_PATH.'/includes/footer.php'; ?>
 
 </body>
 </html>

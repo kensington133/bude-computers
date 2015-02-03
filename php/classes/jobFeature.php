@@ -23,7 +23,11 @@ class jobFeature extends db {
 	}
 
 	public function getJobByID($id){
-		$sql = "SELECT * FROM `job_table` WHERE `job_number` = " . $id;
+		$sql = "SELECT * FROM `job_table`
+		LEFT JOIN `customer_table`
+		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
+		WHERE `job_table`.`job_number` = " . $id;
+
 		return $this->getSingleRow($sql);
 	}
 
@@ -70,8 +74,8 @@ class jobFeature extends db {
 
 			$textSQL = "SELECT `job_table`.`job_number`, `customer_table`.`customer_name`, `job_table`.`date_submitted`
 					FROM `job_table`
-						LEFT JOIN `customer_table`
-						ON `job_table`.`customer_id` = `customer_table`.`customer_id`";
+					LEFT JOIN `customer_table`
+					ON `job_table`.`customer_id` = `customer_table`.`customer_id`";
 			$i = 0;
 			foreach ($textColumns as $column) {
 				foreach($termsToSearch as $term){
@@ -134,7 +138,17 @@ class jobFeature extends db {
 	}
 
 	public function getJobListPage($limit = 10, $offset){
-		$sql = "SELECT `customer_id`,`job_number`,`date_submitted` FROM `job_table` ORDER BY `date_submitted` ASC, `time_submitted` ASC LIMIT $limit OFFSET $offset";
+		$sql = "SELECT
+		`job_table`.`customer_id`,
+		`job_table`.`job_number`,
+		`job_table`.`date_submitted`,
+		`customer_table`.`customer_name`,
+		`customer_table`.`customer_phone`
+		FROM `job_table`
+		LEFT JOIN `customer_table`
+		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
+		ORDER BY `date_submitted` ASC, `time_submitted` ASC LIMIT $limit OFFSET $offset";
+
 		return $this->fetchAssoc($sql);
 	}
 
