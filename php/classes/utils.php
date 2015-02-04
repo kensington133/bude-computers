@@ -2,8 +2,8 @@
 class Utils{
 
 	public function isLoggedIn() {
-		if((!ctype_digit($_SESSION['userid'])) && ($_SESSION['userlevel'] < 0)){
-			header('Location: '.$_SERVER['DOCUMENT_ROOT'].'/index.php');
+		if( (!$_SESSION['userid']) || ($_SESSION['userlevel'] < 0) ){
+			header('Location: /');
 			exit();
 		}
 	}

@@ -49,7 +49,7 @@ class Register extends db {
 			$this->createStripeCustomer();
 			if( ($this->name) && ($this->userName) && ($this->password) && ($this->email) && (is_object($this->stripeCustomer)) ){
 				$this->createUser();
-				if(($this->managerID) && ($this->shopName) && ($this->shopAddress) && ($this->shopCity) && ($this->shopCounty) && ($this->shopPostCode) ) {
+				if( ($this->managerID) && ($this->shopName) && ($this->shopAddress) && ($this->shopCity) && ($this->shopCounty) && ($this->shopPostCode) ) {
 					if($this->createShop()){
 						if($this->errCount > 0){
 							$this->errorRedirect();
@@ -60,6 +60,7 @@ class Register extends db {
 				}
 			}
 		}
+	}
 
 	public function outputSessionData($data){
 		if($data !== ''){
