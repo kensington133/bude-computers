@@ -5,16 +5,11 @@
 	$utils->isLoggedIn();
 
 	$tabToShow = $_GET['tab'];
-	$userInfo = get_user_info($_SESSION['userid']);
+	$userInfo = $user->getUserInfo($_SESSION['userid']);
 
-	/* Stripe API */
-	require_once $_PATH.'/includes/stripe/Stripe.php';
-	Stripe::setApiKey("sk_test_0Sxn7xNw7OiqzZOIQZc9B7uM");
-	$user = Stripe_Customer::retrieve($userInfo['stripe_id']);
-	$subscriptions = $user->subscriptions->data;
-
-	$stripePlans = Stripe_Plan::all();
-	$plans = $stripePlans['data'];
+	$stripeUser = $user->getStripeCustomer($userInfo['stripe_id']);
+	$subscriptions = $stripeUser->subscriptions->data;
+	$plans = $register->getAllStripePlans();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -37,8 +32,8 @@
 <div class="row">
 	<div class="small-12 columns">
 		<h1>User Area</h1>
-		<p>Hey <?php echo explode(' ', $userInfo['name'], 2)[0]; ?>, here your can change your plan type and user details, add new users to your shop and manage existing users</p>
-		<p>If you cancel you plan, your will be logged out after it's been cancelled and wont be able to log back in.</p>
+		<p>Hey <?php echo explode(' ', $userInfo['name'], 2)[0]; ?>, here your can change your plan type and user details.</p>
+		<p>If you cancel you plan, your will be logged out once it's been cancelled and wont be able to log back in.</p>
 	</div>
 </div>
 
@@ -50,7 +45,7 @@
 	<div class="large-3 columns">
 		<div class="panel callout">
 		<h5>Date Joined</h5>
-			<p><?php echo date('d/m/Y H:i', $user->created); ?></p>
+			<p><?php echo date('d/m/Y H:i', $stripeUser->created); ?></p>
 		</div>
 	</div>
 	<div class="large-3 columns">
@@ -95,7 +90,7 @@
 			echo '</div>';
 		}
 	?>
-	<?php if($user->subscriptions->total_count > 0): ?>
+	<?php if($stripeUser->subscriptions->total_count > 0): ?>
 		<?php foreach($subscriptions as $sub):
 			$planParts = explode(':', $sub->plan->name, 2);
 			$planName = $planParts[0];

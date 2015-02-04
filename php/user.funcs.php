@@ -475,7 +475,7 @@ function get_jobid_range() {
 }*/
 
 /* TO BE ADDED TO THE USER CLASS */
-function get_user_info($id){
+/*function get_user_info($id){
 	$link = mysqliconn();
 
 	$sql = "SELECT `name`,`username`,`email`,`shop_id`,`stripe_id` FROM `users_table` WHERE id = $id";
@@ -489,7 +489,7 @@ function get_user_info($id){
 	return $data;
 
 	$link->close();
-}
+}*/
 
 /*function get_jobs_between_dates($start, $end){
 	$link = mysqliconn();

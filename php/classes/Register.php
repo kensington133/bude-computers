@@ -83,6 +83,7 @@ class Register extends db {
 		try {
 			$customer = Stripe_Customer::create(array(
 				"description" => "Test customer for heybenshort.co.uk",
+				"card" => $this->stripeCard, // obtained with Stripe.js
 				"plan" => $this->chosenPlan,
 				"email" => $this->email
 			));
@@ -95,12 +96,14 @@ class Register extends db {
 		} catch (Stripe_AuthenticationError $e) {
 			$this->errCount++;
 			array_push($_SESSION['errors'], $this->generic);
+			// die('Stripe_AuthenticationError');
 		} catch (Stripe_ApiConnectionError $e) {
 			$this->errCount++;
 			array_push($_SESSION['errors'], 'Unable to connect the Stripe, please try again. If this problem persists please contact me ASAP!');
 		} catch (Stripe_Error $e) {
 			$this->errCount++;
 			array_push($_SESSION['errors'], $this->generic);
+			// die('Stripe_Error');
 			$body = $e->getJsonBody();
 			$err  = $body['error'];
 			$date = date('l jS \of F Y h:i:s A');
@@ -122,7 +125,7 @@ class Register extends db {
 		if($this->errCount === 0){
 			$this->stripeCustomer = $customer;
 		} else {
-			$this->errorRedirect();
+			// $this->errorRedirect();
 		}
 	}
 
@@ -139,7 +142,7 @@ class Register extends db {
 		(
 			NULL,
 			"'. mysqli_real_escape_string($this->dbLink, $this->name) .'",
-			"'. mysqli_real_escape_string($this->dbLink, $this->username) .'",
+			"'. mysqli_real_escape_string($this->dbLink, $this->userName) .'",
 			"'. mysqli_real_escape_string($this->dbLink, $this->password) .'",
 			"'. mysqli_real_escape_string($this->dbLink, $this->email) .'",
 			"'. mysqli_real_escape_string($this->dbLink, $this->stripeCustomer->id) .'",

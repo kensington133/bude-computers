@@ -130,22 +130,15 @@ function handleRegistrationForm(){
 
 function stripeResponseHandler(status, response){
 	var $form = $('#register');
-
 	if (response.error) {
 		// Show the errors on the form
-		// $form.find('.payment-errors').text(response.error.message);
 		$('.err-text').text(response.error.message);
-		$('.js-err').fadeIn( function(){
-			// $("html, body").animate({ scrollTop: 0 }, "slow");
-		});
-
-		console.log(response.error.message);
-
+		$('.js-err').fadeIn();
 	} else {
 		// response contains id and card, which contains additional card details
 		var token = response.id;
 		// Insert the token into the form so it gets submitted to the server
-		$form.append($('<input type="hidden" name="stripeToken" />').val(token));
+		$form.append($('<input type="hidden" class="test" name="stripeToken" />').val(token));
 		// and submit
 		$form.get(0).submit();
 	}
