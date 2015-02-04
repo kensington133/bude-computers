@@ -1,14 +1,16 @@
 <?php
+
 class DB {
 
 	protected $dbLink;
 
 	public function __construct(){
-		$this->dbLink = new mysqli('localhost', 'root', '5mbf1Q2q', 'final-project');
+		require_once $_SERVER['DOCUMENT_ROOT'].'/includes/config.inc.php';
+		$this->dbLink = new mysqli($config['host'], $config['user'], $config['password'], $config['database']);
 	}
 
 	public function __destruct(){
-		$this->dbLink->close();
+		// $this->dbLink->close();
 	}
 
 	/*
