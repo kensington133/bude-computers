@@ -1,12 +1,13 @@
 <?php
-	require_once '../php/init.php';
-	$job_data = get_graph_data();
+	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
+	$jobFeatures = new JobFeature();
+	$jobData = $jobFeatures->getGraphData();
 
 	$weekJobs = [];
 	$curDate = new DateTime();
 	$curWeek = $curDate->format('W');
 
-	foreach ($job_data as $job) {
+	foreach ($jobData as $job) {
 		$jobDate = new DateTime($job['date']);
 		$jobWeek = $jobDate->format('W');
 

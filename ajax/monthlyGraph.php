@@ -1,6 +1,7 @@
 <?php
-	require_once '../php/init.php';
-	$job_data = get_graph_data();
+	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
+	$jobFeatures = new JobFeature();
+	$jobData = $jobFeatures->getGraphData();
 
 	$stats = [
 		'January' => 0,
@@ -17,7 +18,7 @@
  		'December' => 0,
 	];
 
-	foreach ($job_data as $job) {
+	foreach ($jobData as $job) {
 		$jobDate = new DateTime($job['date']);
 		$jobMonth = $jobDate->format('n');
 
