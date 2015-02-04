@@ -2,7 +2,7 @@
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 	unset($_SESSION['errors']);
 
-	$job = new Job();
+	$job = new CreateJob();
 
 	if($_POST) {
 

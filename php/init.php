@@ -15,7 +15,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/php/classes/Utils.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/php/classes/db.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/php/classes/Register.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/php/classes/Login.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/php/classes/Job.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/php/classes/CreateJob.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/php/classes/UpdateJob.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/php/classes/JobFeature.php';
 
 $utils = new Utils();

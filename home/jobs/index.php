@@ -4,27 +4,23 @@
     $utils->isLoggedIn();
 
     if(isset($_GET['id'])){
-        $job_data = get_jobby_id($_GET['id']);
+        $jobData = $jobFeatures->getJobByID($_GET['id']);
     } else {
-        $job_data = get_mostrecent_job();
+        $jobData = $jobFeatures->getMostRecentJob();
     }
 
-     $job_ids = getAllJobIDs();
+    $jobIDs = $jobFeatures->getAllJobIDs();
 
-    if($job_data['customer_id']){
-        $customer_data = get_customer_by_id($job_data['customer_id']);
-    }
+    $maxid = $jobIDs[count($jobIDs) - 1];
+    $firstid = $jobIDs[0];
 
-    $maxid = $job_ids[count($job_ids) - 1];
-    $firstid = $job_ids[0];
-
-    foreach ($job_ids as $key => $value) {
-        if($value === $job_data['job_number']){
+    foreach ($jobIDs as $key => $value) {
+        if($value === $jobData['job_number']){
             $currentIDKey = $key;
         }
     }
 
-    foreach ($job_ids as $key => $value) {
+    foreach ($jobIDs as $key => $value) {
         if($key == ($currentIDKey - 1)){
             $previd = $value;
         }
@@ -33,11 +29,11 @@
         }
     }
 
-    if($job_data['job_number'] === $maxid){
-        $nextid = $job_ids[0];
+    if($jobData['job_number'] === $maxid){
+        $nextid = $jobIDs[0];
     }
 
-    if($job_data['job_number'] === $firstid){
+    if($jobData['job_number'] === $firstid){
         $previd = $maxid;
     }
 ?>
@@ -62,7 +58,7 @@
     <div class="row">
         <div class="small-12 columns">
             <h1 class="text-center">Existing Jobs</h1>
-            <h2 class="text-center"><?php echo nice_date($job_data['date_submitted']); ?> - <?php echo $job_data['time_submitted']; ?></h2>
+            <h2 class="text-center"><?php echo $utils->niceDate($jobData['date_submitted']); ?> - <?php echo $jobData['time_submitted']; ?></h2>
         </div>
     </div>
 
@@ -70,58 +66,58 @@
         <div class="small-12 columns small-centered">
             <form action="updatejob.php" method="POST">
                 <div class="small-12 columns">
-                    <?php $url = "done.php?id=".$job_data['job_number']; ?>
+                    <?php $url = "done.php?id=".$jobData['job_number']; ?>
                     <ul class="button-group even-4 round hide-for-print" style="margin-top: 25px;">
-                        <li><a href="/home/jobs/index.php?id=<?php echo $previd; ?>" class="button small"><i class="hide-for-small-only fa fa-angle-left"></i> Back</a></li>
+                        <li><a href="/home/jobs/?id=<?php echo $previd; ?>" class="button small"><i class="hide-for-small-only fa fa-angle-left"></i> Back</a></li>
                         <li><input type="submit" class="button small fa-input saveButton" value="&#61639; Save" /></li>
                         <li><a class="button small" href="<?php echo $url ?>"><i class="hide-for-small-only fa fa-print"></i> Print</a></li>
-                        <li><a href="/home/jobs/index.php?id=<?php echo $nextid; ?>" class="button small">Next <i class="hide-for-small-only fa fa-angle-right"></i></a></li>
+                        <li><a href="/home/jobs/?id=<?php echo $nextid; ?>" class="button small">Next <i class="hide-for-small-only fa fa-angle-right"></i></a></li>
                     </ul>
                 </div>
 
                 <div class="large-6 medium-6 small-12 columns">
                     <label for="customer_name">Name</label>
-                    <input type="text" name="customer_name" placeholder="Customer Name" value="<?php echo $customer_data['customer_name']; ?>" />
+                    <input type="text" name="customer_name" placeholder="Customer Name" value="<?php echo $jobData['customer_name']; ?>" />
 
                     <label for="customer_address">Address</label>
-                    <input type="text" name="customer_address" placeholder="Address" value="<?php echo $customer_data['customer_address']; ?>"/>
+                    <input type="text" name="customer_address" placeholder="Address" value="<?php echo $jobData['customer_address']; ?>"/>
 
                     <label for="customer_phone">Phone Number</label>
-                    <input type='number' pattern='[0-9]*' name="customer_phone" placeholder="Phone Number" value="<?php if($customer_data['customer_phone'] != '0') echo $customer_data['customer_phone']; ?>"/>
+                    <input type='number' pattern='[0-9]*' name="customer_phone" placeholder="Phone Number" value="<?php if($jobData['customer_phone'] != '0') echo $jobData['customer_phone']; ?>"/>
 
                     <label for="customer_email">Email Address</label>
-                    <input type="email" name="customer_email" placeholder="Email Address" value="<?php echo $customer_data['customer_email']; ?>"/>
+                    <input type="email" name="customer_email" placeholder="Email Address" value="<?php echo $jobData['customer_email']; ?>"/>
                 </div>
 
                 <div class="large-6 medium-6 small-12 columns">
                     <label for="product_name">Product Name</label>
-                    <input type="text" name="product_name" placeholder="Product Name" value="<?php echo $job_data['product_name']; ?>"/>
+                    <input type="text" name="product_name" placeholder="Product Name" value="<?php echo $jobData['product_name']; ?>"/>
 
                     <label for="job_notes">Notes</label>
-                    <textarea style='height:186px;' name="job_notes" placeholder='Notes'><?php echo $job_data['job_notes']; ?></textarea>
+                    <textarea style='height:186px;' name="job_notes" placeholder='Notes'><?php echo $jobData['job_notes']; ?></textarea>
                 </div>
 
                 <div class="small-12 columns">
                     <label for="job_description">Job Description</label>
-                    <textarea style='height:160px;' name="job_description" placeholder="Job Description"><?php echo $job_data['job_description']; ?></textarea>
+                    <textarea style='height:160px;' name="job_description" placeholder="Job Description"><?php echo $jobData['job_description']; ?></textarea>
 
                     <label for="work_done">Work Carried Out</label>
-                    <textarea style='height:160px;' name="work_done" placeholder="Work Carried Out"><?php echo $job_data['work_done']; ?></textarea>
+                    <textarea style='height:160px;' name="work_done" placeholder="Work Carried Out"><?php echo $jobData['work_done']; ?></textarea>
                 </div>
 
                 <div class="large-8 medium-8 small-12 columns">
                     <label for="parts_used">Parts Used</label>
-                    <textarea style='height:160px; max-width:100%;' name="parts_used" id="parts_used" placeholder="Parts Used" ><?php echo $job_data['parts_used']; ?></textarea>
+                    <textarea style='height:160px; max-width:100%;' name="parts_used" id="parts_used" placeholder="Parts Used" ><?php echo $jobData['parts_used']; ?></textarea>
                 </div>
 
                 <div class="large-4 medium-4 small-12 columns">
                     <label for="job_price">Price</label>
-                    <textarea style='height:160px;' name="job_price" id="job_price" placeholder="Price - inc VAT"><?php echo $job_data['job_price']; ?></textarea>
+                    <textarea style='height:160px;' name="job_price" id="job_price" placeholder="Price - inc VAT"><?php echo $jobData['job_price']; ?></textarea>
                 </div>
 
                 <div class="small-10 medium-11 columns" style="margin-bottom: 25px;">
                     <label>Urgency</label>
-                    <div class="range-slider" data-slider data-options="display_selector: #urgencyOutput; start: 1; end: 10; initial:<?php  echo $job_data['urgency']; ?>;">
+                    <div class="range-slider" data-slider data-options="display_selector: #urgencyOutput; start: 1; end: 10; initial:<?php  echo $jobData['urgency']; ?>;">
                         <span class="range-slider-handle" role="slider"></span>
                         <span class="range-slider-active-segment"></span>
                         <input type="hidden" name="urgency" id="urgency">
@@ -134,55 +130,55 @@
                 <div class="small-4 columns text-center">
                     <h6>Charger</h6>
                     <div class="switch large">
-                        <input id="chargerSwitch" name="charger" type="checkbox" <?php if($job_data['charger'] == 'yes') echo "checked"?>>
+                        <input id="chargerSwitch" name="charger" type="checkbox" <?php if($jobData['charger'] == 'yes') echo "checked"?>>
                         <label for="chargerSwitch"></label>
                     </div>
                 </div>
                 <div class="small-4 columns text-center">
                     <h6>Bag</h6>
                     <div class="switch large">
-                        <input id="bagSwitch" name="bag" type="checkbox" <?php if($job_data['bag'] == 'yes') echo "checked"?>>
+                        <input id="bagSwitch" name="bag" type="checkbox" <?php if($jobData['bag'] == 'yes') echo "checked"?>>
                         <label for="bagSwitch"></label>
                     </div>
                 </div>
                 <div class="small-4 columns text-center">
                     <h6>Storage</h6>
                     <div class="switch large">
-                        <input id="storageMedia" name="storage" type="checkbox" <?php if($job_data['storage'] == 'yes') echo "checked"?>>
+                        <input id="storageMedia" name="storage" type="checkbox" <?php if($jobData['storage'] == 'yes') echo "checked"?>>
                         <label for="storageMedia"></label>
                     </div>
                 </div>
 
-                <input type="hidden" name="job_number" value="<?php echo $job_data['job_number'];?>">
+                <input type="hidden" name="job_number" value="<?php echo $jobData['job_number'];?>">
 
                 <div class="small-4 columns text-center">
                     <h6>Not Started</h6>
                     <div class="switch large">
-                        <input type="radio" name="progress" value="0" id="notStarted" <?php if($job_data['progress'] == '0') echo "checked"?>>
+                        <input type="radio" name="progress" value="0" id="notStarted" <?php if($jobData['progress'] == '0') echo "checked"?>>
                         <label for="notStarted">Not Started</label>
                     </div>
                 </div>
                 <div class="small-4 columns text-center">
                     <h6>In Progress</h6>
                     <div class="switch large">
-                        <input type="radio" name="progress" value="1" id="inProgress" <?php if($job_data['progress'] == '1') echo "checked"?>>
+                        <input type="radio" name="progress" value="1" id="inProgress" <?php if($jobData['progress'] == '1') echo "checked"?>>
                         <label for="inProgress">In Progress</label>
                     </div>
                 </div>
                 <div class="small-4 columns text-center">
                     <h6>Completed</h6>
                     <div class="switch large">
-                        <input type="radio" name="progress" value="2" id="completed" <?php if($job_data['progress'] == '2') echo "checked"?>>
+                        <input type="radio" name="progress" value="2" id="completed" <?php if($jobData['progress'] == '2') echo "checked"?>>
                         <label for="completed">Completed</label>
                     </div>
                 </div>
 
                 <div class="small-12 columns text-center">
                     <ul class="button-group even-4 round hide-for-print" style="margin-top: 25px;">
-                        <li><a href="/home/jobs/index.php?id=<?php echo $previd; ?>" class="button small"><i class="hide-for-small-only fa fa-angle-left"></i> Back</a></li>
+                        <li><a href="/home/jobs/?id=<?php echo $previd; ?>" class="button small"><i class="hide-for-small-only fa fa-angle-left"></i> Back</a></li>
                         <li><input type="submit" class="button small fa-input saveButton" value="&#61639; Save" /></li>
                         <li><a class="button small" href="<?php echo $url ?>"><i class="hide-for-small-only fa fa-print"></i> Print</a></li>
-                        <li><a href="/home/jobs/index.php?id=<?php echo $nextid; ?>" class="button small">Next <i class="hide-for-small-only fa fa-angle-right"></i></a></li>
+                        <li><a href="/home/jobs/?id=<?php echo $nextid; ?>" class="button small">Next <i class="hide-for-small-only fa fa-angle-right"></i></a></li>
                     </ul>
                 </div>
 

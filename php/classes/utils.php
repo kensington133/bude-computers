@@ -48,7 +48,6 @@ class Utils{
 			}
 		echo "</div>";
 	}
-
 }
 
 ?>

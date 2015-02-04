@@ -87,6 +87,11 @@ class DB {
 		if(!$result = $this->dbLink->query($sql)) die('There was an error running the insertDataGetID query [' . $this->dbLink->error . ']');
 		return ($this->dbLink->insert_id);
 	}
+
+	public function updateData($sql){
+		if(!$result = $this->dbLink->query($sql)) die('There was an error running the updateData query [' . $this->dbLink->error . ']');
+		return $result;
+	}
 }//end of class
 
 ?>

@@ -20,7 +20,11 @@ class jobFeature extends db {
 	}
 
 	public function getMostRecentJob(){
-		$sql = "SELECT * FROM `job_table` WHERE `job_number` = (SELECT MAX(`job_number`) FROM `job_table` LIMIT 1) LIMIT 1";
+		$sql = "SELECT * FROM `job_table`
+		LEFT JOIN `customer_table`
+		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
+		WHERE `job_number` = (SELECT MAX(`job_number`) FROM `job_table` LIMIT 1) LIMIT 1";
+
 		return $this->getSingleRow($sql);
 	}
 
@@ -197,6 +201,16 @@ class jobFeature extends db {
 
 		return $this->fetchAssoc($sql);
 
+	}
+
+	public function getCustomerByID($id){
+		$sql = "SELECT `customer_name`,`customer_email`,`customer_address`,`customer_phone` FROM `customer_table` WHERE `customer_id`= $id";
+		return $this->getSingleRow($sql);
+	}
+
+	public function getUpdateJobData($id){
+		$sql = "SELECT * FROM `job_table` WHERE `job_number` = $id";
+		return $this->getSingleRow($sql);
 	}
 }//end of class
 

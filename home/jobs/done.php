@@ -7,7 +7,7 @@
         $utils->isLoggedIn();
     }
 
-    $job_data = get_lastjob_alldata($_GET['id']);
+    $jobData = $jobFeatures->getLastJob($_GET['id'], true);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -33,19 +33,52 @@
             <h1 class="hide-for-print">Print Job</h1>
             <?php
                 if(ctype_digit($_GET['id'])) {
-                    foreach ($job_data as $name => $value) {
-                        if(!empty($value)) {
-                            $boom = explode('_', $name);
-                            $namefull = $boom[0]. ' ' . $boom[1];
 
-                            if( ($namefull == "job description") || ($namefull == "job notes") ) {
-                                echo "<p>".ucwords($namefull).":<br />";
-                                echo nl2br($value) . "</p>";
-                            } else {
-                                echo "<p>".ucwords($namefull).": ".nl2br($value)."</p>";
-                            }
-                        }
+                    echo '<p>Job Number: '.$jobData['job_number'].'<p>';
+
+                    echo '<p>Submitted on: '. $utils->niceDate($jobData['date_submitted'], 'l jS \of F Y') .' at '. $utils->niceDate($jobData['time_submitted'], 'h:i A') .'<p>';
+
+                    if($jobData['last_updated']){
+                        echo '<p>Last Updated: '.$jobData['last_updated'].'</p>';
                     }
+
+                    echo '<p>Name: '. $jobData['customer_name'] .'</p>';
+
+                    echo '<p>Email: '. $jobData['customer_email'] . '</p>';
+
+                    echo '<p>Address: '. $jobData['customer_address'] . '</p>';
+
+                    echo '<p>Phone: '. $jobData['customer_phone'] . '</p>';
+
+                    echo '<p>Product Name: '. $jobData['product_name'] . '</p>';
+
+                    echo '<p>Job Notes: <br>'. nl2br($jobData['job_notes']) . '</p>';
+
+                    echo '<p>Job Description: <br>'. nl2br($jobData['job_description']) . '</p>';
+
+                    echo '<p>Job Urgency: '. $jobData['urgency'] . '</p>';
+
+                    if($jobData['work_done']){
+                        echo '<p>Work Done: '.$jobData['work_done'].'</p>';
+                    }
+
+                    if($jobData['parts_used']){
+                        echo '<p>Parts Used: '.$jobData['parts_used'].'</p>';
+                    }
+
+                    if($jobData['job_price']){
+                        echo '<p>Job Price: &pound;'.$jobData['job_price'].'</p>';
+                    }
+
+                    echo '<div class="small-4 columns" style="padding: 0px;">';
+                        echo '<p>Bag: '.ucwords($jobData['bag']).'</p>';
+                    echo '</div>';
+                    echo '<div class="small-4 columns" style="padding: 0px;">';
+                        echo '<p>Charger: '.ucwords($jobData['charger']).'</p>';
+                    echo '</div>';
+                    echo '<div class="small-4 columns" style="padding: 0px;">';
+                        echo '<p>Storage: '.ucwords($jobData['storage']).'</p>';
+                    echo '</div>';
                 }
             ?>
             <a id="print_button" class="print_button button large expand hide-for-print"><i class="fa fa-print"></i> Print</a>

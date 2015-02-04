@@ -1,5 +1,5 @@
 <?php
-class Job extends db {
+class CreateJob extends db {
 
 	private $contactName;
 	private $jobDescripion;
