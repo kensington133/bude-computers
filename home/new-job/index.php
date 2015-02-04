@@ -30,6 +30,14 @@
             <h1 class="text-center">Create a New Job</h1>
 
             <?php
+
+                if(isset($_SESSION['errors']['save'])){
+                    echo '<div data-alert class="alert-box alert">';
+                                echo $_SESSION['errors']['save'];
+                            echo '<a href="#" class="close">&times;</a>';
+                        echo '</div>';
+                }
+
                 if($_GET['s'] == 'y') $y = "success";
                 if( (isset($_SESSION['errors']['job_desc'])) || (isset($_SESSION['errors']['contact_name'])) ) $n = "disabled";
             ?>

@@ -8,7 +8,7 @@
 
 			$uname = $_SESSION['uname'] = $_POST['uname'];
 			$pword = $_POST['pword'];
-			$_SESSION['errors'] = array();
+			$_SESSION['errors'] = [];
 
 			$login->doLogin($uname, $pword);
 		}

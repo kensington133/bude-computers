@@ -2,14 +2,11 @@
     require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
 
     $google = filter_input(INPUT_GET, 'g', FILTER_VALIDATE_INT, array('options' => array('default' => -1)));
-
     if($google === -1){
         $utils->isLoggedIn();
     }
 
-    $job_data = get_lastjob($_GET['jobID']);
-    $job_times = get_jobtime_by_id($_GET['jobID']);
-    $customer_data = get_customer_by_id($_GET['customerID']);
+    $jobData = $jobFeatures->getLastJob($_GET['jobID']);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -32,36 +29,29 @@
 
     <div class="row">
         <div class="small-12 medium-6 large-6 columns small-centered">
-            <h1 class="hide-for-print">Create a New Job</h1>
+            <h1 class="hide-for-print">New Job</h1>
             <?php
                 if($_GET['s'] == 'y') {
 
                     echo '<p>Job Number: '.$_GET['jobID'].'<p>';
 
-                    echo '<p>Submitted on: '. nice_date($job_times['date_submitted'], 'l jS \of F Y') .' at '. nice_date($job_times['time_submitted'], 'h:i A') .'<p>';
+                    echo '<p>Submitted on: '. $utils->niceDate($jobData['date_submitted'], 'l jS \of F Y') .' at '. $utils->niceDate($jobData['time_submitted'], 'h:i A') .'<p>';
 
-                    foreach($customer_data as $name => $value){
-                        if(!empty($value)) {
-                            $boom = explode('_', $name);
-                            $namefull = $boom[0]. ' ' . $boom[1];
-                            echo '<p>'.ucwords($namefull).': '.nl2br($value).'</p>';
-                        }
-                    }
+                    echo '<p>Name: '. $jobData['customer_name'] .'</p>';
 
-                    foreach ($job_data as $name => $value) {
+                    echo '<p>Email: '. $jobData['customer_email'] . '</p>';
 
-                        if(!empty($value)) {
-                            $boom = explode('_', $name);
-                            $namefull = $boom[0]. ' ' . $boom[1];
+                    echo '<p>Address: '. $jobData['customer_address'] . '</p>';
 
-                            if(($namefull == "job description") || ($namefull == "job notes")) {
-                                echo '<p>'.ucwords($namefull).':<br />';
-                                echo nl2br($value) . '</p>';
-                            } else {
-                                echo '<p>'.ucwords($namefull).': '.nl2br($value).'</p>';
-                            }
-                        }
-                    }
+                    echo '<p>Phone: '. $jobData['customer_phone'] . '</p>';
+
+                    echo '<p>Product Name: '. $jobData['product_name'] . '</p>';
+
+                    echo '<p>Job Notes: <br>'. nl2br($jobData['job_notes']) . '</p>';
+
+                    echo '<p>Job Description: <br>'. nl2br($jobData['job_description']) . '</p>';
+
+                    echo '<p>Job Urgency: '. $jobData['urgency'] . '</p>';
                 }
             ?>
 

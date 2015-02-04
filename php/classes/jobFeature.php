@@ -9,10 +9,12 @@ class jobFeature extends db {
 		if($getAll === true){
 			$sql .= '*';
 		} else {
-			$sql .= "`product_name`,`job_notes`,`job_description`,`urgency`";
+			$sql .= "`customer_table`.`customer_name`,`customer_table`.`customer_email`,`customer_table`.`customer_address`,`customer_table`.`customer_phone`,`job_table`.`product_name`,`job_table`.`job_notes`,`job_table`.`job_description`,`job_table`.`urgency`,`job_table`.`date_submitted`,`job_table`.`time_submitted`";
 		}
 
-		$sql .= " FROM `job_table` WHERE `job_number`= $id";
+		$sql .= "FROM `job_table` LEFT JOIN `customer_table`
+		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
+		WHERE `job_table`.`job_number` = " . $id;
 
 		return $this->getSingleRow($sql);
 	}
@@ -150,11 +152,6 @@ class jobFeature extends db {
 		ORDER BY `date_submitted` ASC, `time_submitted` ASC LIMIT $limit OFFSET $offset";
 
 		return $this->fetchAssoc($sql);
-	}
-
-	public function getJobTimeByID($id){
-		$sql = "SELECT `date_submitted`,`time_submitted` FROM `job_table` WHERE `job_number`= $id";
-		return $this->getSingleRow($sql);
 	}
 
 	public function getJobReportData($limit = 10, $offset){
