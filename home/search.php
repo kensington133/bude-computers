@@ -1,5 +1,6 @@
 <?php
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
+	$jobFeatures = new JobFeature();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -36,31 +37,25 @@
 			<h1 class="hide-for-print">Search Results</h1>
 			<?php
 				if($_POST) {
-					$result = search($_POST['search']);
+					$result = $jobFeatures->jobSearch($_POST['search']);
 					$count = count($result);
 					echo "<h3>You searched for: '".$_POST['search']."'</h3>";
 					echo "<h4>".$count." Results Found</h4>";
 
 					if($count > 0) {
 						foreach($result as $r) {
-							$job_range = get_jobid_range();
-							$job_number = $r['job_number'];
-							$max = $job_range['max'];
-							$min = $job_range['min'];
-
-							if($job_number != "") {
-								if(($job_number >= $min) && ($job_number <= $max)) {
-									echo "<div class='panel' style='overflow: hidden;'>";
-										echo "<div class='large-10 medium-10 columns'>";
-											echo "<h5>Job ".$job_number."</h5>";
-											echo "<h5>".ucwords($r['customer_name'])." - ". date('l jS \of F Y', strtotime($r['date_submitted']))."</h5>";
-											echo "<a href='/home/jobs/index.php?id=".$job_number."'>View Job &raquo;</a>";
-										echo "</div>";
-											echo "<div class='large-2 medium-2 columns'>";
-												echo "<a class='button small' style='margin-top: 10px;' href='/home/jobs/index.php?id=".$r['job_number']."'>View Job <i class='fa fa-angle-double-right'></i></a>";
-											echo "</div>";
+							$allJobNumbers = $jobFeatures->getAllJobIDs();
+							if(in_array($r['job_number'], $allJobNumbers)){
+								echo "<div class='panel' style='overflow: hidden;'>";
+									echo "<div class='large-10 medium-10 columns'>";
+										echo "<h5>Job ".$r['job_number']."</h5>";
+										echo "<h5>".ucwords($r['customer_name'])." - ". date('l jS \of F Y', strtotime($r['date_submitted']))."</h5>";
+										echo "<a href='/home/jobs/index.php?id=".$r['job_number']."'>View Job &raquo;</a>";
 									echo "</div>";
-								}
+										echo "<div class='large-2 medium-2 columns'>";
+											echo "<a class='button small' style='margin-top: 10px;' href='/home/jobs/index.php?id=".$r['job_number']."'>View Job <i class='fa fa-angle-double-right'></i></a>";
+										echo "</div>";
+								echo "</div>";
 							}
 						}
 					}
