@@ -6,6 +6,11 @@ $(function() {
 	}
 	submitForm();
 	handleRegistrationForm();
+	hideSaveIcon();
+});
+
+$(window).resize( function(){
+	hideSaveIcon();
 });
 
 function weeklyGraph(){
@@ -141,5 +146,14 @@ function stripeResponseHandler(status, response){
 		$form.append($('<input type="hidden" class="test" name="stripeToken" />').val(token));
 		// and submit
 		$form.get(0).submit();
+	}
+}
+
+function hideSaveIcon(){
+	var icon = $('.fa-input');
+	if (Modernizr.mq('only screen and (min-width: 642px)')){
+		icon.val(String.fromCharCode(61639)+' Save');
+	} else {
+		icon.val('Save');
 	}
 }
