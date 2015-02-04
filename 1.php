@@ -20,7 +20,9 @@
 	<div class="row">
 		<div class="small-12 columns text-center">
 			<div class="small-12 text-center">
-				<img src="<?php echo $_LOGO ?>" alt="slide image">
+				<a href="/home/">
+					<img src="<?php echo $_LOGO ?>" alt="slide image">
+				</a>
 			</div>
 		</div>
 	</div>
