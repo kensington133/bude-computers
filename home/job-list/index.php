@@ -1,10 +1,11 @@
 <?php
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
+	$jobFeatures = new JobFeature();
 
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
 	$utils->isLoggedIn();
 
-	$totalJobs = get_job_count();
+	$totalJobs = $jobFeatures->getJobCount();
 	$numJobsDisplay = filter_input(INPUT_GET, 'display', FILTER_VALIDATE_INT, array('options' => array('default'   => 10, 'min_range' => 10)));
 	$totalPages = ceil($totalJobs / $numJobsDisplay);
 	$curPage = min($totalPages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array('options' => array('default'   => 1, 'min_range' => 1))));
@@ -19,7 +20,7 @@
 	$nextURL = ($curPage == $totalPages)? '?page=1' : '?page='.($curPage + 1);
 	$nextURL .= '&display='.$numJobsDisplay;
 
-	$jobData = get_job_list($numJobsDisplay, $queryOffset);
+	$jobData = $jobFeatures->getJobListPage($numJobsDisplay, $queryOffset);
 
 ?>
 <!DOCTYPE html>
@@ -67,8 +68,7 @@
 		</form>
 		<?php
 			foreach($jobData as $job) {
-				$customer_data = get_customer_by_id($job['customer_id']);
-				output_job_card($job, $customer_data);
+				$utils->printJobCard($job);
 			}
 			echo '<p class="text-center">'. $curPage .' of '. $totalPages .' pages, displaying '. $start .' - '. $end .' of '. $totalJobs .' results</p>';
 		?>
