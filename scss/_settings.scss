@@ -316,13 +316,13 @@ $darkturquoise: #00b6b1;
 // 01. Accordion
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
-$include-html-accordion-classes: $include-html-classes;
+// $include-html-accordion-classes: $include-html-classes;
 
 // $accordion-navigation-padding: rem-calc(16);
-$accordion-navigation-bg-color: $darkturquoise;
-$accordion-navigation-hover-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -5%);
-$accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -3%);
-$accordion-navigation-font-color: $white;
+// $accordion-navigation-bg-color: $darkturquoise;
+// $accordion-navigation-hover-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -5%);
+// $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -3%);
+// $accordion-navigation-font-color: $white;
 // $accordion-navigation-font-size: rem-calc(16);
 // $accordion-navigation-font-family: $body-font-family;
 
@@ -1426,7 +1426,7 @@ $accordion-navigation-font-color: $white;
 // Transitions and breakpoint styles
 // $topbar-transition-speed: 300ms;
 // Using rem-calc for the below breakpoint causes issues with top bar
-$topbar-breakpoint: #{lower-bound(930px)}; // Change to 9999px for always mobile layout
+$topbar-breakpoint: #{lower-bound(1030px)}; // Change to 9999px for always mobile layout
 $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
 // Divider Styles
 // $topbar-divider-border-bottom: solid 1px  scale-color($topbar-bg-color, $lightness: 13%);
