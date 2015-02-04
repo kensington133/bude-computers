@@ -42,6 +42,14 @@
 			}
 		}
 	}
+
+	usort($notStarted, function($a, $b) {
+    	return $a['urgency'] < $b['urgency'];
+	});
+
+	usort($inProgress, function($a, $b) {
+    	return $a['urgency'] < $b['urgency'];
+	});
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -94,8 +102,31 @@
 			<?php
 				if(count($notStarted) > 0){
 					foreach ($notStarted as $nsJob) {
-						echo '<div class="panel">';
-							echo "<p>Job ID: $nsJob[job_number]</p>";
+						echo '<div class=" ';
+						switch ($nsJob['urgency']) {
+							case '10':
+							case '9':
+							case '8':
+								echo 'high-urgency-panel';
+							break;
+							case '7':
+							case '6':
+							case '5':
+							case '4':
+								echo 'medium-urgency-panel';
+							break;
+							case '3':
+							case '2':
+							case '1':
+								echo 'low-urgency-panel';
+							break;
+							default:
+								echo 'panel';
+							break;
+						}
+					echo ' clearfix">';
+							echo "<p>Job ID: <a href='/home/jobs/?id=$nsJob[job_number]'>$nsJob[job_number]</a></p>";
+							echo "<p>Customer: $nsJob[customer_name]</p>";
 							echo "<p>Date Submitted: ".$utils->niceDate($nsJob['datetime_submitted'], 'l jS \of F Y h:i:s A')."</p>";
 							$jobDate = new DateTime($nsJob['datetime_submitted']);
 							$curDate = new DateTime();
@@ -114,8 +145,31 @@
 			<?php
 			if(count($inProgress) > 0){
 				foreach ($inProgress as $ipJob) {
-					echo '<div class="panel">';
-						echo "<p>Job ID: $ipJob[job_number]</p>";
+					echo '<div class=" ';
+						switch ($ipJob['urgency']) {
+							case '10':
+							case '9':
+							case '8':
+								echo 'high-urgency-panel';
+							break;
+							case '7':
+							case '6':
+							case '5':
+							case '4':
+								echo 'medium-urgency-panel';
+							break;
+							case '3':
+							case '2':
+							case '1':
+								echo 'low-urgency-panel';
+							break;
+							default:
+								echo 'panel';
+							break;
+						}
+					echo ' clearfix">';
+						echo "<p>Job ID: <a href='/home/jobs/?id=$ipJob[job_number]'>$ipJob[job_number]</a></p>";
+						echo "<p>Customer: $ipJob[customer_name]</p>";
 						echo "<p>Date Submitted: ".$utils->niceDate($ipJob['datetime_submitted'], 'l jS \of F Y h:i:s A')."</p>";
 						$jobDate = new DateTime($ipJob['datetime_submitted']);
 						$curDate = new DateTime();

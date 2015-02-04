@@ -163,11 +163,13 @@ class jobFeature extends db {
 		CONCAT(`job_table`.`date_submitted`, ' ', `job_table`.`time_submitted`) AS 'datetime_submitted',
 		`job_table`.`job_number`,
 		`job_table`.`progress`,
+		`job_table`.`urgency`,
 		`customer_table`.`customer_name`
 		FROM `job_table`
 		LEFT JOIN `customer_table`
 		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
-		ORDER BY `date_submitted` ASC, `time_submitted` ASC
+		WHERE `job_table`.`progress` = '1' OR `job_table`.`progress` = '0'
+		ORDER BY `job_table`.`job_number` DESC
 		LIMIT $limit
 		OFFSET $offset";
 
