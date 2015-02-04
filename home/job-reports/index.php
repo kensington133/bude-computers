@@ -1,5 +1,6 @@
 <?php
 	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
+	$jobFeatures = new JobFeature();
 
 	$google = filter_input(INPUT_GET, 'g', FILTER_VALIDATE_INT, array('options' => array('default' => -1)));
 
@@ -7,7 +8,7 @@
 		$utils->isLoggedIn();
 	}
 
-	$totalJobs = get_job_count();
+	$totalJobs = $jobFeatures->getJobCount();
 	$numJobsDisplay = filter_input(INPUT_GET, 'display', FILTER_VALIDATE_INT, array('options' => array('default' => 10, 'min_range' => 10)));
 	$totalPages = ceil($totalJobs / $numJobsDisplay);
 	$curPage = min($totalPages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array('options' => array('default' => 1, 'min_range' => 1))));
@@ -22,7 +23,7 @@
 	$nextURL = ($curPage == $totalPages)? '?page=1' : '?page='.($curPage + 1);
 	$nextURL .= '&display='.$numJobsDisplay;
 
-	$jobData = get_job_report_data($numJobsDisplay, $queryOffset);
+	$jobData = $jobFeatures->getJobReportData($numJobsDisplay, $queryOffset);
 
 	$notStarted = [];
 	$inProgress = [];
@@ -93,7 +94,7 @@
 					foreach ($notStarted as $nsJob) {
 						echo '<div class="panel">';
 							echo "<p>Job ID: $nsJob[job_number]</p>";
-							echo "<p>Date Submitted: ".nice_date($nsJob['datetime_submitted'], 'l jS \of F Y h:i:s A')."</p>";
+							echo "<p>Date Submitted: ".$utils->niceDate($nsJob['datetime_submitted'], 'l jS \of F Y h:i:s A')."</p>";
 							$jobDate = new DateTime($nsJob['datetime_submitted']);
 							$curDate = new DateTime();
 							$interval = $jobDate->diff($curDate);
@@ -113,7 +114,7 @@
 				foreach ($inProgress as $ipJob) {
 					echo '<div class="panel">';
 						echo "<p>Job ID: $ipJob[job_number]</p>";
-						echo "<p>Date Submitted: ".nice_date($ipJob['datetime_submitted'], 'l jS \of F Y h:i:s A')."</p>";
+						echo "<p>Date Submitted: ".$utils->niceDate($ipJob['datetime_submitted'], 'l jS \of F Y h:i:s A')."</p>";
 						$jobDate = new DateTime($ipJob['datetime_submitted']);
 						$curDate = new DateTime();
 						$interval = $jobDate->diff($curDate);
