@@ -15,7 +15,7 @@ Icon
 .Trashes
 
 #config file
-includes/config.inc.php
+php/classes/db.php
 
 #foundation files
 /.sass-cache/*
