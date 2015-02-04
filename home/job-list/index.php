@@ -21,7 +21,6 @@
 	$nextURL .= '&display='.$numJobsDisplay;
 
 	$jobData = $jobFeatures->getJobListPage($numJobsDisplay, $queryOffset);
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->

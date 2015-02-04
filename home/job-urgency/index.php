@@ -8,7 +8,8 @@
 	$startCopy = clone($start);
 	$endWeek = $startCopy->modify('+6 days')->format('Y-m-d');
 
-	$jobData = get_jobs_between_dates($startWeek, $endWeek);
+	$jobFeatures = new JobFeature();
+	$jobData = $jobFeatures->getJobsBetweenDates($startWeek, $endWeek);
 
 ?>
 <!DOCTYPE html>
@@ -32,7 +33,7 @@
 
 <div class="row">
 	<div class="small-12 columns text-center">
-		<h1>Jobs For Week: <small><?php echo $start->format('d/m/Y') .'&nbsp;-&nbsp;'. nice_date($endWeek, 'd/m/Y'); ?></small></h1>
+		<h1>Jobs For Week: <small><?php echo $start->format('d/m/Y') .'&nbsp;-&nbsp;'. $utils->niceDate($endWeek, 'd/m/Y'); ?></small></h1>
 		<?php foreach ($jobData as $job):?>
 			<?php
 			echo '<div class=" ';
@@ -73,11 +74,11 @@
 				</div>
 				<div class="small-12 large-2 columns">
 					<h6>Submitted On</h6>
-					<p><?php echo nice_date($job['datetime_submitted'], 'd/m/Y H:i'); ?></p>
+					<p><?php echo $utils->niceDate($job['datetime_submitted'], 'd/m/Y H:i'); ?></p>
 				</div>
 				<div class="small-12 large-2 columns">
 					<h6>Last Updated</h6>
-					<p><?php echo nice_date($job['last_updated'], 'd/m/Y H:i'); ?></p>
+					<p><?php echo $utils->niceDate($job['last_updated'], 'd/m/Y H:i'); ?></p>
 				</div>
 				<div class="small-12 large-1 columns">
 					<h6>Urgency</h6>

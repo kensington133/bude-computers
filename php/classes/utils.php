@@ -43,7 +43,7 @@ class Utils{
 			echo "</div>";
 			if($data['customer_phone']){
 				echo "<div class='large-2 medium-2 columns'>";
-					echo "<a class='button tiny' style='margin-top: 10px;' href='tel:".$data['customer_phone']."'>Call: ".$customerData['customer_phone']."</a>";
+					echo "<a class='button tiny' style='margin-top: 10px;' href='tel:".$data['customer_phone']."'>Call: ".$data['customer_phone']."</a>";
 				echo "</div>";
 			}
 		echo "</div>";
