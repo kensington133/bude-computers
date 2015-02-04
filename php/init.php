@@ -16,7 +16,7 @@ require_once $_PATH.'/php/classes/Register.php';
 require_once $_PATH.'/php/classes/Login.php';
 require_once $_PATH.'/php/classes/CreateJob.php';
 require_once $_PATH.'/php/classes/UpdateJob.php';
-require_once $_PATH.'/php/classes/JobFeature.php';
+require_once $_PATH.'/php/classes/jobFeature.php';
 require_once $_PATH.'/php/classes/User.php';
 
 $utils = new Utils();
