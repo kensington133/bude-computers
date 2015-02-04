@@ -1,5 +1,5 @@
 <?php
-	require_once $_SERVER['DOCUMENT_ROOT'].'/php/init.php';
+	require_once '../php/init.php';
 	$jobFeatures = new JobFeature();
 	$jobData = $jobFeatures->getGraphData();
 
