@@ -1,13 +1,11 @@
 <?php
-
 class jobFeature extends db {
 
-	public function getLastJob($id, $getAll = false) {
-
+	public function getJobByID($id, $getAll = false){
 		$sql = "SELECT ";
 
 		if($getAll === true){
-			$sql .= '*';
+			$sql .= "*";
 		} else {
 			$sql .= "`customer_table`.`customer_name`,`customer_table`.`customer_email`,`customer_table`.`customer_address`,`customer_table`.`customer_phone`,`job_table`.`product_name`,`job_table`.`job_notes`,`job_table`.`job_description`,`job_table`.`urgency`,`job_table`.`date_submitted`,`job_table`.`time_submitted`";
 		}
@@ -24,15 +22,6 @@ class jobFeature extends db {
 		LEFT JOIN `customer_table`
 		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
 		WHERE `job_number` = (SELECT MAX(`job_number`) FROM `job_table` LIMIT 1) LIMIT 1";
-
-		return $this->getSingleRow($sql);
-	}
-
-	public function getJobByID($id){
-		$sql = "SELECT * FROM `job_table`
-		LEFT JOIN `customer_table`
-		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
-		WHERE `job_table`.`job_number` = " . $id;
 
 		return $this->getSingleRow($sql);
 	}

@@ -7,7 +7,7 @@
         $utils->isLoggedIn();
     }
 
-    $jobData = $jobFeatures->getLastJob($_GET['id'], true);
+    $jobData = $jobFeatures->getJobByID($_GET['id'], true);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
