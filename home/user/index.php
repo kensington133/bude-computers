@@ -4,12 +4,14 @@
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
 	$utils->isLoggedIn();
 
-	$tabToShow = $_GET['tab'];
 	$userInfo = $user->getUserInfo($_SESSION['userid']);
 
 	$stripeUser = $user->getStripeCustomer($userInfo['stripe_id']);
 	$subscriptions = $stripeUser->subscriptions->data;
 	$plans = $register->getAllStripePlans();
+
+	$shopData = $user->getShopData();
+	$utils->printr($shopData);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -39,40 +41,49 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row" data-equalizer>
 	<div class="small-12 columns">
 		<h3 id="your-info">Your Info</h3>
 	</div>
 
 	<div class="large-3 columns">
-		<div class="panel callout">
+		<div class="panel callout" data-equalizer-watch>
 		<h5>Date Joined</h5>
 			<p><?php echo date('d/m/Y H:i', $stripeUser->created); ?></p>
 		</div>
 	</div>
-	<div class="large-3 columns">
-		<div class="panel callout">
-		<h5>User Name</h5>
+	<div class="large-2 columns">
+		<div class="panel callout" data-equalizer-watch>
+		<h5>User</h5>
 			<p><?php echo $userInfo['username']; ?></p>
 		</div>
 	</div>
 	<div class="large-3 columns">
-		<div class="panel callout">
+		<div class="panel callout" data-equalizer-watch>
 		<h5>Email</h5>
 			<p><?php echo $userInfo['email']; ?></p>
 		</div>
 	</div>
-	<div class="large-3 columns">
-		<div class="panel callout">
+	<div class="large-2 columns">
+		<div class="panel callout" data-equalizer-watch>
 		<h5>Shop ID</h5>
 			<p><?php echo $userInfo['shop_id']; ?></p>
 		</div>
 	</div>
-</div>
 
+	<div class="large-2 columns">
+			<ul class="vcard callout" data-equalizer-watch>
+				<li class="fn"><?php echo $shopData['shop_name']; ?></li>
+				<li class="street-address"><?php echo $shopData['shop_address']; ?></li>
+				<li class="locality"><?php echo $shopData['shop_city']; ?></li>
+				<li><span class="state"><?php echo $shopData['shop_county']; ?></span>, <span class="zip"><?php echo $shopData['shop_postcode']; ?></span></li>
+			</ul>
+	</div>
+</div>
 
 <div class="row">
 	<div class="small-12 columns">
+	<h3>Your Plan</h3>
 	<?php
 		if($_GET['e'] == 1) {
 			if(count($_SESSION['errors']) > 0){

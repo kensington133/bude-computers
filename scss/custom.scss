@@ -102,3 +102,10 @@ input::-webkit-inner-spin-button {
 		}
 	}
 }
+
+.vcard {
+	&.callout {
+		background: #ecfaff;
+		border-color: #b6edff;
+	}
+}

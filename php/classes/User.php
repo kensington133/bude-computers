@@ -93,6 +93,11 @@ class User extends db {
 		}
 	}
 
+	public function getShopData(){
+		$sql = "SELECT * FROM `shop_table` WHERE `shop_id` = $_SESSION[shopID] AND `manager_id` = $_SESSION[userid]";
+		return $this->getSingleRow($sql);
+	}
+
 	private function errorRedirect(){
 		header('Location: index.php?e=1');
 		exit();

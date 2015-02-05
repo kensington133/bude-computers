@@ -9217,3 +9217,9 @@ input::-webkit-inner-spin-button {
     border-bottom: 1px solid #e3e3e3;
   }
 }
+
+/* line 107, ../scss/custom.scss */
+.vcard.callout {
+  background: #ecfaff;
+  border-color: #b6edff;
+}
