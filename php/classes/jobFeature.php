@@ -12,7 +12,7 @@ class jobFeature extends db {
 
 		$sql .= "FROM `job_table` LEFT JOIN `customer_table`
 		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
-		WHERE `job_table`.`job_number` = " . $id;
+		WHERE `job_table`.`job_number` = '". $id ."' LIMIT 1";
 
 		return $this->getSingleRow($sql);
 	}
@@ -21,7 +21,7 @@ class jobFeature extends db {
 		$sql = "SELECT * FROM `job_table`
 		LEFT JOIN `customer_table`
 		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
-		WHERE `job_number` = (SELECT MAX(`job_number`) FROM `job_table` LIMIT 1) LIMIT 1";
+		WHERE `job_number` = (SELECT MAX(`job_number`) FROM `job_table` WHERE `shop_id` = '$_SESSION[shopID]' LIMIT 1) AND `job_table`.`shop_id` = '$_SESSION[shopID]' LIMIT 1";
 
 		return $this->getSingleRow($sql);
 	}
@@ -142,6 +142,7 @@ class jobFeature extends db {
 		FROM `job_table`
 		LEFT JOIN `customer_table`
 		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
+		WHERE `job_table`.`shop_id` = $_SESSION[shopID]
 		ORDER BY `job_table`.`job_number` DESC LIMIT $limit OFFSET $offset";
 
 		return $this->fetchAssoc($sql);
@@ -157,7 +158,7 @@ class jobFeature extends db {
 		FROM `job_table`
 		LEFT JOIN `customer_table`
 		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
-		WHERE `job_table`.`progress` = '1' OR `job_table`.`progress` = '0'
+		WHERE `job_table`.`progress` = '1' OR `job_table`.`progress` = '0' AND `job_table`.`shop_id` = $_SESSION[shopID]
 		ORDER BY `job_table`.`job_number` DESC
 		LIMIT $limit
 		OFFSET $offset";
@@ -166,12 +167,12 @@ class jobFeature extends db {
 	}
 
 	public function getGraphData(){
-		$sql = "SELECT CONCAT(`date_submitted`, ' ', `time_submitted`) AS `date` FROM `job_table`";
+		$sql = "SELECT CONCAT(`date_submitted`, ' ', `time_submitted`) AS `date` FROM `job_table` WHERE `shop_id` = $_SESSION[shopID]";
 		return $this->fetchAssoc($sql);
 	}
 
 	public function getJobCount(){
-		$sql = "SELECT COUNT(*) FROM `job_table`";
+		$sql = "SELECT COUNT(*) FROM `job_table` WHERE `shop_id` = $_SESSION[shopID]";
 		return $this->getFirstRowItem($sql);
 	}
 
@@ -187,11 +188,10 @@ class jobFeature extends db {
 		FROM `job_table`
 		LEFT JOIN `customer_table`
 		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
-		WHERE (`job_table`.`date_submitted` BETWEEN '".$start."' AND '".$end."')
+		WHERE (`job_table`.`date_submitted` BETWEEN '".$start."' AND '".$end."') AND `job_table`.`shop_id` = $_SESSION[shopID]
 		ORDER BY `job_table`.`urgency` DESC ";
 
 		return $this->fetchAssoc($sql);
-
 	}
 
 	public function getCustomerByID($id){

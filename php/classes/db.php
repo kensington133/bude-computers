@@ -16,7 +16,7 @@ class DB {
 	*/
 	protected function fetchRow($sql){
 
-		if(!$result = $dbLink->query($sql)) die('There was an error running the fetchRow query [' . $dbLink->error . ']');
+		if(!$result = $this->dbLink->query($sql)) die('There was an error running the fetchRow query [' . $dbLink->error . ']');
 
 			while ($row = $result->fetch_row()) {
 				$data[] = $row;
@@ -83,12 +83,12 @@ class DB {
 		return $result;
 	}
 
-	public function insertDataGetID($sql){
+	protected function insertDataGetID($sql){
 		if(!$result = $this->dbLink->query($sql)) die('There was an error running the insertDataGetID query [' . $this->dbLink->error . ']');
 		return ($this->dbLink->insert_id);
 	}
 
-	public function updateData($sql){
+	protected function updateData($sql){
 		if(!$result = $this->dbLink->query($sql)) die('There was an error running the updateData query [' . $this->dbLink->error . ']');
 		return $result;
 	}
