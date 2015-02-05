@@ -30,9 +30,13 @@
 		<div class="small-12 medium-8 large-6 columns small-centered">
 			<h1 class='text-center'>Workshop Repair</h1>
 
-			<a class='button large expand' href="new-job/" title='Create a New Job'>Create <br /> Job</a>
+			<a class='button large expand' href="/new-job/" title='Create a New Job'>Create <br>Job</a>
 
-			<a	class='button large expand' href="jobs/" title='View existing jobs'>Existing <br /> Jobs</a>
+			<a	class='button large expand' href="/jobs/" title='View existing jobs'>Existing <br>Jobs</a>
+
+			<a	class='button large expand' href="/job-list/" title='View existing jobs'>Job <br>List</a>
+
+			<a	class='button large expand' href="/job-reports/" title='View existing jobs'>Job <br>Reports</a>
 
 			<div data-alert class="alert-box warning">
 				Notice: When searching for dates please use the full date representation e.g. <?php echo date('d/m/Y'); ?> and not <?php echo date('d/m/y'); ?>
