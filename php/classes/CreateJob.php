@@ -101,7 +101,8 @@ class CreateJob extends db {
 			"",
 			NULL,
 			"0",
-			"'. $this->jobUrgency .'"
+			"'. $this->jobUrgency .'",
+			"'.$_SESSION['shopID'].'"
 		)';
 
 		$this->jobID = $this->insertDataGetID($jobSQL);
