@@ -128,7 +128,7 @@ class jobFeature extends db {
 	}
 
 	public function getAllJobIDs() {
-		$sql = "SELECT `job_number` FROM `job_table`";
+		$sql = "SELECT `job_number` FROM `job_table` WHERE `shop_id` = $_SESSION[shopID]";
 		return $this->getFirstRowItems($sql);
 	}
 
