@@ -4,37 +4,41 @@
     $utils->isLoggedIn();
 
     if(isset($_GET['id'])){
-        $jobData = $jobFeatures->getJobByID($_GET['id']);
+        $jobData = $jobFeatures->getJobByID($_GET['id'], true);
     } else {
         $jobData = $jobFeatures->getMostRecentJob();
     }
 
     $jobIDs = $jobFeatures->getAllJobIDs();
+    $countJobIDs = count($jobIDs) - 1;
 
-    $maxid = $jobIDs[count($jobIDs) - 1];
+    $maxid = $jobIDs[$countJobIDs];
     $firstid = $jobIDs[0];
 
-    foreach ($jobIDs as $key => $value) {
-        if($value === $jobData['job_number']){
-            $currentIDKey = $key;
-        }
-    }
+    if($countJobIDs > 0){
 
-    foreach ($jobIDs as $key => $value) {
-        if($key == ($currentIDKey - 1)){
-            $previd = $value;
+        foreach ($jobIDs as $key => $value) {
+            if($value === $jobData['job_number']){
+                $currentIDKey = $key;
+            }
         }
-        if($key == ($currentIDKey + 1)){
-            $nextid = $value;
+
+        foreach ($jobIDs as $key => $value) {
+            if($key == ($currentIDKey - 1)){
+                $previd = $value;
+            }
+            if($key == ($currentIDKey + 1)){
+                $nextid = $value;
+            }
         }
-    }
 
-    if($jobData['job_number'] === $maxid){
-        $nextid = $jobIDs[0];
-    }
+        if($jobData['job_number'] === $maxid){
+            $nextid = $firstid;
+        }
 
-    if($jobData['job_number'] === $firstid){
-        $previd = $maxid;
+        if($jobData['job_number'] === $firstid){
+            $previd = $maxid;
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -60,7 +64,13 @@
     <div class="row">
         <div class="small-12 columns">
             <h1 class="text-center">Existing Jobs</h1>
-            <h2 class="text-center"><?php echo $utils->niceDate($jobData['date_submitted']); ?> - <?php echo $jobData['time_submitted']; ?></h2>
+            <?php
+                if($countJobIDs > 0){
+                    echo "<h2 class='text-center'>". $utils->niceDate($jobData['date_submitted']) ." - $jobData[time_submitted]</h2>";
+                } else {
+                    echo "<h2 class='text-center'>No Jobs Found!</h2>";
+                }
+            ?>
         </div>
     </div>
 

@@ -1,0 +1,45 @@
+DB
+//OLD
+- job table
+contact_name		|
+contact_address		|	move to customer table
+contact_phone		|
+contact_email		|
+
+product_name		|
+job_number			|
+job_notes			|
+job_description		|
+date_submitted		|
+time_submitted		|	stay in job table
+work_done			|
+parts_used			|
+job_priced			|
+last_updated		|
+
+//new
+- job table
+customer_id -> customer_table.customer_id
+product_name
+job_number
+job_notes
+job_description
+charger
+bag
+storage
+date_submitted
+time_submitted
+work_done
+parts_used
+job_priced
+last_updated
+progress
+urgency
+shop_id -> shop_table.shop_id
+
+//customer table
+customer_id -> job_table.customer_id
+customer_name
+customer_email
+customer_address
+customer_phone

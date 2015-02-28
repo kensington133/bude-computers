@@ -5,7 +5,7 @@ class jobFeature extends db {
 		$sql = "SELECT ";
 
 		if($getAll === true){
-			$sql .= "*";
+			$sql .= "* ";
 		} else {
 			$sql .= "`customer_table`.`customer_name`,`customer_table`.`customer_email`,`customer_table`.`customer_address`,`customer_table`.`customer_phone`,`job_table`.`product_name`,`job_table`.`job_notes`,`job_table`.`job_description`,`job_table`.`urgency`,`job_table`.`date_submitted`,`job_table`.`time_submitted`";
 		}
