@@ -42,17 +42,12 @@ class CreateJob extends db {
 			$_SESSION['errors']['job_desc'] = "<small class='error'>A job description is required.</small>";
 		}
 
-		if($errors > 0) {
+		if($errors > 0){
 			$this->errorRedirect();
 		} else {
 			$this->saveCustomer();
 			$this->saveJob();
-			if( ($this->customerID) && ($this->jobID) && ($this->jobDescripion) && ($this->jobProduct) && ($this->jobNotes) && ($this->hasCharger) && ($this->hasBag) && ($this->hasStorage) && ($this->jobUrgency) && ($this->contactName) && ($this->contactAddress) && ($this->contactPhone) && ($this->contactEmail) ){
-				$this->successRedirect();
-			} else {
-				$_SESSION['errors']['save'] = "Unable to save the job, please try again.";
-				$this->errorRedirect();
-			}
+			$this->successRedirect();
 		}
 	}
 
