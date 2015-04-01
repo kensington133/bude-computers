@@ -7,7 +7,7 @@ session_start();
 date_default_timezone_set('Europe/London');
 setlocale(LC_MONETARY, 'en_GB');
 
-$_LOGO = "/img/logosupersmall.jpg";
+$_LOGO = "/img/$_SESSION[shopID]/logo.jpg";
 $_PATH = $_SERVER['DOCUMENT_ROOT'];
 
 require_once $_PATH.'/php/classes/utils.php';

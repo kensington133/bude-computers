@@ -21,16 +21,6 @@
     </section>
 </nav>
 
-<div class="row">
-    <div class="small-12 columns text-center">
-        <div class="small-12 text-center">
-            <a href="/home/">
-            	<img src="<?php echo $_LOGO ?>" alt="slide image">
-            </a>
-        </div>
-    </div>
-</div>
-
 <?php
     if(!empty($_SESSION['errors'])) {
         switch ($_SESSION['errors']){
@@ -44,7 +34,7 @@
     }
     if(!empty($_SESSION['uname'])){ $uname = $_SESSION['uname']; }
 ?>
-<div class="row">
+<div class="row" style="margin-top: 20px;">
     <div class="large-8 medium-8 small-10 small-centered columns">
 
         <?php if($_GET['s'] == 'y') {
