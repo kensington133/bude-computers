@@ -78,7 +78,7 @@
         <div class="small-12 columns small-centered">
             <form action="updatejob.php" method="POST">
                 <div class="small-12 columns">
-                    <?php $url = "done.php?id=".$jobData['job_number']; ?>
+                    <?php $url = "done.php?id=".$jobData['job_number'].'&uid='.$_SESSION['shopID']; ?>
                     <ul class="button-group even-4 round hide-for-print" style="margin-top: 25px;">
                         <li><a href="/home/jobs/?id=<?php echo $previd; ?>" class="button small"><i class="hide-for-small-only fa fa-angle-left"></i> Back</a></li>
                         <li><input type="submit" class="button small fa-input saveButton" value="&#61639; Save" /></li>

@@ -57,7 +57,7 @@ class CreateJob extends db {
 	}
 
 	private function successRedirect(){
-		header('Location: done.php?s=y&jobID='.$this->jobID.'&customerID='.$this->customerID);
+		header('Location: done.php?s=y&jobID='.$this->jobID.'&customerID='.$this->customerID.'&uid='.$_SESSION['shopID']);
 		exit();
 	}
 

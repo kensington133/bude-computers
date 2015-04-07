@@ -23,7 +23,7 @@
         <div class="small-12 columns text-center">
             <div class="small-12 text-center">
                 <a href="/home/">
-                	<img src="<?php echo $_LOGO ?>" alt="slide image">
+                	<img src="/img/<?php echo $_GET['uid']?>/logo.jpg" alt="slide image">
                 </a>
             </div>
         </div>
