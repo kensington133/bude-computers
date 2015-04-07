@@ -23,9 +23,7 @@
     <div class="small-12 columns text-center">
         <div class="row">
             <div class="small-12 text-center">
-                <a href="/home/">
-                	<img src="/img/<?php echo $_GET['uid'] ?>/logo.jpg" alt="slide image">
-                </a>
+                <img src="/img/<?php echo $_GET['uid'] ?>/logo.jpg" alt="slide image">
             </div>
         </div>
     </div>
