@@ -25,7 +25,6 @@
 		$chosenPlan = $_SESSION['data']['plan'] = $_POST['plan'];
 
 		$register->registerUser($stripeCard, $chosenPlan, $email, $name, $userName, $password, $shopName, $shopAddress, $shopCity, $shopCounty, $shopPostCode);
-		$utils->printr($register);
 	}
 
 ?>
