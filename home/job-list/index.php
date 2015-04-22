@@ -46,10 +46,10 @@
 	<div class="small-12 columns">
 		<h1>Job List</h1>
 		<ul class="button-group round even-4">
-			<li><a href="<?php echo $firstURL; ?>" class="button"><i class="fa fa-angle-double-left"></i></i> First</a></li>
-			<li><a href="<?php echo $prevURL; ?>" class="button"><i class="fa fa-angle-left"></i> Previous</a></li>
-			<li><a href="<?php echo $nextURL; ?>" class="button">Next <i class="fa fa-angle-right"></i></a></li>
-			<li><a href="<?php echo $lastURL; ?>" class="button">Last <i class="fa fa-angle-double-right"></i></a></li>
+			<li><a href="<?php echo $firstURL; ?>" class="button"><i class="fa fa-angle-double-left"></i></i> <span class="hide-for-small">First</span></a></li>
+			<li><a href="<?php echo $prevURL; ?>" class="button"><i class="fa fa-angle-left"></i> <span class="hide-for-small">Previous</span></a></li>
+			<li><a href="<?php echo $nextURL; ?>" class="button"><span class="hide-for-small">Next</span> <i class="fa fa-angle-right"></i></a></li>
+			<li><a href="<?php echo $lastURL; ?>" class="button"><span class="hide-for-small">Last</span> <i class="fa fa-angle-double-right"></i></a></li>
 		</ul>
 		<form>
 			<input type="hidden" name="page" value="<?php echo $curPage ?>" />
@@ -74,10 +74,10 @@
 			echo '<p class="text-center">'. $curPage .' of '. $totalPages .' pages, displaying '. $start .' - '. $end .' of '. $totalJobs .' results</p>';
 		?>
 		<ul class="button-group round even-4">
-			<li><a href="<?php echo $firstURL; ?>" class="button"><i class="fa fa-angle-double-left"></i></i> First</a></li>
-			<li><a href="<?php echo $prevURL; ?>" class="button"><i class="fa fa-angle-left"></i> Previous</a></li>
-			<li><a href="<?php echo $nextURL; ?>" class="button">Next <i class="fa fa-angle-right"></i></a></li>
-			<li><a href="<?php echo $lastURL; ?>" class="button">Last <i class="fa fa-angle-double-right"></i></a></li>
+			<li><a href="<?php echo $firstURL; ?>" class="button"><i class="fa fa-angle-double-left"></i></i> <span class="hide-for-small">First</span></a></li>
+			<li><a href="<?php echo $prevURL; ?>" class="button"><i class="fa fa-angle-left"></i> <span class="hide-for-small">Previous</span></a></li>
+			<li><a href="<?php echo $nextURL; ?>" class="button"><span class="hide-for-small">Next</span> <i class="fa fa-angle-right"></i></a></li>
+			<li><a href="<?php echo $lastURL; ?>" class="button"><span class="hide-for-small">Last</span> <i class="fa fa-angle-double-right"></i></a></li>
 		</ul>
 	</div>
 </div>
