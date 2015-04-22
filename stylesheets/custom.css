@@ -1,74 +1,74 @@
 /* Foundation Imports */
-/* line 347, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 348, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-version {
-  font-family: "/5.5.0/";
+  font-family: "/5.5.1/";
 }
 
-/* line 351, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 352, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-mq-small {
   font-family: "/only screen/";
   width: 0;
 }
 
-/* line 356, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 357, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-mq-small-only {
   font-family: "/only screen and (max-width: 40em)/";
   width: 0;
 }
 
-/* line 361, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 362, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-mq-medium {
   font-family: "/only screen and (min-width:40.063em)/";
   width: 40.063em;
 }
 
-/* line 366, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 367, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-mq-medium-only {
   font-family: "/only screen and (min-width:40.063em) and (max-width:64em)/";
   width: 40.063em;
 }
 
-/* line 371, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 372, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-mq-large {
   font-family: "/only screen and (min-width:64.063em)/";
   width: 64.063em;
 }
 
-/* line 376, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 377, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-mq-large-only {
   font-family: "/only screen and (min-width:64.063em) and (max-width:90em)/";
   width: 64.063em;
 }
 
-/* line 381, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 382, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-mq-xlarge {
   font-family: "/only screen and (min-width:90.063em)/";
   width: 90.063em;
 }
 
-/* line 386, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 387, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-mq-xlarge-only {
   font-family: "/only screen and (min-width:90.063em) and (max-width:120em)/";
   width: 90.063em;
 }
 
-/* line 391, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 392, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-mq-xxlarge {
   font-family: "/only screen and (min-width:120.063em)/";
   width: 120.063em;
 }
 
-/* line 396, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 397, ../bower_components/foundation/scss/foundation/components/_global.scss */
 meta.foundation-data-attribute-namespace {
   font-family: false;
 }
 
-/* line 403, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 404, ../bower_components/foundation/scss/foundation/components/_global.scss */
 html, body {
   height: 100%;
 }
 
-/* line 406, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 407, ../bower_components/foundation/scss/foundation/components/_global.scss */
 *,
 *:before,
 *:after {
@@ -77,13 +77,13 @@ html, body {
   box-sizing: border-box;
 }
 
-/* line 412, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 413, ../bower_components/foundation/scss/foundation/components/_global.scss */
 html,
 body {
   font-size: 100%;
 }
 
-/* line 416, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 417, ../bower_components/foundation/scss/foundation/components/_global.scss */
 body {
   background: #fff;
   color: #222;
@@ -97,23 +97,23 @@ body {
   cursor: auto;
 }
 
-/* line 429, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 430, ../bower_components/foundation/scss/foundation/components/_global.scss */
 a:hover {
   cursor: pointer;
 }
 
-/* line 432, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 433, ../bower_components/foundation/scss/foundation/components/_global.scss */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* line 434, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 435, ../bower_components/foundation/scss/foundation/components/_global.scss */
 img {
   -ms-interpolation-mode: bicubic;
 }
 
-/* line 438, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 439, ../bower_components/foundation/scss/foundation/components/_global.scss */
 #map_canvas img,
 #map_canvas embed,
 #map_canvas object,
@@ -123,12 +123,12 @@ img {
   max-width: none !important;
 }
 
-/* line 445, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 446, ../bower_components/foundation/scss/foundation/components/_global.scss */
 .left {
   float: left !important;
 }
 
-/* line 446, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 447, ../bower_components/foundation/scss/foundation/components/_global.scss */
 .right {
   float: right !important;
 }
@@ -143,10 +143,9 @@ img {
   clear: both;
 }
 
-/* line 450, ../bower_components/foundation/scss/foundation/components/_global.scss */
+/* line 451, ../bower_components/foundation/scss/foundation/components/_global.scss */
 .hide {
-  display: none !important;
-  visibility: hidden;
+  display: none;
 }
 
 /* line 456, ../bower_components/foundation/scss/foundation/components/_global.scss */
@@ -253,62 +252,68 @@ select {
   border-radius: 3px;
 }
 
-/* line 5, ../scss/custom.scss */
+/* line 4, ../scss/custom.scss */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* line 9, ../scss/custom.scss */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* line 11, ../scss/custom.scss */
+/* line 15, ../scss/custom.scss */
 #urgencyOutput {
   display: block;
   margin-top: 35px;
   text-align: center;
 }
 
-/* line 17, ../scss/custom.scss */
+/* line 21, ../scss/custom.scss */
 .progressContainer {
   margin-bottom: 25px;
 }
 
-/* line 21, ../scss/custom.scss */
+/* line 25, ../scss/custom.scss */
 .tandc {
   height: 50px;
   border: 1px solid #e3e3e3;
   margin-bottom: 1.25rem;
 }
 
-/* line 27, ../scss/custom.scss */
+/* line 31, ../scss/custom.scss */
 #weeklyGraph,
 #monthlyGraph,
 #yearlyGraph {
   height: 400px;
 }
 
-/* line 33, ../scss/custom.scss */
+/* line 37, ../scss/custom.scss */
 .fa-input {
   font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* line 36, ../scss/custom.scss */
+/* line 40, ../scss/custom.scss */
 .stripe {
   padding-top: 20px;
 }
 @media screen and (max-width: 640px) {
-  /* line 36, ../scss/custom.scss */
+  /* line 40, ../scss/custom.scss */
   .stripe {
     padding-top: 0px;
   }
 }
 
-/* line 43, ../scss/custom.scss */
+/* line 47, ../scss/custom.scss */
 .js-err {
   display: none;
 }
 
 /* Custom Panels */
-/* line 48, ../scss/custom.scss */
+/* line 52, ../scss/custom.scss */
 .high-urgency-panel {
   border-style: solid;
   border-width: 1px;
@@ -342,7 +347,7 @@ input::-webkit-inner-spin-button {
   line-height: 1.4;
 }
 
-/* line 62, ../scss/custom.scss */
+/* line 66, ../scss/custom.scss */
 .medium-urgency-panel {
   border-style: solid;
   border-width: 1px;
@@ -376,7 +381,7 @@ input::-webkit-inner-spin-button {
   line-height: 1.4;
 }
 
-/* line 76, ../scss/custom.scss */
+/* line 80, ../scss/custom.scss */
 .low-urgency-panel {
   border-style: solid;
   border-width: 1px;
@@ -410,25 +415,25 @@ input::-webkit-inner-spin-button {
   line-height: 1.4;
 }
 
-/* line 90, ../scss/custom.scss */
+/* line 94, ../scss/custom.scss */
 [class*="urgency-panel"] h6 {
   font-weight: 500;
   text-decoration: underline;
 }
 @media screen and (max-width: 1024px) {
-  /* line 90, ../scss/custom.scss */
+  /* line 94, ../scss/custom.scss */
   [class*="urgency-panel"] h6 {
     margin-top: 10px;
   }
 }
 @media screen and (max-width: 1024px) {
-  /* line 99, ../scss/custom.scss */
+  /* line 103, ../scss/custom.scss */
   [class*="urgency-panel"] div.columns:not(:last-child) {
     border-bottom: 1px solid #e3e3e3;
   }
 }
 
-/* line 107, ../scss/custom.scss */
+/* line 111, ../scss/custom.scss */
 .vcard.callout {
   background: #ecfaff;
   border-color: #b6edff;

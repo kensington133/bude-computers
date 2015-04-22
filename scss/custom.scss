@@ -1,6 +1,10 @@
 /* Foundation Imports */
 @import "foundation/components/panels";
 
+html,body {
+	max-width: 100%;
+	overflow-x: hidden;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
