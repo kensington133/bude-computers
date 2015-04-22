@@ -15,7 +15,7 @@
     $maxid = $jobIDs[$countJobIDs];
     $firstid = $jobIDs[0];
 
-    if($countJobIDs > 0){
+    if($countJobIDs > -1){
 
         foreach ($jobIDs as $key => $value) {
             if($value === $jobData['job_number']){
@@ -65,7 +65,7 @@
         <div class="small-12 columns">
             <h1 class="text-center">Existing Jobs</h1>
             <?php
-                if($countJobIDs > 0){
+                if($countJobIDs > -1){
                     echo "<h2 class='text-center'>". $utils->niceDate($jobData['date_submitted']) ." - $jobData[time_submitted]</h2>";
                 } else {
                     echo "<h2 class='text-center'>No Jobs Found!</h2>";
