@@ -75,11 +75,11 @@
 	<div class="small-12 columns">
 		<h1>Job Report</h1>
 		<ul class="button-group round even-5 hide-for-print">
-			<li><a href="<?php echo $firstURL; ?>" class="button"><i class="fa fa-angle-double-left"></i></i> First</a></li>
-			<li><a href="<?php echo $prevURL; ?>" class="button"><i class="fa fa-angle-left"></i> Previous</a></li>
-			<li><a id="print_button" class="print_button button hide-for-print"><i class="fa fa-print"></i> Print</a></li>
-			<li><a href="<?php echo $nextURL; ?>" class="button">Next <i class="fa fa-angle-right"></i></a></li>
-			<li><a href="<?php echo $lastURL; ?>" class="button">Last <i class="fa fa-angle-double-right"></i></a></li>
+			<li><a href="<?php echo $firstURL; ?>" class="button"><i class="fa fa-angle-double-left"></i></i> <span class="hide-for-small">First</span></a></li>
+			<li><a href="<?php echo $prevURL; ?>" class="button"><i class="fa fa-angle-left"></i> <span class="hide-for-small">Previous</span></a></li>
+			<li><a id="print_button" class="print_button button hide-for-print"><i class="fa fa-print"></i> <span class="hide-for-small">Print</span></a></li>
+			<li><a href="<?php echo $nextURL; ?>" class="button"><span class="hide-for-small">Next</span> <i class="fa fa-angle-right"></i></a></li>
+			<li><a href="<?php echo $lastURL; ?>" class="button"><span class="hide-for-small">Last</span> <i class="fa fa-angle-double-right"></i></a></li>
 		</ul>
 		<form class="hide-for-print">
 			<input type="hidden" name="page" value="<?php echo $curPage ?>" />
@@ -184,11 +184,11 @@
 			?>
 		</div>
 		<ul class="button-group round even-5 hide-for-print">
-			<li><a href="<?php echo $firstURL; ?>" class="button"><i class="fa fa-angle-double-left"></i></i> First</a></li>
-			<li><a href="<?php echo $prevURL; ?>" class="button"><i class="fa fa-angle-left"></i> Previous</a></li>
-			<li><a id="print_button" class="print_button button hide-for-print"><i class="fa fa-print"></i> Print</a></li>
-			<li><a href="<?php echo $nextURL; ?>" class="button">Next <i class="fa fa-angle-right"></i></a></li>
-			<li><a href="<?php echo $lastURL; ?>" class="button">Last <i class="fa fa-angle-double-right"></i></a></li>
+			<li><a href="<?php echo $firstURL; ?>" class="button"><i class="fa fa-angle-double-left"></i></i> <span class="hide-for-small">First</span></a></li>
+			<li><a href="<?php echo $prevURL; ?>" class="button"><i class="fa fa-angle-left"></i> <span class="hide-for-small">Previous</span></a></li>
+			<li><a id="print_button" class="print_button button hide-for-print"><i class="fa fa-print"></i> <span class="hide-for-small">Print</span></a></li>
+			<li><a href="<?php echo $nextURL; ?>" class="button"><span class="hide-for-small">Next</span> <i class="fa fa-angle-right"></i></a></li>
+			<li><a href="<?php echo $lastURL; ?>" class="button"><span class="hide-for-small">Last</span> <i class="fa fa-angle-double-right"></i></a></li>
 		</ul>
 	</div>
 </div>
