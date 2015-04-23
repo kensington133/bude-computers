@@ -171,6 +171,12 @@ class jobFeature extends db {
 		return $this->fetchAssoc($sql);
 	}
 
+	public function getCurrentYearGraphData(){
+		$currentYear = date('Y');
+		$sql = "SELECT CONCAT(`date_submitted`, ' ', `time_submitted`) AS `date` FROM `job_table` WHERE `date_submitted` LIKE '$currentYear-%' AND `shop_id` = $_SESSION[shopID]";
+		return $this->fetchAssoc($sql);
+	}
+
 	public function getJobCount(){
 		$sql = "SELECT COUNT(*) FROM `job_table` WHERE `shop_id` = $_SESSION[shopID]";
 		return $this->getFirstRowItem($sql);

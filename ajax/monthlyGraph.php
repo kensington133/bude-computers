@@ -1,7 +1,8 @@
 <?php
 	require_once '../php/init.php';
 	$jobFeatures = new JobFeature();
-	$jobData = $jobFeatures->getGraphData();
+	// $jobData = $jobFeatures->getGraphData();
+	$jobData = $jobFeatures->getCurrentYearGraphData();
 
 	$stats = [
 		'January' => 0,
