@@ -143,7 +143,7 @@ class jobFeature extends db {
 		LEFT JOIN `customer_table`
 		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
 		WHERE `job_table`.`shop_id` = $_SESSION[shopID]
-		ORDER BY `job_table`.`job_number` DESC LIMIT $limit OFFSET $offset";
+		ORDER BY CONCAT(`job_table`.`date_submitted`, ' ', 'time_submitted') DESC LIMIT $limit OFFSET $offset";
 
 		return $this->fetchAssoc($sql);
 	}
