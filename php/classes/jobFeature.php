@@ -21,7 +21,7 @@ class jobFeature extends db {
 		$sql = "SELECT * FROM `job_table`
 		LEFT JOIN `customer_table`
 		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
-		WHERE `job_number` = (SELECT MAX(`job_number`) FROM `job_table` WHERE `shop_id` = '$_SESSION[shopID]' LIMIT 1) AND `job_table`.`shop_id` = '$_SESSION[shopID]' LIMIT 1";
+		WHERE `job_number` = (SELECT `job_number` FROM `job_table` WHERE `shop_id` = '$_SESSION[shopID]' ORDER BY CONCAT(`job_table`.`date_submitted`, ' ', `job_table`.`time_submitted`) DESC LIMIT 1) AND `job_table`.`shop_id` = '$_SESSION[shopID]' LIMIT 1";
 
 		return $this->getSingleRow($sql);
 	}
