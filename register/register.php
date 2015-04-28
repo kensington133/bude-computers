@@ -24,6 +24,7 @@
 		$stripeCard = $_POST['stripeToken'];
 		$chosenPlan = $_SESSION['data']['plan'] = $_POST['plan'];
 
+		/* Send the gathered information to the Register class */
 		$register->registerUser($stripeCard, $chosenPlan, $email, $name, $userName, $password, $shopName, $shopAddress, $shopCity, $shopCounty, $shopPostCode);
 	}
 

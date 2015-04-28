@@ -1,7 +1,6 @@
 <?php
 	require_once '../php/init.php';
 	$jobFeatures = new JobFeature();
-	// $jobData = $jobFeatures->getGraphData();
 	$jobData = $jobFeatures->getCurrentYearGraphData();
 
 	$stats = [
@@ -19,6 +18,7 @@
  		'December' => 0,
 	];
 
+	//count each time a month appears in the job listings
 	foreach ($jobData as $job) {
 		$jobDate = new DateTime($job['date']);
 		$jobMonth = $jobDate->format('n');
@@ -63,6 +63,7 @@
 		}
 	}
 
+	//echo out results in JSON format
 	header('Content-type: application/json');
 	echo '[ ["Jan",'. $stats['January'] .'], ["Feb",'. $stats['February'] .'], ["Mar",'. $stats['March'] .'], ["Apr",'. $stats['April'] .'], ["May",'. $stats['May'] .'], ["Jun",'. $stats['June'] .'], ["Jul",'. $stats['July'] .'], ["Aug",'. $stats['August'] .'], ["Sep",'. $stats['September'] .'], ["Oct",'. $stats['October'] .'], ["Nov",'. $stats['November'] .'], ["Dec",'. $stats['December'] .'] ]';
 ?>

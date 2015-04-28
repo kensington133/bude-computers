@@ -1,11 +1,13 @@
 /* Foundation Imports */
 @import "foundation/components/panels";
 
+//fix for the existing job page overflow
 html,body {
 	max-width: 100%;
 	overflow-x: hidden;
 }
 
+//remove number scroll from number inputs
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
 	-webkit-appearance:none;
@@ -22,21 +24,26 @@ input::-webkit-inner-spin-button {
 	margin-bottom: 25px;
 }
 
+//set a fixed size for the terms and conditions box
 .tandc {
 	height: 50px;
 	border: 1px solid #e3e3e3;
 	margin-bottom: 1.25rem;
 }
 
+//set a fixed height for the graphs
 #weeklyGraph,
 #monthlyGraph,
 #yearlyGraph {
 	height: 400px;
 }
 
+//add the ability to use icon font in inputs
 .fa-input {
   font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+//mobile layout fixes for the strip logo
 .stripe {
 	padding-top: 20px;
 	@media screen and (max-width: 640px) {
@@ -44,15 +51,15 @@ input::-webkit-inner-spin-button {
 	}
 }
 
+//hide the error messages
 .js-err {
 	display: none;
 }
 
-/* Custom Panels */
+/* Custom Colour Coded Panels */
 .high-urgency-panel {
 	@include panel(
 		// Sets the panel background color. Default: $panel-pg
-		// $bg:#f04124,
 		$bg:white,
 		// Sets the panel padding amount. Default: $panel-padding
 		$padding:20px,
@@ -66,7 +73,6 @@ input::-webkit-inner-spin-button {
 .medium-urgency-panel {
 	@include panel(
 		// Sets the panel background color. Default: $panel-pg
-		// $bg:#f08a24,
 		$bg:white,
 		// Sets the panel padding amount. Default: $panel-padding
 		$padding:20px,
@@ -80,7 +86,6 @@ input::-webkit-inner-spin-button {
 .low-urgency-panel {
 	@include panel(
 		// Sets the panel background color. Default: $panel-pg
-		// $bg:#43ac6a,
 		$bg:white,
 		// Sets the panel padding amount. Default: $panel-padding
 		$padding:20px,
@@ -107,6 +112,7 @@ input::-webkit-inner-spin-button {
 	}
 }
 
+//match the address card colours to the other panels
 .vcard {
 	&.callout {
 		background: #ecfaff;

@@ -78,16 +78,25 @@ class DB {
 		return $data;
 	}
 
+	/*
+	*	(string) $sql - MySQL query
+	*/
 	protected function insertData($sql){
 		if(!$result = $this->dbLink->query($sql)) die('There was an error running the insertData query [' . $this->dbLink->error . ']');
 		return $result;
 	}
 
+	/*
+	*	(string) $sql - MySQL query
+	*/
 	protected function insertDataGetID($sql){
 		if(!$result = $this->dbLink->query($sql)) die('There was an error running the insertDataGetID query [' . $this->dbLink->error . ']');
 		return ($this->dbLink->insert_id);
 	}
 
+	/*
+	*	(string) $sql - MySQL query
+	*/
 	protected function updateData($sql){
 		if(!$result = $this->dbLink->query($sql)) die('There was an error running the updateData query [' . $this->dbLink->error . ']');
 		return $result;

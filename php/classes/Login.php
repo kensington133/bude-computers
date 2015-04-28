@@ -4,6 +4,10 @@ class Login extends db {
 	private $userName;
 	private $password;
 
+	/*
+	*	(string) $userName - username entered from form
+	*	(string) $password - password entered from form
+	*/
 	public function doLogin($userName, $password){
 
 			$this->userName =  $userName;
@@ -41,7 +45,6 @@ class Login extends db {
 		header('Location: index.php');
 		exit();
 	}
-
 }//end class
 
 ?>

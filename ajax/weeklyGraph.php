@@ -7,10 +7,12 @@
 	$curDate = new DateTime();
 	$curWeek = $curDate->format('W');
 
+	//count each time a day appears in the job listings
 	foreach ($jobData as $job) {
 		$jobDate = new DateTime($job['date']);
 		$jobWeek = $jobDate->format('W');
 
+		//only count jobs from the if from current week
 		if($curWeek == $jobWeek){
 			$day = $jobDate->format('l');
 			array_push($weekJobs, $day);
@@ -27,6 +29,7 @@
  		'sunday' => 0
 	];
 
+	//add totals to an array
 	foreach ($weekJobs as $day) {
 		switch(strtolower($day)){
 			case 'monday':
@@ -53,6 +56,7 @@
 		}
 	}
 
+	//Format results into JSON
 	header('Content-type: application/json');
 	if(count($weekJobs) === 0){
 		echo '"error"';

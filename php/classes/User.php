@@ -7,17 +7,26 @@ class User extends db {
 	private $stripeCustomer;
 	private $subscription;
 
+	/*
+	*	(int|string) $userID - id of the user to update
+	*/
 	public function getUserInfo($userID){
 		$sql = "SELECT `name`,`username`,`email`,`shop_id`,`stripe_id` FROM `users_table` WHERE id = $userID";
 		return $this->getSingleRow($sql);
 	}
 
+	/*
+	*	(string) $stripeID - Stripe id of the user to update
+	*/
 	public function getStripeCustomer($stripeID){
 		$this->stripeCustomer = Stripe_Customer::retrieve($stripeID);
 		$this->subscription = $this->stripeCustomer->subscriptions->retrieve($this->stripeCustomer->subscriptions->data[0]->id);
 		return $this->stripeCustomer;
 	}
 
+	/*
+	*	(string) $newPlan - name of the new subscription plan
+	*/
 	public function updatePlan($newPlan){
 		$errCount = 0;
 		$generic = 'There was an error processing your request, please try again.';

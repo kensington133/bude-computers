@@ -6,6 +6,7 @@
 
 	if($_POST) {
 
+		//check if any of the data has been changed, if it has update it to the new value
 		$jobData = $jobFeatures->getUpdateJobData($_POST['job_number']);
 		$customerData = $jobFeatures->getCustomerByID($jobData['customer_id']);
 
@@ -25,6 +26,7 @@
 		$updateJob->updateCustomerData($customerData, $_POST, $jobData['customer_id']);
 		$updateJob->updateLastUpdateTime($_POST['job_number']);
 
+		//send the user back to the existing jobs page
 		header('Location: index.php');
 		exit();
 	}

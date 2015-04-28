@@ -15,7 +15,19 @@ class CreateJob extends db {
 	private $customerID;
 	private $jobID;
 
-
+	/*
+	*	(string) $contactName - Name of the registering user
+	*	(string) $jobDescription - Description of the job
+	*	(string) $jobProduct - Name of the item being repaired
+	*	(string) $jobNotes - Notes related to the repair job
+	*	(string) $hasCharger - yes or no value
+	*	(string) $hasBag - yes or no value
+	*	(string) $hasStorage - yes or no value
+	*	(int) $jobUrgency - 1 - 10 Urgency level
+	*	(string) $contactAddress - Address of customer
+	*	(string) $contactPhone - Phone number of customer
+	*	(string) $contactEmail - Email address of customer
+	*/
 	public function createNewJob($contactName, $jobDescripion, $jobProduct, $jobNotes, $hasCharger, $hasBag, $hasStorage, $jobUrgency, $contactAddress, $contactPhone, $contactEmail){
 
 		$this->jobDescripion = $jobDescripion;

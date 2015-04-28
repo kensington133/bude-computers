@@ -1,8 +1,10 @@
 <?php
     require_once '../../php/init.php';
 
+    //check if the user is logged in
     $utils->isLoggedIn();
 
+    //save the current and previous pages to check for outputting session date
     $prevPage = $_SERVER['HTTP_REFERER'];
     $thisPage = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 ?>

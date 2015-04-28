@@ -1,15 +1,15 @@
 <?php
 	require_once '../../php/init.php';
-
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
+
+	//check if the user is logged in
 	$utils->isLoggedIn();
 
+	//get the required information from the database and the Strip API
 	$userInfo = $user->getUserInfo($_SESSION['userid']);
-
 	$stripeUser = $user->getStripeCustomer($userInfo['stripe_id']);
 	$subscriptions = $stripeUser->subscriptions->data;
 	$plans = $register->getAllStripePlans();
-
 	$shopData = $user->getShopData();
 ?>
 <!DOCTYPE html>

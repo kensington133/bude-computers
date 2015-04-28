@@ -1,13 +1,16 @@
 <?php
 	require_once '../../php/init.php';
 
+	//check if the user is logged in
 	$utils->isLoggedIn();
 
+	//calculate the start and end dates for the current week
 	$start = new DateTime('last sunday');
 	$startWeek = $start->format('Y-m-d');
 	$startCopy = clone($start);
 	$endWeek = $startCopy->modify('+6 days')->format('Y-m-d');
 
+	//retrieve the job data for the current week
 	$jobFeatures = new JobFeature();
 	$jobData = $jobFeatures->getJobsBetweenDates($startWeek, $endWeek);
 

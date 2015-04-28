@@ -6,6 +6,7 @@
 
 	if($_POST) {
 
+		//save the values sent in the form into the session
 		$contactName = $_SESSION['contact_name'] = $_POST['contact_name'];
 		$jobDescripion = $_SESSION['job_description'] = $_POST['job_description'];
 		$jobUrgency = $_SESSION['urgency'] = $_POST['urgency'];
@@ -20,6 +21,7 @@
 
 		$_SESSION['errors'] = [];
 
+		//send the information to the CreateJob class to be saved
 		$job->createNewJob($contactName, $jobDescripion, $jobProduct, $jobNotes, $hasCharger, $hasBag, $hasStorage, $jobUrgency, $contactAddress, $contactPhone, $contactEmail);
 	}
  ?>

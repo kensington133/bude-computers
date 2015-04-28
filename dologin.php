@@ -3,6 +3,7 @@
 	unset($_SESSION['errors']);
 	$login = new Login();
 
+	//if data has been sent, forward it on to the Login class
 	if($_POST){
 		if( isset($_POST['uname'], $_POST['pword']) ){
 

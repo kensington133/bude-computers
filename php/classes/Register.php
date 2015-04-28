@@ -31,6 +31,19 @@ class Register extends db {
 		return $stripePlans['data'];
 	}
 
+	/*
+	*	(string) $stripeCard - unique string retrieved from Stipe API
+	*	(string) $chosenPlan - name of the chosen plan
+	*	(string) $email - email of the new user
+	*	(string) $name - name of the new user
+	*	(string) $userName - user name of the new user
+	*	(string) $password - password for the new user
+	*	(string) $shopName - name of the new users shop
+	*	(string) $shopAddress - address of the new users shop
+	*	(string) $shopCity - city where the new users shop is located
+	*	(string) $shopCounty - county where the new users shop is located
+	*	(string) $shopPostCode - postcode of the new users shop
+	*/
 	public function registerUser($stripeCard, $chosenPlan, $email, $name, $userName, $password, $shopName, $shopAddress, $shopCity, $shopCounty, $shopPostCode){
 
 		$this->stripeCard = $stripeCard;
@@ -62,6 +75,9 @@ class Register extends db {
 		}
 	}
 
+	/*
+	*	(string) $data - session data to be output to the user
+	*/
 	public function outputSessionData($data){
 		if($data !== ''){
 			echo ' value="'.$data.'" ';

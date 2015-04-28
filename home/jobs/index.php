@@ -1,20 +1,26 @@
 <?php
     require_once '../../php/init.php';
 
+    //check if the user is logged in
     $utils->isLoggedIn();
 
+    //if there is an id passed in get the specific job,
+    //otherwise get the most recent job
     if(isset($_GET['id'])){
         $jobData = $jobFeatures->getJobByID($_GET['id'], true);
     } else {
         $jobData = $jobFeatures->getMostRecentJob();
     }
 
+    //get the total amount of jobs
     $jobIDs = $jobFeatures->getAllJobIDs();
     $countJobIDs = count($jobIDs) - 1;
 
+    //get the lowest and highest job ids
     $maxid = $jobIDs[$countJobIDs];
     $firstid = $jobIDs[0];
 
+    //calculate the ids for the previous and next jobs in the list
     if($countJobIDs > -1){
 
         foreach ($jobIDs as $key => $value) {

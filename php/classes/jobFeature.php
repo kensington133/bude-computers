@@ -1,6 +1,10 @@
 <?php
 class jobFeature extends db {
 
+	/*
+	*	(int|string) $id - ID number of the job
+	*	(bool) $getAll - flag to retrieve all or one job
+	*/
 	public function getJobByID($id, $getAll = false){
 		$sql = "SELECT ";
 
@@ -26,6 +30,9 @@ class jobFeature extends db {
 		return $this->getSingleRow($sql);
 	}
 
+	/*
+	*	(array) $search - array of search terms
+	*/
 	public function jobSearch($search){
 		$searchterms = explode(' ', $search);
 		$datesToSearch = [];
@@ -132,6 +139,10 @@ class jobFeature extends db {
 		return $this->getFirstRowItems($sql);
 	}
 
+	/*
+	*	(int) $limit - amount of jobs to retrieve
+	*	(int) $offset - job at which to start at
+	*/
 	public function getJobListPage($limit = 10, $offset){
 		$sql = "SELECT
 		`job_table`.`customer_id`,
@@ -148,6 +159,10 @@ class jobFeature extends db {
 		return $this->fetchAssoc($sql);
 	}
 
+	/*
+	*	(int) $limit - amount of jobs to retrieve
+	*	(int) $offset - job at which to start at
+	*/
 	public function getJobReportData($limit = 10, $offset){
 		$sql = "SELECT
 		CONCAT(`job_table`.`date_submitted`, ' ', `job_table`.`time_submitted`) AS 'datetime_submitted',
@@ -182,6 +197,10 @@ class jobFeature extends db {
 		return $this->getFirstRowItem($sql);
 	}
 
+	/*
+	*	(date) $start - start date range of jobs
+	*	(date) $end - end date range of jobs
+	*/
 	public function getJobsBetweenDates($start, $end){
 		$sql = "SELECT
 		`customer_table`.`customer_name`,
@@ -200,11 +219,17 @@ class jobFeature extends db {
 		return $this->fetchAssoc($sql);
 	}
 
+	/*
+	*	(int|string) $id - ID of customer to retrieve
+	*/
 	public function getCustomerByID($id){
 		$sql = "SELECT `customer_name`,`customer_email`,`customer_address`,`customer_phone` FROM `customer_table` WHERE `customer_id`= $id";
 		return $this->getSingleRow($sql);
 	}
 
+	/*
+	*	(int|string) $id - ID of job to retrieve
+	*/
 	public function getUpdateJobData($id){
 		$sql = "SELECT * FROM `job_table` WHERE `job_number` = $id";
 		return $this->getSingleRow($sql);

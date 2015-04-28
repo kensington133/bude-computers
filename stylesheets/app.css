@@ -9158,68 +9158,68 @@ th.hide-for-touch {
   }
 }
 /* Foundation Imports */
-/* line 4, ../scss/custom.scss */
+/* line 5, ../scss/custom.scss */
 html, body {
   max-width: 100%;
   overflow-x: hidden;
 }
 
-/* line 9, ../scss/custom.scss */
+/* line 11, ../scss/custom.scss */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* line 15, ../scss/custom.scss */
+/* line 17, ../scss/custom.scss */
 #urgencyOutput {
   display: block;
   margin-top: 35px;
   text-align: center;
 }
 
-/* line 21, ../scss/custom.scss */
+/* line 23, ../scss/custom.scss */
 .progressContainer {
   margin-bottom: 25px;
 }
 
-/* line 25, ../scss/custom.scss */
+/* line 28, ../scss/custom.scss */
 .tandc {
   height: 50px;
   border: 1px solid #e3e3e3;
   margin-bottom: 1.25rem;
 }
 
-/* line 31, ../scss/custom.scss */
+/* line 35, ../scss/custom.scss */
 #weeklyGraph,
 #monthlyGraph,
 #yearlyGraph {
   height: 400px;
 }
 
-/* line 37, ../scss/custom.scss */
+/* line 42, ../scss/custom.scss */
 .fa-input {
   font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* line 40, ../scss/custom.scss */
+/* line 47, ../scss/custom.scss */
 .stripe {
   padding-top: 20px;
 }
 @media screen and (max-width: 640px) {
-  /* line 40, ../scss/custom.scss */
+  /* line 47, ../scss/custom.scss */
   .stripe {
     padding-top: 0px;
   }
 }
 
-/* line 47, ../scss/custom.scss */
+/* line 55, ../scss/custom.scss */
 .js-err {
   display: none;
 }
 
-/* Custom Panels */
-/* line 52, ../scss/custom.scss */
+/* Custom Colour Coded Panels */
+/* line 60, ../scss/custom.scss */
 .high-urgency-panel {
   border-style: solid;
   border-width: 1px;
@@ -9253,7 +9253,7 @@ input::-webkit-inner-spin-button {
   line-height: 1.4;
 }
 
-/* line 66, ../scss/custom.scss */
+/* line 73, ../scss/custom.scss */
 .medium-urgency-panel {
   border-style: solid;
   border-width: 1px;
@@ -9287,7 +9287,7 @@ input::-webkit-inner-spin-button {
   line-height: 1.4;
 }
 
-/* line 80, ../scss/custom.scss */
+/* line 86, ../scss/custom.scss */
 .low-urgency-panel {
   border-style: solid;
   border-width: 1px;
@@ -9321,25 +9321,25 @@ input::-webkit-inner-spin-button {
   line-height: 1.4;
 }
 
-/* line 94, ../scss/custom.scss */
+/* line 99, ../scss/custom.scss */
 [class*="urgency-panel"] h6 {
   font-weight: 500;
   text-decoration: underline;
 }
 @media screen and (max-width: 1024px) {
-  /* line 94, ../scss/custom.scss */
+  /* line 99, ../scss/custom.scss */
   [class*="urgency-panel"] h6 {
     margin-top: 10px;
   }
 }
 @media screen and (max-width: 1024px) {
-  /* line 103, ../scss/custom.scss */
+  /* line 108, ../scss/custom.scss */
   [class*="urgency-panel"] div.columns:not(:last-child) {
     border-bottom: 1px solid #e3e3e3;
   }
 }
 
-/* line 111, ../scss/custom.scss */
+/* line 117, ../scss/custom.scss */
 .vcard.callout {
   background: #ecfaff;
   border-color: #b6edff;

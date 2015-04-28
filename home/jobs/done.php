@@ -1,8 +1,10 @@
 <?php
     require_once '../../php/init.php';
 
+    //check if the page is being printed
     $google = filter_input(INPUT_GET, 'g', FILTER_VALIDATE_INT, array('options' => array('default' => -1)));
 
+    //if not - check if the user is logged in
     if($google === -1){
         $utils->isLoggedIn();
     }

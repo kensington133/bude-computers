@@ -1,9 +1,9 @@
 <?php
 	require_once '../php/init.php';
-
-	$utils->isLoggedIn();
-
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
+
+	//check if the user is logged in
+	$utils->isLoggedIn();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->

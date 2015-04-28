@@ -1,4 +1,5 @@
 $(function() {
+	//only call the AJAX request on the correct pages
 	if(window.location.pathname == '/home/job-stats/index.php' || window.location.pathname == '/home/job-stats/'){
 		weeklyGraph();
 		monthlyGraph();
@@ -13,6 +14,7 @@ $(window).resize( function(){
 	hideSaveIcon();
 });
 
+//retrieve the weekly data for the graph
 function weeklyGraph(){
 	$.ajax({
 		url: "../../ajax/weeklyGraph.php",
@@ -46,6 +48,7 @@ function weeklyGraph(){
 	});
 }
 
+//retrieve the monthly data for the graph
 function monthlyGraph(){
 	$.ajax({
 		url: "../../ajax/monthlyGraph.php",
@@ -75,6 +78,7 @@ function monthlyGraph(){
 	});
 }
 
+//retrieve the yearly data for the graph
 function yearlyGraph(){
 	$.ajax({
 		url: "../../ajax/yearlyGraph.php",
@@ -104,20 +108,20 @@ function yearlyGraph(){
 	});
 }
 
+//when a user changes to amount of jobs to display, submit the form
 function submitForm(){
 	$('select[name="display"]').change( function(){
 		$(this).parent().submit();
 	});
 }
 
+//check if the registration form is valid, if it is send the card data to stripe
 function handleRegistrationForm(){
 	$('#register')
 	.on('invalid', function () {
 		var invalid_fields = $(this).find('[data-invalid]');
-		console.log(invalid_fields);
 	})
 	.on('valid', function () {
-		console.log('valid!');
 		Stripe.card.createToken({
 			number: $('#number').val(),
 			exp_month: $('#exp_month').val(),
@@ -133,6 +137,7 @@ function handleRegistrationForm(){
 	});
 }
 
+//callback used when submitting card data on the registration form
 function stripeResponseHandler(status, response){
 	var $form = $('#register');
 	if (response.error) {
@@ -149,6 +154,7 @@ function stripeResponseHandler(status, response){
 	}
 }
 
+//at certain screen sizes, hide the save icon on buttons
 function hideSaveIcon(){
 	var icon = $('.fa-input');
 	if (Modernizr.mq('only screen and (min-width: 642px)')){

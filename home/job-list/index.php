@@ -1,10 +1,12 @@
 <?php
 	require_once '../../php/init.php';
 	$jobFeatures = new JobFeature();
-
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
+
+	//check a user is logged in
 	$utils->isLoggedIn();
 
+	//calculate the amount of jobs to display using the $_GET values
 	$totalJobs = $jobFeatures->getJobCount();
 	$numJobsDisplay = filter_input(INPUT_GET, 'display', FILTER_VALIDATE_INT, array('options' => array('default'   => 10, 'min_range' => 10)));
 	$totalPages = ceil($totalJobs / $numJobsDisplay);
@@ -13,6 +15,7 @@
 	$start = ($queryOffset + 1);
 	$end = min(($queryOffset + $numJobsDisplay), $totalJobs);
 
+	//create variables for the pagination links
 	$firstURL = '?page=1&display='.$numJobsDisplay;
 	$lastURL = '?page='.$totalPages.'&display='.$numJobsDisplay;
 	$prevURL = ($curPage > 1)?'?page='.($curPage - 1): '?page='.$totalPages;
@@ -20,6 +23,7 @@
 	$nextURL = ($curPage == $totalPages)? '?page=1' : '?page='.($curPage + 1);
 	$nextURL .= '&display='.$numJobsDisplay;
 
+	//retrieve the job data using the calculated values
 	$jobData = $jobFeatures->getJobListPage($numJobsDisplay, $queryOffset);
 ?>
 <!DOCTYPE html>

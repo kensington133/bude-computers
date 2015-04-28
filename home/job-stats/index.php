@@ -1,7 +1,8 @@
 <?php
 	require_once '../../php/init.php';
-
 	unset($_SESSION['errors'],$_SESSION['job_desc'],$_SESSION['contact_name']);
+
+	//check if a user is logged in
 	$utils->isLoggedIn();
 ?>
 <!DOCTYPE html>
