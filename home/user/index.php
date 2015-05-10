@@ -80,6 +80,19 @@
 	</div>
 </div>
 
+<!-- <div class="row">
+	<div class="small-12 columns">
+		<h3>Menu Management</h3>
+		<p>Using the switches below you can turn on and off individual menu items so they aren't shown in the main menu.</p>
+	</div>
+
+	<div class="small-12 columns">
+		<form method="POST" action="saveMenuOptions.php">
+			<div class="menuOptions"></div>
+		</form>
+	</div>
+</div> -->
+
 <div class="row">
 	<div class="small-12 columns">
 	<h3>Your Plan</h3>

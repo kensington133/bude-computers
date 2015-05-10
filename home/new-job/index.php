@@ -58,7 +58,10 @@
 
                 <div class="large-6 medium-6 small-12 columns">
                     <input type="text" name="product_name" placeholder="Product Name"/>
-                    <textarea style='height:143px;' name="product_notes" placeholder='Notes'></textarea>
+
+                    <input type="text" name="w_password" placeholder="Login Password"/>
+
+                    <textarea style='height:90px;' name="product_notes" placeholder='Notes'></textarea>
                 </div>
 
                 <div class="small-12 columns">

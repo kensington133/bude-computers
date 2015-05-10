@@ -18,10 +18,11 @@
 		$hasCharger = ($_POST['charger'] == 'on')? 'yes' : 'no';
 		$hasBag = ($_POST['bag'] == 'on')? 'yes' : 'no';
 		$hasStorage = ($_POST['storage'] == 'on')? 'yes' : 'no';
+		$wPassword = $_POST['w_password'];
 
 		$_SESSION['errors'] = [];
 
 		//send the information to the CreateJob class to be saved
-		$job->createNewJob($contactName, $jobDescripion, $jobProduct, $jobNotes, $hasCharger, $hasBag, $hasStorage, $jobUrgency, $contactAddress, $contactPhone, $contactEmail);
+		$job->createNewJob($contactName, $jobDescripion, $jobProduct, $jobNotes, $hasCharger, $hasBag, $hasStorage, $jobUrgency, $contactAddress, $contactPhone, $contactEmail, $wPassword);
 	}
  ?>

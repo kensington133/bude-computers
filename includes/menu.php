@@ -14,6 +14,7 @@
             <li><a href="/home/jobs/"><i class="fa fa-briefcase"></i> Existing Jobs</a></li>
             <li class="divider"></li>
             <li><a href="/home/job-list/"><i class="fa fa-list"></i> Job List</a></li>
+            <?php if($_SESSION['shopID'] !== '2'): ?>
             <li class="divider"></li>
             <li><a href="/home/job-urgency/"><i class="fa fa-bell"></i> Job Urgency</a></li>
             <li class="divider"></li>
@@ -25,6 +26,7 @@
                     <li><a href="/home/job-reports/#in-progress">In Progress</a></li>
                 </ul>
             </li>
+            <?php endif; ?>
             <li class="divider"></li>
             <li class="has-dropdown">
                 <a href="/home/job-stats/"><i class="fa fa-bar-chart"></i> Job Stats</a>

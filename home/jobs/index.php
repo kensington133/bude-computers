@@ -111,8 +111,11 @@
                     <label for="product_name">Product Name</label>
                     <input type="text" name="product_name" placeholder="Product Name" value="<?php echo $jobData['product_name']; ?>"/>
 
+                    <label for="product_name">Login Password</label>
+                    <input type="text" name="w_password" placeholder="Login Password" value="<?php echo $jobData['w_password']; ?>"/>
+
                     <label for="job_notes">Notes</label>
-                    <textarea style='height:186px;' name="job_notes" placeholder='Notes'><?php echo $jobData['job_notes']; ?></textarea>
+                    <textarea style='height:111px;' name="job_notes" placeholder='Notes'><?php echo $jobData['job_notes']; ?></textarea>
                 </div>
 
                 <div class="small-12 columns">

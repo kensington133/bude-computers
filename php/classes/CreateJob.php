@@ -14,6 +14,7 @@ class CreateJob extends db {
 	private $contactEmail;
 	private $customerID;
 	private $jobID;
+	private $wPassword;
 
 	/*
 	*	(string) $contactName - Name of the registering user
@@ -28,7 +29,7 @@ class CreateJob extends db {
 	*	(string) $contactPhone - Phone number of customer
 	*	(string) $contactEmail - Email address of customer
 	*/
-	public function createNewJob($contactName, $jobDescripion, $jobProduct, $jobNotes, $hasCharger, $hasBag, $hasStorage, $jobUrgency, $contactAddress, $contactPhone, $contactEmail){
+	public function createNewJob($contactName, $jobDescripion, $jobProduct, $jobNotes, $hasCharger, $hasBag, $hasStorage, $jobUrgency, $contactAddress, $contactPhone, $contactEmail, $wPassword){
 
 		$this->jobDescripion = $jobDescripion;
 		$this->jobProduct = $jobProduct;
@@ -41,6 +42,7 @@ class CreateJob extends db {
 		$this->contactAddress = $contactAddress;
 		$this->contactPhone = $contactPhone;
 		$this->contactEmail = $contactEmail;
+		$this->wPassword = $wPassword;
 
 		$errors = 0;
 
@@ -109,7 +111,8 @@ class CreateJob extends db {
 			NULL,
 			"0",
 			"'. $this->jobUrgency .'",
-			"'.$_SESSION['shopID'].'"
+			"'.$_SESSION['shopID'].'",
+			"'.mysqli_real_escape_string($this->dbLink, $this->wPassword).'"
 		)';
 
 		$this->jobID = $this->insertDataGetID($jobSQL);

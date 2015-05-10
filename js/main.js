@@ -8,6 +8,9 @@ $(function() {
 	submitForm();
 	handleRegistrationForm();
 	hideSaveIcon();
+	if(window.location.pathname == '/home/user/index.php' || window.location.pathname == '/home/user/'){
+		// generateUserMenu();
+	}
 });
 
 $(window).resize( function(){
@@ -162,4 +165,20 @@ function hideSaveIcon(){
 	} else {
 		icon.val('Save');
 	}
+}
+
+function generateUserMenu(){
+	$('nav section.top-bar-section li:not(.divider) a:not(.parent-link)').each( function(index, item){
+		var item = $(item);
+		var itemText = item.text();
+
+		console.log(itemText);
+
+		if(itemText !== 'Back'){
+			console.log(itemText);
+			var htmlString = "<div class='small-4 columns text-center end'><div class='switch large'><h6>"+itemText+"</h6><input id='menuItem"+index+"' name='menuItem"+index+"' type='checkbox'><label for='menuItem"+index+"'></label></div></div>";
+
+			$('.menuOptions').append(htmlString);
+		}
+	});
 }
