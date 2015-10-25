@@ -12,6 +12,14 @@
         $jobData = $jobFeatures->getMostRecentJob();
     }
 
+    $utils->printr($jobData);
+
+    //check if job belongs to the shop
+    if($jobData['shop_id'] !== $_SESSION['shopID']){
+        header('Location: /home');
+        exit();
+    }
+
     //get the total amount of jobs
     $jobIDs = $jobFeatures->getAllJobIDs();
     $countJobIDs = count($jobIDs) - 1;
