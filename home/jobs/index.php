@@ -12,6 +12,10 @@
         $jobData = $jobFeatures->getMostRecentJob();
     }
 
+    if($_SESSION['shopId'] === 5){
+        $utils->printr($jobData);
+    }
+
     //check if job belongs to the shop
     if($jobData['shop_id'] !== $_SESSION['shopID']){
         header('Location: /home');
