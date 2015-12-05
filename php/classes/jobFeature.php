@@ -220,6 +220,31 @@ class jobFeature extends db {
 	}
 
 	/*
+	*	(date) $start - start date range of jobs
+	*	(date) $end - end date range of jobs
+	*/
+	public function getUncompletedJobsBetweenDates($start, $end){
+		$sql = "SELECT
+		`customer_table`.`customer_name`,
+		`customer_table`.`customer_phone`,
+		`job_table`.`product_name`,
+		`job_table`.`job_description`,
+		CONCAT(`job_table`.`date_submitted`, ' ', `job_table`.`time_submitted`) AS `datetime_submitted`,
+		`job_table`.`progress`,
+		`job_table`.`urgency`,
+		`job_table`.`job_number`
+		FROM `job_table`
+		LEFT JOIN `customer_table`
+		ON `job_table`.`customer_id` = `customer_table`.`customer_id`
+		WHERE (`job_table`.`date_submitted` BETWEEN '".$start."' AND '".$end."')
+		AND `job_table`.`progress` != '2'
+		AND `job_table`.`shop_id` = $_SESSION[shopID]
+		ORDER BY datetime_submitted DESC ";
+
+		return $this->fetchAssoc($sql);
+	}
+
+	/*
 	*	(int|string) $id - ID of customer to retrieve
 	*/
 	public function getCustomerByID($id){

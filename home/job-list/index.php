@@ -71,6 +71,27 @@
 				?>
 			</select>
 		</form>
+
+		<div class="row">
+			<div class="small-4 medium-2 columns text-center">
+				<p style="color: #fff; background-color: #00dbd5;">Monday</p>
+			</div>
+			<div class="small-4 medium-2 columns text-center">
+				<p style="color: #fff; background-color: #3D9996;">Tuesday</p>
+			</div>
+			<div class="small-4 medium-2 columns text-center">
+				<p style="color: #fff; background-color: #00FF68;">Wednesday</p>
+			</div>
+			<div class="small-4 medium-2 columns text-center">
+				<p style="color: #fff; background-color: #FF4076">Thursday</p>
+			</div>
+			<div class="small-4 medium-2 columns text-center">
+				<p style="color: #fff; background-color: #CC14A4">Friday</p>
+			</div>
+			<div class="small-4 medium-2 columns text-center">
+				<p style="color: #fff; background-color: #00B1DB">Saturday</p>
+			</div>
+		</div>
 		<?php
 			foreach($jobData as $job) {
 				$utils->printJobCard($job);
