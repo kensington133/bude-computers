@@ -12,8 +12,7 @@
 
 	//retrieve the job data for the current week
 	$jobFeatures = new JobFeature();
-	$jobData = $jobFeatures->getJobsBetweenDates($startWeek, $endWeek);
-
+	$jobData = $jobFeatures->getUncompletedJobsBetweenDates($startWeek, $endWeek);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
@@ -70,10 +69,14 @@
 					<p><?php echo $job['customer_name']; ?></p>
 				</div>
 				<div class="small-12 large-2 columns">
+					<h6>Contact Number</h6>
+					<p><?php echo "<a href='tel:".$job['customer_phone']."'>".$job['customer_phone']."</a>"; ?></p>
+				</div>
+				<div class="small-12 large-2 columns">
 					<h6>Product Name</h6>
 					<p><?php echo $job['product_name']; ?></p>
 				</div>
-				<div class="small-12 large-3 columns">
+				<div class="small-12 large-2 columns">
 					<h6>Job Description</h6>
 					<p><?php echo $job['job_description']; ?></p>
 				</div>
@@ -82,12 +85,7 @@
 					<p><?php echo $utils->niceDate($job['datetime_submitted'], 'd/m/Y H:i'); ?></p>
 				</div>
 				<div class="small-12 large-2 columns">
-					<h6>Last Updated</h6>
-					<p><?php echo $utils->niceDate($job['last_updated'], 'd/m/Y H:i'); ?></p>
-				</div>
-				<div class="small-12 large-1 columns">
-					<h6>Urgency</h6>
-					<p><?php echo $job['urgency']; ?></p>
+					<?php echo "<a href='/home/jobs/index.php?id=".$job['job_number']."'>View Job &raquo;</a>"; ?>
 				</div>
 			</div>
 		<?php endforeach; ?>
